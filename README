@@ -55,7 +55,9 @@ Annotated, the comma description is as follows:
     
   end
   
-In the above example, any of the declarations (name, description, pages, publisher, isbn, etc), could be methods, attributes, associations, etc - no distinction during configuration is required. Header names are also automatically humanized for output.
+In the above example, any of the declarations (name, description, pages, publisher, isbn, etc), could be methods, attributes, associations, etc - no distinction during configuration is required. 
+
+Object values are automatically converted to strings via to_s allowing you to reuse any existing to_s methods on your objects (instead of having to call particular properties or define csv specific output methods). Header names are also automatically humanized when reflected (eg. replacing _ characters with whitespace). The 'isbn' example above shows how multiple values can be added to the CSV output.
 
 When used with Rails, Comma automatically adds support for rendering CSV output in your controllers:
 
