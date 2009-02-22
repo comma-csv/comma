@@ -1,3 +1,5 @@
+require 'rake'
+
 Gem::Specification.new do |s| 
   s.name = "comma"
   s.version = "0.1.1"
