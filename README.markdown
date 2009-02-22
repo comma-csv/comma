@@ -1,6 +1,6 @@
 = COMMA
 
-http://github.com/crafterm/comma
+[http://github.com/crafterm/comma](http://github.com/crafterm/comma)
 
 == DESCRIPTION:
 
