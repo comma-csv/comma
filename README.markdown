@@ -10,50 +10,50 @@ When multiple objects in an Array are converted to CSV, the output includes gene
 
 An example Comma CSV enabled ActiveRecord class:
 
-  class Book < ActiveRecord::Base
+    class Book < ActiveRecord::Base
   
-    # ================
-    # = Associations =
-    # ================
-    has_many   :pages
-    has_one    :isbn
-    belongs_to :publisher
+      # ================
+      # = Associations =
+      # ================
+      has_many   :pages
+      has_one    :isbn
+      belongs_to :publisher
   
-    # ===============
-    # = CSV support =
-    # ===============
-    comma do
+      # ===============
+      # = CSV support =
+      # ===============
+      comma do
 
-      name
-      description
+        name
+        description
     
-      pages :size => 'Pages'
-      publisher :name
-      isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13'
+        pages :size => 'Pages'
+        publisher :name
+        isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13'
       
-    end
+      end
 
-  end
+    end
 
 Annotated, the comma description is as follows:
 
-  # starts a Comma description block, generating 2 methods #to_comma and #to_comma_headers for this class.
-  comma do
+    # starts a Comma description block, generating 2 methods #to_comma and #to_comma_headers for this class.
+    comma do
 
-    # name, description are attributes of Book with the header being reflected as 'Name', 'Description'
-    name
-    description
+      # name, description are attributes of Book with the header being reflected as 'Name', 'Description'
+      name
+      description
   
-    # pages is an association returning an array, :size is called on the association results, with the header name specifed as 'Pages'
-    pages :size => 'Pages'
+      # pages is an association returning an array, :size is called on the association results, with the header name specifed as 'Pages'
+      pages :size => 'Pages'
     
-    # publisher is an association returning an object, :name is called on the associated object, with the reflected header 'Name'
-    publisher :name
+      # publisher is an association returning an object, :name is called on the associated object, with the reflected header 'Name'
+      publisher :name
     
-    # isbn is an association returning an object, :number_10 and :number_13 are called on the object with the specified headers 'ISBN-10' and 'ISBN-13'
-    isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13'
+      # isbn is an association returning an object, :number_10 and :number_13 are called on the object with the specified headers 'ISBN-10' and 'ISBN-13'
+      isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13'
     
-  end
+    end
   
 In the above example, any of the declarations (name, description, pages, publisher, isbn, etc), could be methods, attributes, associations, etc - no distinction during configuration is required, as everything is invoked via Ruby's #send method.
 
@@ -61,14 +61,14 @@ Object values are automatically converted to strings via to_s allowing you to re
 
 When used with Rails (ie. add 'comma' as a gem dependency), Comma automatically adds support for rendering CSV output in your controllers:
 
-  class BooksController < ApplicationController
+    class BooksController < ApplicationController
 
-    def index
-      respond_to do |format|
-        format.csv { render :csv => Book.limited(50) }
+      def index
+        respond_to do |format|
+          format.csv { render :csv => Book.limited(50) }
+        end
       end
-    end
 
-  end
+    end
 
 If you have any questions or suggestions for Comma, please feel free to contact me at crafterm@redartisan.com, all feedback welcome!
