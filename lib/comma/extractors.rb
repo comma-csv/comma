@@ -25,7 +25,7 @@ module Comma
           arg.each do |k, v|
             @results << v.to_s.humanize
           end
-        when Symbol
+        when Symbol, String
           @results << arg.to_s.humanize
         else
           raise "Unknown header symbol #{arg.inspect}"
@@ -45,7 +45,7 @@ module Comma
           arg.each do |k, v|
             @results << @instance.send(sym).send(k).to_s
           end
-        when Symbol
+        when Symbol, String
           @results << @instance.send(sym).send(arg).to_s
         else
           raise "Unknown data symbol #{arg.inspect}"
