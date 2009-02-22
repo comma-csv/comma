@@ -2,7 +2,7 @@ require 'rake/gempackagetask'
 
 spec = Gem::Specification.new do |s| 
   s.name = "comma"
-  s.version = "0.1"
+  s.version = "0.1.1"
   s.author = "Marcus Crafter"
   s.email = "crafterm@redartisan.com"
   s.homepage = "http://github.com/crafterm/comma"
@@ -11,6 +11,7 @@ spec = Gem::Specification.new do |s|
   s.files = FileList["lib/**/*"].to_a
   s.require_path = "lib"
   s.add_dependency("fastercsv", ">= 1.4.0")
+  s.add_dependency("activesupport", ">= 2.2.2")
 end
 
 Rake::GemPackageTask.new(spec) do |pkg| 
