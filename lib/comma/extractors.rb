@@ -1,17 +1,7 @@
-# csv do
-#   grain_type :name
-#   bhc_site :state, :name => 'Site'
-#   bin_grade :code
-#   
-#   trade_price_per_ton
-#   traded_quantity
-#   created_at   
-# end
-
 module Comma
   
   class Extractor
-  
+
     def initialize(instance, &block)
       @instance = instance
       @block = block
@@ -27,16 +17,16 @@ module Comma
   class HeaderExtractor < Extractor
     
     def method_missing(sym, *args, &block)
-      @results << sym.to_s.gsub(/\s/, ' ').humanize if args.blank?
+      @results << sym.to_s.humanize if args.blank?
       
       args.each do |arg|
         case arg
         when Hash
           arg.each do |k, v|
-            @results << v.to_s.gsub(/\s/, ' ').humanize
+            @results << v.to_s.humanize
           end
         when Symbol
-          @results << arg.to_s.gsub(/\s/, ' ').humanize
+          @results << arg.to_s.humanize
         else
           raise "Unknown header symbol #{arg.inspect}"
         end
