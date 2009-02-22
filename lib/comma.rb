@@ -1,4 +1,5 @@
 require 'activesupport'
+require 'fastercsv'
 require 'comma/extractors'
 
 class Array
