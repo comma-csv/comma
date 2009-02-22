@@ -8,6 +8,8 @@ Comma is a CSV (ie. comma separated values) generation extension for Ruby object
 
 When multiple objects in an Array are converted to CSV, the output includes generation of a header row reflected from names of the properties requested, or specified via the DSL.
 
+CSV can be a bit of a boring format - the motivation behind Comma was to have a CSV extension that was simple, flexible, and would treat attributes, methods, associations, etc, all the same without the need for any complex configuration, and also work on Ruby objects, not just ActiveRecord or other base class derivatives.
+
 An example Comma CSV enabled ActiveRecord class:
 
     class Book < ActiveRecord::Base
