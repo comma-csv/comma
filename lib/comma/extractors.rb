@@ -25,8 +25,10 @@ module Comma
           arg.each do |k, v|
             @results << v.to_s.humanize
           end
-        when Symbol, String
+        when Symbol
           @results << arg.to_s.humanize
+        when String
+          @results << arg
         else
           raise "Unknown header symbol #{arg.inspect}"
         end
