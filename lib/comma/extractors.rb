@@ -45,8 +45,10 @@ module Comma
           arg.each do |k, v|
             @results << @instance.send(sym).send(k).to_s
           end
-        when Symbol, String
+        when Symbol
           @results << @instance.send(sym).send(arg).to_s
+        when String
+          @results << @instance.send(sym).to_s
         else
           raise "Unknown data symbol #{arg.inspect}"
         end
