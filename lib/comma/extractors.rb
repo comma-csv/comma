@@ -23,7 +23,7 @@ module Comma
         case arg
         when Hash
           arg.each do |k, v|
-            @results << v.to_s.humanize
+            @results << ((v.is_a? String) ? v : v.to_s.humanize)
           end
         when Symbol
           @results << arg.to_s.humanize
