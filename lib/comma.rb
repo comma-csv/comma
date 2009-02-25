@@ -3,25 +3,31 @@ require 'fastercsv'
 require 'comma/extractors'
 
 class Array
-  def to_comma
+  def to_comma(style = :default)
     FasterCSV.generate do |csv|
-      csv << first.to_comma_headers
+      csv << first.to_comma_headers(style)
       each do |object| 
-        csv << object.to_comma
+        csv << object.to_comma(style)
       end
     end
   end
 end
 
 class Object
-  def self.comma(&block)
-    define_method :to_comma do
-      Comma::DataExtractor.new(self, &block).results
-    end
-
-    define_method :to_comma_headers do
-      Comma::HeaderExtractor.new(self, &block).results
-    end
+  class_inheritable_accessor :comma_formats
+  
+  def self.comma(style = :default, &block)
+    (self.comma_formats ||= {})[style] = block
+  end
+  
+  def to_comma(style = :default)
+    raise "No comma format defined for style #{style}" unless self.comma_formats[style]
+    Comma::DataExtractor.new(self, &self.comma_formats[style]).results
+  end
+  
+  def to_comma_headers(style = :default)
+    raise "No comma format defined for style #{style}" unless self.comma_formats[style]
+    Comma::HeaderExtractor.new(self, &self.comma_formats[style]).results
   end
 end
 
