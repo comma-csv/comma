@@ -2,7 +2,7 @@ require 'rake/gempackagetask'
 
 spec = Gem::Specification.new do |s| 
   s.name = "comma"
-  s.version = "0.1.4"
+  s.version = "0.1.5"
   s.author = "Marcus Crafter"
   s.email = "crafterm@redartisan.com"
   s.homepage = "http://github.com/crafterm/comma"

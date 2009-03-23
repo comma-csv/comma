@@ -131,4 +131,13 @@ describe Comma, 'to_comma data/headers object extensions' do
     
   end
   
+  describe 'on an object with no comma declaration' do
+    
+    it 'should raise an error mentioning there is no comma description defined for that class' do
+      lambda { 'a string'.to_comma }.should raise_error('No comma format for class String defined for style default')
+      lambda { 'a string'.to_comma_headers }.should raise_error('No comma format for class String defined for style default')
+    end
+    
+  end
+  
 end
