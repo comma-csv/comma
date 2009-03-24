@@ -42,7 +42,7 @@ if defined?(ActionController)
     module InstanceMethods
       def render_with_csv(options = nil, extra_options = {}, &block)
         return render_without_csv(options, extra_options, &block) unless options and options[:csv]
-        send_data Array(options[:csv]).to_comma
+        send_data Array(options[:csv]).to_comma(options[:style] ||= :default)
       end
     end
 
