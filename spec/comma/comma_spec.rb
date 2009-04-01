@@ -29,6 +29,10 @@ describe Comma, 'generating CSV' do
   it 'should extend Array to add a #to_comma method which will return CSV content for objects within the array' do
     @books.to_comma.should == "Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n"
   end
+
+  it 'should return an empty string when generating CSV from an empty array' do
+    Array.new.to_comma.should == ''
+  end
   
 end
 
