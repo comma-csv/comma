@@ -45,7 +45,7 @@ if defined?(ActionController)
         return render_without_csv(options, extra_options, &block) unless (options.respond_to? '[]') and options[:csv]
         data = options.delete(:csv)
         style = options.delete(:style) || :default
-        send_data Array(data).to_comma(style), options
+        send_data Array(data).to_comma(style), options.merge(:type => :csv)
       end
     end
 
