@@ -81,7 +81,11 @@ describe Comma::DataExtractor do
         @data.should include('123123123')
         @data.should include('321321321')
       end
-    end    
+      
+      it 'should not fail when an associated object is nil' do
+        lambda { Book.new('Smalltalk-80', 'Language and Implementation', nil).to_comma }.should_not raise_error
+      end
+    end
   end
   
 end
