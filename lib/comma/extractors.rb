@@ -12,6 +12,10 @@ module Comma
       instance_eval &@block
       @results
     end
+
+    def id
+      method_missing(:id)
+    end
   end
 
   class HeaderExtractor < Extractor
