@@ -16,7 +16,9 @@ class Book
     name 'Title'
     description
     
-    isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13', :authority => :issuer
+    isbn :authority => :issuer
+    isbn :number_10 => 'ISBN-10'
+    isbn :number_13 => 'ISBN-13'
   end
   
 end
