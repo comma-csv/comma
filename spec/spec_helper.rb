@@ -21,6 +21,10 @@ class Book
     isbn :number_13 => 'ISBN-13'
   end
   
+  comma :brief do
+    name
+    description
+  end
 end
 
 class Isbn

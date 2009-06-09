@@ -33,7 +33,24 @@ describe Comma, 'generating CSV' do
   it 'should return an empty string when generating CSV from an empty array' do
     Array.new.to_comma.should == ''
   end
-  
+
+  it "should change the style when specified" do
+    @books.to_comma(:brief).should == "Name,Description\nSmalltalk-80,Language and Implementation\n"
+  end
+
+  describe "with FasterCVS options" do
+    it "should not change when options are empty" do
+      @books.to_comma({}).should == "Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n"
+    end
+
+    it 'should accept the options in #to_comma and generate the appropriate CSV' do
+      @books.to_comma(:col_sep => ';', :force_quotes => true).should == "\"Title\";\"Description\";\"Issuer\";\"ISBN-10\";\"ISBN-13\"\n\"Smalltalk-80\";\"Language and Implementation\";\"ISBN\";\"123123123\";\"321321321\"\n"
+    end
+
+    it "should change the style when specified" do
+      @books.to_comma(:style => :brief, :col_sep => ';', :force_quotes => true).should == "\"Name\";\"Description\"\n\"Smalltalk-80\";\"Language and Implementation\"\n"
+    end
+  end
 end
 
 describe Comma, 'defining CSV descriptions' do
