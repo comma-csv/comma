@@ -42,7 +42,7 @@ if defined?(ActionController)
 
     module InstanceMethods
       def render_with_csv(options = nil, extra_options = {}, &block)
-        return render_without_csv(options, extra_options, &block) unless (options.respond_to? '[]') and options[:csv]
+        return render_without_csv(options, extra_options, &block) unless options.is_a?(Hash) and options[:csv]
         data = options.delete(:csv)
         style = options.delete(:style) || :default
         send_data Array(data).to_comma(style), options.merge(:type => :csv)
