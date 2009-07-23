@@ -13,8 +13,8 @@ module Comma
       @results
     end
 
-    def id
-      method_missing(:id)
+    def id(*args)
+      method_missing(:id, *args)
     end
   end
 
