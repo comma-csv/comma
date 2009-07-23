@@ -4,7 +4,14 @@ require 'comma/extractors'
 
 class Array
   def to_comma(style = :default)
-    FasterCSV.generate do |csv|
+    options = {}
+
+    if style.is_a? Hash
+      options = style
+      style = options.delete(:style)||:default
+    end
+
+    FasterCSV.generate(options) do |csv|
       return "" if empty?
       csv << first.to_comma_headers(style) # REVISIT: request to optionally include headers
       each do |object| 

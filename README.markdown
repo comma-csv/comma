@@ -109,6 +109,10 @@ You can specify which output format you would like to use via an optional parame
 
 Specifying no description name to to_comma is equivalent to specifying :default as the description name.
 
+You can pass options for FasterCVS, e.g.
+
+    Book.limited(10).to_comma(:style => :brief, :col_sep => ';', :force_quotes => true)
+
 When used with Rails (ie. add 'comma' as a gem dependency), Comma automatically adds support for rendering CSV output in your controllers:
 
     class BooksController < ApplicationController
