@@ -1,6 +1,6 @@
 Gem::Specification.new do |s| 
   s.name = "comma"
-  s.version = "0.2.0"
+  s.version = "0.2.1"
   s.author = "Marcus Crafter"
   s.email = "crafterm@redartisan.com"
   s.homepage = "http://github.com/crafterm/comma"
