@@ -1,6 +1,12 @@
 require 'activesupport'
-require 'fastercsv'
 require 'comma/extractors'
+
+if RUBY_VERSION =~ /^1.9/
+  require 'csv'
+  FasterCSV = CSV
+else
+  require 'fastercsv'
+end
 
 class Array
   def to_comma(style = :default)
