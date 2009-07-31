@@ -126,3 +126,7 @@ When used with Rails (ie. add 'comma' as a gem dependency), Comma automatically 
     end
     
 If you have any questions or suggestions for Comma, please feel free to contact me at crafterm@redartisan.com, all feedback welcome!
+
+== DEPENDENCIES
+
+If you're on ruby 1.8.*, you'll need to have the fastercsv gem installed
