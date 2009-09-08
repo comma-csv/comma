@@ -13,7 +13,7 @@ class Array
     options = {}
 
     if style.is_a? Hash
-      options = style
+      options = style.clone
       style = options.delete(:style)||:default
       filename = options.delete(:filename)
     end
