@@ -155,29 +155,32 @@ describe Comma, 'to_comma data/headers object extensions' do
   describe 'with block' do
     before do
       class Foo
-        attr_accessor :content, :time
+        attr_accessor :content, :created_at, :updated_at
         comma do
-          time('Date') {|i| i.strftime("%Y/%m/%d") }
-          content {|i| i ? i : '---' }
+          time_to_s = lambda { |i| i && i.to_s(:db) }
+          content
           content('Truncated Content') {|i| i && i.length > 10 ? i[0..10] : '---' }
+          created_at &time_to_s
+          updated_at &time_to_s
         end
-      
-        def initialize(content)
+        
+        def initialize(content, created_at = Time.now, updated_at = Time.now)
           @content = content
-          @time = Time.mktime(2009, 9, 8, 12, 44, 40)
+          @created_at = created_at
+          @updated_at = updated_at
         end
       end
-    
-      @foo = Foo.new('content ' * 5)
-      @bar = Foo.new nil
+      
+      @time = Time.now
+      @content = 'content ' * 5
+      @foo = Foo.new @content, @time, @time
     end
     
     it 'should return yielded values by block' do
-      header, foo, bar = [@foo, @bar].to_comma.split("\n")
-      foo.should == "2009/09/08,content content content content content ,content con"
-      bar.should == "2009/09/08,---,---"
+      header, foo = Array(@foo).to_comma.split("\n")
+      foo.should == [@content, @content[0..10], @time.to_s(:db), @time.to_s(:db)].join(',')
     end
-
+    
   end
   
   describe 'on an object with no comma declaration' do
