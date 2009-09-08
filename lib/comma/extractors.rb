@@ -43,18 +43,29 @@ module Comma
   class DataExtractor < Extractor
 
     def method_missing(sym, *args, &block)
-      @results << @instance.send(sym).to_s if args.blank?
+      if args.blank?
+        result = block ? yield(@instance.send(sym)) : @instance.send(sym)
+        @results << result.to_s
+      end
 
       args.each do |arg|
         case arg
         when Hash
           arg.each do |k, v|
-            @results << (@instance.send(sym).nil? ? '' : @instance.send(sym).send(k).to_s )
+            if block
+              @results << (@instance.send(sym).nil? ? '' : yield(@instance.send(sym).send(k)).to_s )
+            else
+              @results << (@instance.send(sym).nil? ? '' : @instance.send(sym).send(k).to_s )
+            end
           end
         when Symbol
+          if block
+            @results << (@instance.send(sym).nil? ? '' : yield(@instance.send(sym).send(arg)).to_s)
+          else
             @results << ( @instance.send(sym).nil? ? '' : @instance.send(sym).send(arg).to_s )
+          end
         when String
-          @results << @instance.send(sym).to_s
+          @results << (block ? yield(@instance.send(sym)) : @instance.send(sym)).to_s
         else
           raise "Unknown data symbol #{arg.inspect}"
         end
