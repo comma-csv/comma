@@ -15,14 +15,22 @@ class Array
     if style.is_a? Hash
       options = style
       style = options.delete(:style)||:default
+      filename = options.delete(:filename)
     end
 
-    FasterCSV.generate(options) do |csv|
-      return "" if empty?
-      csv << first.to_comma_headers(style) # REVISIT: request to optionally include headers
-      each do |object| 
-        csv << object.to_comma(style)
-      end
+    if filename
+      FasterCSV.open(filename, 'w'){ |csv| append_csv(csv, style) }
+    else
+      FasterCSV.generate(options){ |csv| append_csv(csv, style) }
+    end
+  end
+
+  private
+  def append_csv(csv, style)
+    return "" if empty?
+    csv << first.to_comma_headers(style) # REVISIT: request to optionally include headers
+    each do |object|
+      csv << object.to_comma(style)
     end
   end
 end

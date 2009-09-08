@@ -38,6 +38,15 @@ describe Comma, 'generating CSV' do
     @books.to_comma(:brief).should == "Name,Description\nSmalltalk-80,Language and Implementation\n"
   end
 
+  describe 'with :filename specified' do
+    before{ @books.to_comma(:filename => 'comma.csv') }
+    after{ File.delete('comma.csv') }
+
+    it "should write to the file" do
+      File.read('comma.csv').should == "Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n"
+    end
+  end
+
   describe "with FasterCVS options" do
     it "should not change when options are empty" do
       @books.to_comma({}).should == "Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n"
