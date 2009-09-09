@@ -1,6 +1,7 @@
 require 'activesupport'
 require 'activerecord'
 require 'comma/extractors'
+require 'comma/generator'
 
 if RUBY_VERSION =~ /^1.9/
   require 'csv'
@@ -11,57 +12,13 @@ end
 
 class ActiveRecord::NamedScope::Scope
   def to_comma(style = :default)
-    options = {}
-
-    if style.is_a? Hash
-      options = style.clone
-      style = options.delete(:style)||:default
-      filename = options.delete(:filename)
-    end
-
-    if filename
-      FasterCSV.open(filename, 'w'){ |csv| append_csv(csv, style) }
-      return true
-    else
-      FasterCSV.generate(options){ |csv| append_csv(csv, style) }
-    end
-  end
-
-  private
-  def append_csv(csv, style)
-    return "" if empty?
-    csv << first.to_comma_headers(style) # REVISIT: request to optionally include headers
-    find_each do |object|
-      csv << object.to_comma(style)
-    end
+    Comma::Generator.new(self, style).run(:find_each)
   end
 end
 
 class Array
   def to_comma(style = :default)
-    options = {}
-
-    if style.is_a? Hash
-      options = style.clone
-      style = options.delete(:style)||:default
-      filename = options.delete(:filename)
-    end
-
-    if filename
-      FasterCSV.open(filename, 'w'){ |csv| append_csv(csv, style) }
-      return true
-    else
-      FasterCSV.generate(options){ |csv| append_csv(csv, style) }
-    end
-  end
-
-  private
-  def append_csv(csv, style)
-    return "" if empty?
-    csv << first.to_comma_headers(style) # REVISIT: request to optionally include headers
-    each do |object|
-      csv << object.to_comma(style)
-    end
+    Comma::Generator.new(self, style).run(:each)
   end
 end
 
