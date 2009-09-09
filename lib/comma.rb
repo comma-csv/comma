@@ -20,6 +20,7 @@ class Array
 
     if filename
       FasterCSV.open(filename, 'w'){ |csv| append_csv(csv, style) }
+      return true
     else
       FasterCSV.generate(options){ |csv| append_csv(csv, style) }
     end
