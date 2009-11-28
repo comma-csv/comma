@@ -1,4 +1,4 @@
-require 'activesupport'
+require 'active_support'
 require 'comma/extractors'
 
 if RUBY_VERSION =~ /^1.9/
