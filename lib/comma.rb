@@ -11,7 +11,13 @@ else
     # try faster csv
     require 'fastercsv'
   rescue Error => e
-    Rails.logger.info "FasterCSV not installed, falling back on CSV"
+    
+    if defined? Rails
+      Rails.logger.info "FasterCSV not installed, falling back on CSV"
+    else
+      puts "FasterCSV not installed, falling back on CSV"
+    end
+
     require 'csv'
   end
 end
