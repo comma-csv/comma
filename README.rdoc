@@ -130,4 +130,4 @@ If you have any questions or suggestions for Comma, please feel free to contact 
 == DEPENDENCIES
 
 If you're on ruby 1.8.*, the fasterCSV gem is recommended for performance reasons.
-    gem install fasterCSV
+    gem install fastercsv
