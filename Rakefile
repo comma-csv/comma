@@ -2,21 +2,23 @@ require 'rake/gempackagetask'
 
 spec = Gem::Specification.new do |s| 
   s.name = "comma"
-  s.version = "0.2.2"
+  s.version = "0.2.2.1"
   s.author = "Marcus Crafter"
   s.email = "crafterm@redartisan.com"
   s.homepage = "http://github.com/crafterm/comma"
   s.platform = Gem::Platform::RUBY
   s.summary = "Ruby Comma Seperated Values generation library"
-  s.files = %w( README.markdown 
+  s.files = %w( README.rdoc
                 MIT-LICENSE
                 lib/comma.rb 
                 lib/comma/extractors.rb
                 lib/comma/object.rb
                 lib/comma/array.rb
-                lib/comma/renderascsv.rb )
+                lib/comma/renderascsv.rb
+                lib/comma/generator.rb
+                lib/comma/namedscope.rb )
+
   s.require_path = "lib"
-  s.add_dependency("fastercsv", ">= 1.4.0")
   s.add_dependency("activesupport", ">= 2.2.2")
 end
 
