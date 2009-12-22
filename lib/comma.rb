@@ -28,10 +28,10 @@ require 'comma/extractors'
 require 'comma/generator'
 require 'comma/array'
 require 'comma/object'
-require 'comma/renderascsv'
+require 'comma/render_as_csv'
 
 if defined?(ActiveRecord)
-  require 'comma/namedscope'
+  require 'comma/named_scope'
 end
 
 if defined?(ActionController)
