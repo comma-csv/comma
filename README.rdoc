@@ -40,23 +40,29 @@ An example Comma CSV enabled ActiveRecord class:
 
 Annotated, the comma description is as follows:
 
- # starts a Comma description block, generating 2 methods #to_comma and #to_comma_headers for this class.
+ # starts a Comma description block, generating 2 methods #to_comma and
+ # #to_comma_headers for this class.
  comma do
 
-   # name, description are attributes of Book with the header being reflected as 'Name', 'Description'
+   # name, description are attributes of Book with the header being reflected as
+   # 'Name', 'Description'
    name
    description
 
-   # pages is an association returning an array, :size is called on the association results, with the header name specified as 'Pages'
+   # pages is an association returning an array, :size is called on the
+   # association results, with the header name specified as 'Pages'
    pages :size => 'Pages'
 
-   # publisher is an association returning an object, :name is called on the associated object, with the reflected header 'Name'
+   # publisher is an association returning an object, :name is called on the
+   # associated object, with the reflected header 'Name'
    publisher :name
 
-   # isbn is an association returning an object, :number_10 and :number_13 are called on the object with the specified headers 'ISBN-10' and 'ISBN-13'
+   # isbn is an association returning an object, :number_10 and :number_13 are
+   # called on the object with the specified headers 'ISBN-10' and 'ISBN-13'
    isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13'
 
-   # blurb is an attribute of Book, with the header being specified directly as 'Summary'
+   # blurb is an attribute of Book, with the header being specified directly
+   # as 'Summary'
    blurb 'Summary'
 
  end
@@ -111,7 +117,9 @@ Specifying no description name to to_comma is equivalent to specifying :default 
 
 You can pass options for FasterCSV, e.g.
 
- Book.limited(10).to_comma(:style => :brief, :col_sep => ';', :force_quotes => true)
+ Book.limited(10).to_comma(:style        => :brief,
+                           :col_sep      => ';',
+                           :force_quotes => true)
 
 You can pass the :filename option and have Comma writes the CSV output to this file:
 
