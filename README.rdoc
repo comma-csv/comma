@@ -109,7 +109,7 @@ You can specify which output format you would like to use via an optional parame
 
 Specifying no description name to to_comma is equivalent to specifying :default as the description name.
 
-You can pass options for FasterCVS, e.g.
+You can pass options for FasterCSV, e.g.
 
     Book.limited(10).to_comma(:style => :brief, :col_sep => ';', :force_quotes => true)
 
@@ -129,5 +129,6 @@ If you have any questions or suggestions for Comma, please feel free to contact 
 
 == DEPENDENCIES
 
-If you're on ruby 1.8.*, the fasterCSV gem is recommended for performance reasons.
+If you're on Ruby 1.8.*, the FasterCSV gem is recommended for performance reasons.
+
     gem install fastercsv

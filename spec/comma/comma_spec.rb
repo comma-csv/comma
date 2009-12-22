@@ -53,7 +53,7 @@ describe Comma, 'generating CSV' do
 
   end
 
-  describe "with FasterCVS options" do
+  describe "with FasterCSV options" do
     it "should not change when options are empty" do
       @books.to_comma({}).should == "Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n"
     end
