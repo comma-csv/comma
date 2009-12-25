@@ -1,0 +1,384 @@
+#!/usr/bin/env ruby
+#
+# This file, hub, is generated code.
+# Please DO NOT EDIT or send patches for it.
+#
+# Please take a look at the source from
+# http://github.com/defunkt/hub
+# and submit patches against the individual files
+# that build hub.
+#
+
+module Hub
+  class Args < Array
+    def after(command = nil, &block)
+      @after ||= block ? block : command
+    end
+
+    def after?
+      !!@after
+    end
+  end
+end
+module Hub
+  module Commands
+    instance_methods.each { |m| undef_method(m) unless m =~ /(^__|send|to\?$)/ }
+    extend self
+
+    PRIVATE = 'git@github.com:%s/%s.git'
+    PUBLIC  = 'git://github.com/%s/%s.git'
+    USER    = `git config --global github.user`.chomp
+    REPO    = `basename $(pwd)`.chomp
+    LGHCONF = "http://github.com/guides/local-github-config"
+
+    def clone(args)
+      ssh = args.delete('-p')
+      args[1..-1].each_with_index do |arg, i|
+        i += 1
+        if arg.scan('/').size == 1 && !arg.include?(':')
+          url = ssh ? PRIVATE : PUBLIC
+          args[i] = url % arg.split('/')
+          break
+        elsif arg !~ /:|\//
+          url = ssh ? PRIVATE : PUBLIC
+          args[i] = url % [ github_user, arg ]
+          break
+        end
+      end
+    end
+
+    def remote(args)
+      return unless args[1] == 'add'
+
+      if args[-1] !~ /:|\//
+        ssh  = args.delete('-p')
+        user = args.last
+        url  = ssh ? PRIVATE : PUBLIC
+        args << url % [ user, REPO ]
+      end
+    end
+
+    def init(args)
+      if args.delete('-g')
+
+        url = PRIVATE % [ github_user, REPO ]
+        args.after "git remote add origin #{url}"
+      end
+    end
+
+    def alias(args)
+      shells = {
+        'sh'   => 'alias git=hub',
+        'bash' => 'alias git=hub',
+        'zsh'  => 'alias git=hub',
+        'csh'  => 'alias git hub',
+        'fish' => 'alias git hub'
+      }
+
+      silent = args.delete('-s')
+
+      if shell = args[1]
+        if silent.nil?
+          puts "Run this in your shell to start using `hub` as `git`:"
+          print "  "
+        end
+      else
+        puts "usage: hub alias [-s] SHELL", ""
+        puts "You already have hub installed and available in your PATH,"
+        puts "but to get the full experience you'll want to alias it to"
+        puts "`git`.", ""
+        puts "To see how to accomplish this for your shell, run the alias"
+        puts "command again with the name of your shell.", ""
+        puts "Known shells:"
+        shells.map { |key, _| key }.sort.each do |key|
+          puts "  " + key
+        end
+        puts "", "Options:"
+        puts "  -s   Silent. Useful when using the output with eval, e.g."
+        puts "       $ eval `hub alias -s bash`"
+
+        exit
+      end
+
+      if shells[shell]
+        puts shells[shell]
+      else
+        abort "fatal: never heard of `#{shell}'"
+      end
+
+      exit
+    end
+
+    def version(args)
+      args.after do
+        puts "hub version %s" % Version
+      end
+    end
+    alias_method "--version", :version
+
+    def help(args)
+      if args[1] == 'hub'
+        puts hub_manpage
+        exit
+      elsif args.size == 1
+        puts improved_help_text
+        exit
+      end
+    end
+
+    def improved_help_text
+      <<-help
+usage: git [--version] [--exec-path[=GIT_EXEC_PATH]] [--html-path]
+    [-p|--paginate|--no-pager] [--bare] [--git-dir=GIT_DIR]
+    [--work-tree=GIT_WORK_TREE] [--help] COMMAND [ARGS]
+
+Basic Commands:
+   init       Create an empty git repository or reinitialize an existing one
+   add        Add new or modified files to the staging area
+   rm         Remove files from the working directory and staging area
+   mv         Move or rename a file, a directory, or a symlink
+   status     Show the status of the working directory and staging area
+   commit     Record changes to the repository
+
+History Commands:
+   log        Show the commit history log
+   diff       Show changes between commits, commit and working tree, etc
+   show       Show information about commits, tags or files
+
+Branching Commands:
+   branch     List, create, or delete branches
+   checkout   Switch the active branch to another branch
+   merge      Join two or more development histories (branches) together
+   tag        Create, list, delete, sign or verify a tag object
+
+Remote Commands:
+   clone      Clone a remote repository into a new directory
+   fetch      Download data, tags and branches from a remote repository
+   pull       Fetch from and merge with another repository or a local branch
+   push       Upload data, tags and branches to a remote repository
+   remote     View and manage a set of remote repositories
+
+Advanced commands:
+   reset      Reset your staging area or working directory to another point
+   rebase     Re-apply a series of patches in one branch onto another
+   bisect     Find by binary search the change that introduced a bug
+   grep       Print files with lines matching a pattern in your codebase
+
+See 'git help COMMAND' for more information on a specific command.
+help
+    end
+
+  private
+
+    def github_user
+      if USER.empty?
+        abort "** No GitHub user set. See #{LGHCONF}"
+      else
+        USER
+      end
+    end
+
+    def hub_manpage
+      return "** Can't find groff(1)" unless groff?
+
+      require 'open3'
+      out = nil
+      Open3.popen3(groff_command) do |stdin, stdout, _|
+        stdin.puts hub_raw_manpage
+        stdin.close
+        out = stdout.read.strip
+      end
+      out
+    end
+
+    def groff?
+      system("which groff")
+    end
+
+    def groff_command
+      "groff -Wall -mtty-char -mandoc -Tascii"
+    end
+
+    def hub_raw_manpage
+      if File.exists? file = File.dirname(__FILE__) + '/../../man/hub.1'
+        File.read(file)
+      else
+        DATA.read
+      end
+    end
+
+    def puts(*args)
+      page_stdout
+      super
+    end
+
+    def page_stdout
+      return unless $stdout.tty?
+
+      read, write = IO.pipe
+
+      if Kernel.fork
+        $stdin.reopen(read)
+        read.close
+        write.close
+
+        ENV['LESS'] = 'FSRX'
+
+        Kernel.select [STDIN]
+
+        pager = ENV['PAGER'] || 'less -isr'
+        exec pager rescue exec "/bin/sh", "-c", pager
+      else
+        $stdout.reopen(write)
+        $stderr.reopen(write) if $stderr.tty?
+        read.close
+        write.close
+      end
+    end
+  end
+end
+module Hub
+  class Runner
+    attr_reader :args
+    def initialize(*args)
+      @args = Args.new(args)
+
+      @args[0] = 'help' if @args.empty?
+
+      if Commands.respond_to?(@args[0])
+        Commands.send(@args[0], @args)
+      end
+    end
+
+    def self.execute(*args)
+      new(*args).execute
+    end
+
+    def after
+      args.after.to_s
+    end
+
+    def command
+      "git #{args.join(' ')}"
+    end
+
+    def execute
+      if args.after?
+        execute_with_after_callback
+      else
+        exec "git", *args
+      end
+    end
+
+    def execute_with_after_callback
+      after = args.after
+      if system("git", *args)
+        after.respond_to?(:call) ? after.call : exec(after)
+        exit
+      else
+        exit 1
+      end
+    end
+  end
+end
+module Hub
+  Version = '0.1.3'
+end
+Hub::Runner.execute(*ARGV)
+__END__
+.\" generated with Ron/v0.3
+.\" http://github.com/rtomayko/ron/
+.
+.TH "HUB" "1" "December 2009" "DEFUNKT" "Git Manual"
+.
+.SH "NAME"
+\fBhub\fR \-\- git + hub = github
+.
+.SH "SYNOPSIS"
+\fBhub\fR \fICOMMAND\fR \fIOPTIONS\fR
+.
+.br
+\fBhub alias\fR [\fB\-s\fR] \fISHELL\fR
+.
+.P
+\fBgit init \-g\fR \fIOPTIONS\fR
+.
+.br
+\fBgit clone\fR [\fB\-p\fR] \fIOPTIONS\fR [\fIUSER\fR/]\fIREPOSITORY\fR \fIDIRECTORY\fR
+.
+.br
+\fBgit remote add\fR [\fB\-p\fR] \fIOPTIONS\fR \fIUSER\fR[/\fIREPOSITORY\fR]
+.
+.br
+.
+.SH "DESCRIPTION"
+\fBhub\fR enhances various \fBgit\fR commands with GitHub remote expansion. The
+alias command displays information on configuring your environment:
+.
+.TP
+\fBhub alias\fR [\fB\-s\fR] \fISHELL\fR 
+Writes shell aliasing code for \fISHELL\fR (\fBbash\fR, \fBsh\fR, \fBzsh\fR, \fBcsh\fR) to standard output. With the \fB\-s\fR option, the output of
+this command can be evaluated directly within the shell: \fBeval $(hub alias \-s bash)\fR 
+.
+.P
+After configuring the alias, the following commands have superpowers:
+.
+.TP
+\fBgit init\fR \fB\-g\fR \fIOPTIONS\fR 
+Create a git repository as with git\-init(1) and add remote \fBorigin\fR at
+"git@github.com:\fIUSER\fR/\fIREPOSITORY\fR.git"; \fIUSER\fR is your GitHub username and \fIREPOSITORY\fR is the current working directory's basename.
+.
+.TP
+\fBgit clone\fR [\fB\-p\fR] \fIOPTIONS\fR [\fIUSER\fR\fB/\fR]\fIREPOSITORY\fR \fIDIRECTORY\fR 
+Clone repository "git://github.com/\fIUSER\fR/\fIREPOSITORY\fR.git" into \fIDIRECTORY\fR as with git\-clone(1). When \fIUSER\fR/ is omitted, assumes
+your GitHub login. With \fB\-p\fR, use private remote
+"git@github.com:\fIUSER\fR/\fIREPOSITORY\fR.git".
+.
+.TP
+\fBgit remote add\fR [\fB\-p\fR] \fIOPTIONS\fR \fIUSER\fR[\fB/\fR\fIREPOSITORY\fR]
+Add remote "git://github.com/\fIUSER\fR/\fIREPOSITORY\fR.git" as with
+git\-remote(1). When /\fIREPOSITORY\fR is omitted, the basename of the
+current working directory is used. With \fB\-p\fR, use private remote
+"git@github.com:\fIUSER\fR/\fIREPOSITORY\fR.git".
+.
+.TP
+\fBgit help\fR
+Display enhanced git\-help(1).
+.
+.SH "CONFIGURATION"
+Use git\-config(1) to display the currently configured GitHub username:
+.
+.IP "" 4
+.
+.nf
+
+$ git config \-\-global github.user 
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Or, set the GitHub username with:
+.
+.IP "" 4
+.
+.nf
+
+$ git config \-\-global github.user <username> 
+.
+.fi
+.
+.IP "" 0
+.
+.P
+See \fIhttp://github.com/guides/local\-github\-config\fR for more information.
+.
+.SH "BUGS"
+\fIhttp://github.com/defunkt/hub/issues\fR
+.
+.SH "AUTHOR"
+Chris Wanstrath :: chris@ozmm.org :: @defunkt
+.
+.SH "SEE ALSO"
+git(1), git\-clone(1), git\-remote(1), git\-init(1),\fIhttp://github.com\fR, \fIhttp://github.com/defunkt/hub\fR
