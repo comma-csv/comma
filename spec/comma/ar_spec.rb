@@ -1,5 +1,4 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-require 'active_record'
 
 describe Comma, 'generating CSV from an ActiveRecord object' do
   before(:all) do

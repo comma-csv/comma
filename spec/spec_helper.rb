@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'spec'
+require 'active_record'
 
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 require 'comma'

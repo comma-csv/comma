@@ -2,7 +2,7 @@
 if defined? Rails and Rails.version < '2.3.5'
   require 'activesupport' 
 else 
-  require 'active_support'
+  require 'active_support/core_ext/class/inheritable_attributes'
 end
 
 # load the right csv library
