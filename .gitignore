@@ -1,3 +1,4 @@
-pkg
-.swp
-comma.gemspec
+pkg/*
+*.swp
+*~
+*.gemspec
