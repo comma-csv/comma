@@ -113,6 +113,12 @@ You can pass options for FasterCSV, e.g.
 
     Book.limited(10).to_comma(:style => :brief, :col_sep => ';', :force_quotes => true)
 
+You can pass the :filename option and have Comma writes the CSV output to this file:
+
+    Book.limited(10).to_comma(:filename => 'books.csv')
+
+=== USING WITH RAILS
+
 When used with Rails (ie. add 'comma' as a gem dependency), Comma automatically adds support for rendering CSV output in your controllers:
 
     class BooksController < ApplicationController
@@ -125,10 +131,23 @@ When used with Rails (ie. add 'comma' as a gem dependency), Comma automatically 
 
     end
     
-If you have any questions or suggestions for Comma, please feel free to contact me at crafterm@redartisan.com, all feedback welcome!
+When used with Rails 2.3.*, Comma also adds support for exporting named scopes:
+
+    class Book < ActiveRecord::Base
+      named_scope :recent,
+                  lambda { { :conditions => ['created_at > ?', 1.month.ago] } }
+
+      # ...
+    end
+
+Calling the to_comma method on the named scope will internally use Rails' find_each method, instantiating only 1,000 ActiveRecord objects at a time:
+
+    Book.recent.to_comma
 
 == DEPENDENCIES
 
 If you're on Ruby 1.8.*, the FasterCSV gem is recommended for performance reasons.
 
     gem install fastercsv
+
+If you have any questions or suggestions for Comma, please feel free to contact me at crafterm@redartisan.com, all feedback welcome!
