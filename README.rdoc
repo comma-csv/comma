@@ -138,7 +138,7 @@ When used with Rails (ie. add 'comma' as a gem dependency), Comma automatically 
    end
 
  end
-    
+
 When used with Rails 2.3.*, Comma also adds support for exporting named scopes:
 
  class Book < ActiveRecord::Base
