@@ -16,7 +16,7 @@ module Comma
 
     def run(iterator_method)
       if @filename
-        FasterCSV.open(@filename, 'w'){ |csv| append_csv(csv, iterator_method) } and return true
+        FasterCSV.open(@filename, 'w', @options){ |csv| append_csv(csv, iterator_method) } and return true
       else
         FasterCSV.generate(@options){ |csv| append_csv(csv, iterator_method) }
       end
