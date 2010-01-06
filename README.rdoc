@@ -12,55 +12,61 @@ CSV can be a bit of a boring format - the motivation behind Comma was to have a 
 
 An example Comma CSV enabled ActiveRecord class:
 
-    class Book < ActiveRecord::Base
-  
-      # ================
-      # = Associations =
-      # ================
-      has_many   :pages
-      has_one    :isbn
-      belongs_to :publisher
-  
-      # ===============
-      # = CSV support =
-      # ===============
-      comma do
+ class Book < ActiveRecord::Base
 
-        name
-        description
-    
-        pages :size => 'Pages'
-        publisher :name
-        isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13'
-        blurb 'Summary'
-        
-      end
+   # ================
+   # = Associations =
+   # ================
+   has_many   :pages
+   has_one    :isbn
+   belongs_to :publisher
 
-    end
+   # ===============
+   # = CSV support =
+   # ===============
+   comma do
+
+     name
+     description
+
+     pages :size => 'Pages'
+     publisher :name
+     isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13'
+     blurb 'Summary'
+
+   end
+
+ end
 
 Annotated, the comma description is as follows:
 
-    # starts a Comma description block, generating 2 methods #to_comma and #to_comma_headers for this class.
-    comma do
+ # starts a Comma description block, generating 2 methods #to_comma and
+ # #to_comma_headers for this class.
+ comma do
 
-      # name, description are attributes of Book with the header being reflected as 'Name', 'Description'
-      name
-      description
-  
-      # pages is an association returning an array, :size is called on the association results, with the header name specified as 'Pages'
-      pages :size => 'Pages'
-    
-      # publisher is an association returning an object, :name is called on the associated object, with the reflected header 'Name'
-      publisher :name
-    
-      # isbn is an association returning an object, :number_10 and :number_13 are called on the object with the specified headers 'ISBN-10' and 'ISBN-13'
-      isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13'
-      
-      # blurb is an attribute of Book, with the header being specified directly as 'Summary'
-      blurb 'Summary'
-    
-    end
-  
+   # name, description are attributes of Book with the header being reflected as
+   # 'Name', 'Description'
+   name
+   description
+
+   # pages is an association returning an array, :size is called on the
+   # association results, with the header name specified as 'Pages'
+   pages :size => 'Pages'
+
+   # publisher is an association returning an object, :name is called on the
+   # associated object, with the reflected header 'Name'
+   publisher :name
+
+   # isbn is an association returning an object, :number_10 and :number_13 are
+   # called on the object with the specified headers 'ISBN-10' and 'ISBN-13'
+   isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13'
+
+   # blurb is an attribute of Book, with the header being specified directly
+   # as 'Summary'
+   blurb 'Summary'
+
+ end
+
 In the above example, any of the declarations (name, description, pages, publisher, isbn, blurb, etc), could be methods, attributes, associations, etc - no distinction during configuration is required, as everything is invoked via Ruby's #send method.
 
 You can get the CSV representation of any object by calling the to_comma method, optionally providing a CSV description name to use.
@@ -69,85 +75,87 @@ Object values are automatically converted to strings via to_s allowing you to re
 
 Multiple CSV descriptions can also be specified for the same class, eg:
 
-    class Book < ActiveRecord::Base
+ class Book < ActiveRecord::Base
 
-      # ================
-      # = Associations =
-      # ================
-      has_many   :pages
-      has_one    :isbn
-      belongs_to :publisher
+   # ================
+   # = Associations =
+   # ================
+   has_many   :pages
+   has_one    :isbn
+   belongs_to :publisher
 
-      # ===============
-      # = CSV support =
-      # ===============
-      comma do
+   # ===============
+   # = CSV support =
+   # ===============
+   comma do
 
-        name
-        description
+     name
+     description
 
-        pages :size => 'Pages'
-        publisher :name
-        isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13'
-        blurb 'Summary'
-    
-      end
-      
-      comma :brief do
-      
-        name
-        description
-        blurb 'Summary'
-        
-      end
+     pages :size => 'Pages'
+     publisher :name
+     isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13'
+     blurb 'Summary'
 
-    end
-    
+   end
+
+   comma :brief do
+
+     name
+     description
+     blurb 'Summary'
+
+   end
+
+ end
+
 You can specify which output format you would like to use via an optional parameter to to_comma:
 
-    Book.limited(10).to_comma(:brief)
+ Book.limited(10).to_comma(:brief)
 
 Specifying no description name to to_comma is equivalent to specifying :default as the description name.
 
 You can pass options for FasterCSV, e.g.
 
-    Book.limited(10).to_comma(:style => :brief, :col_sep => ';', :force_quotes => true)
+ Book.limited(10).to_comma(:style        => :brief,
+                           :col_sep      => ';',
+                           :force_quotes => true)
 
 You can pass the :filename option and have Comma writes the CSV output to this file:
 
-    Book.limited(10).to_comma(:filename => 'books.csv')
+ Book.limited(10).to_comma(:filename => 'books.csv')
 
 === USING WITH RAILS
 
 When used with Rails (ie. add 'comma' as a gem dependency), Comma automatically adds support for rendering CSV output in your controllers:
 
-    class BooksController < ApplicationController
+ class BooksController < ApplicationController
 
-      def index
-        respond_to do |format|
-          format.csv { render :csv => Book.limited(50) }
-        end
-      end
+   def index
+     respond_to do |format|
+       format.csv { render :csv => Book.limited(50) }
+     end
+   end
 
-    end
-    
+ end
+
 When used with Rails 2.3.*, Comma also adds support for exporting named scopes:
 
-    class Book < ActiveRecord::Base
-      named_scope :recent,
-                  lambda { { :conditions => ['created_at > ?', 1.month.ago] } }
+ class Book < ActiveRecord::Base
+   named_scope :recent,
+               lambda { { :conditions => ['created_at > ?', 1.month.ago] } }
 
-      # ...
-    end
+   # ...
+ end
 
 Calling the to_comma method on the named scope will internally use Rails' find_each method, instantiating only 1,000 ActiveRecord objects at a time:
 
-    Book.recent.to_comma
+ Book.recent.to_comma
 
 == DEPENDENCIES
 
 If you're on Ruby 1.8.*, the FasterCSV gem is recommended for performance reasons.
 
-    gem install fastercsv
+ gem install fastercsv
 
 If you have any questions or suggestions for Comma, please feel free to contact me at crafterm@redartisan.com, all feedback welcome!

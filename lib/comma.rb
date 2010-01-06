@@ -1,15 +1,15 @@
 # conditional loading of activesupport
 if defined? Rails and Rails.version < '2.3.5'
-  require 'activesupport' 
-else 
+  require 'activesupport'
+else
   require 'active_support/core_ext/class/inheritable_attributes'
 end
 
 # load the right csv library
 if RUBY_VERSION >= '1.9'
-  require 'csv' 
+  require 'csv'
   FasterCSV = CSV
-else 
+else
   begin
     # try faster csv
     require 'fastercsv'

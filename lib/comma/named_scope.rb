@@ -3,4 +3,3 @@ class ActiveRecord::NamedScope::Scope
     Comma::Generator.new(self, style).run(:find_each)
   end
 end
-
