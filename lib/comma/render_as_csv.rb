@@ -12,7 +12,7 @@ module RenderAsCSV
 
     headers.merge!(
       'Content-Transfer-Encoding' => 'binary',
-      'Content-type'              => 'text/csv; charset=utf-8'
+      'Content-Type'              => 'text/csv; charset=utf-8'
     )
     filename_header_value = "attachment"
     filename_header_value += "; filename=\"#{filename}\"" if filename.present?
