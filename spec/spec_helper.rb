@@ -1,8 +1,10 @@
 require 'rubygems'
 require 'spec'
-require 'active_record'
+require 'activerecord'
+ActiveRecord::ActiveRecordError # http://tinyurl.com/24f84gf
 
 $:.unshift(File.dirname(__FILE__) + '/../lib')
+
 require 'comma'
 
 

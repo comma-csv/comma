@@ -32,6 +32,7 @@ require 'comma/render_as_csv'
 
 if defined?(ActiveRecord)
   require 'comma/named_scope'
+  require 'comma/association_proxy'
 end
 
 if defined?(ActionController)
