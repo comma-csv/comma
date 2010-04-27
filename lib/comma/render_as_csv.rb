@@ -12,9 +12,11 @@ module RenderAsCSV
 
     headers.merge!(
       'Content-Transfer-Encoding' => 'binary',
-      'Content-Type'              => 'text/csv'
+      'Content-type'              => 'text/csv; charset=utf-8'
     )
-    headers.merge!('Content-Disposition' => "attachment; filename=\"#{filename}\"") if options.delete(:filename).present?
+    filename_header_value = "attachment"
+    filename_header_value += "; filename=\"#{filename}\"" if filename.present?
+    headers.merge!('Content-Disposition' => filename_header_value)
 
     @performed_render = false
 
