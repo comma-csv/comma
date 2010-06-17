@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Marcus Crafter"]
-  s.date = %q{2010-06-10}
+  s.date = %q{2010-06-17}
   s.description = %q{Ruby Comma Seperated Values generation library}
   s.email = %q{crafterm@redartisan.com}
   s.extra_rdoc_files = [
@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "comma.gemspec",
      "init.rb",
      "lib/comma.rb",
      "lib/comma/array.rb",
