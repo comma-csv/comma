@@ -166,7 +166,8 @@ For more complex relationships you can pass blocks for calculated values, or rel
 
  end
 
- In the preceding example, the 2 new fields added (both based on the publisher relationship) mean that the following will be added:
+
+In the preceding example, the 2 new fields added (both based on the publisher relationship) mean that the following will be added:
   - the first example 'publishers_contact' is loaded straight as a block. The value returned by the lambda is displayed with a header value of 'Publisher'
   - the second example 'total_publishers_users' is sent via a hash and a custom label is set, if used in the first examples method the header would be 'Publisher', but sent as a hash the header is 'Number of publisher users'.
 
@@ -204,41 +205,5 @@ If you're on Ruby 1.8.*, the FasterCSV gem is recommended for performance reason
  gem install fastercsv
 
 If you have any questions or suggestions for Comma, please feel free to contact me at crafterm@redartisan.com, all feedback welcome!
-
-
-## TODO:
-
-* Add readme info for using lambda in comma description :
-eg:
-comma do
-  time_to_s = lambda { |i| i && i.to_s(:db) }
-  content
-  content('Truncated Content') {|i| i && i.length > 10 ? i[0..10] : '---' }
-  created_at &time_to_s
-  updated_at &time_to_s
-end
-
-* Add ability to label passed arrays (still necessary with lambdas improved with labels?)
-* Add readme + spec for block with label
-eg:
-
-omma :internal do
-  bid_creator_name = lambda{ |bid| trade.try(:creator).try(:name) || ''}
-  bid_creator_name2 = lambda{ |bid| trade.try(:creator).try(:to_s) || ''}
-  reference
-
-  seller :name => 'Seller'
-  buyer :name  => 'Buyer'
-  bid  bid_creator_name => 'Something'   #ADD INFO ABOUT THIS LINE!
-  bid &bid_creator_name2
-
-  grain_type :name
-  bin_grade  :code => 'Bin Grade'
-  bhc_site   :state, :name => 'Site', :bulk_handler => 'BHC', :port => 'Port Zone'
-
-  traded_quantity
-  trade_price_per_ton
-  created_at 'Date'
-end
 
 
