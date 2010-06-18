@@ -172,3 +172,13 @@ comma do
 end
 
 will sequentially run the commands on the initial item, great for complex relationships
+
+* Add readme info for using lambda in comma description :
+eg:
+comma do
+  time_to_s = lambda { |i| i && i.to_s(:db) }
+  content
+  content('Truncated Content') {|i| i && i.length > 10 ? i[0..10] : '---' }
+  created_at &time_to_s
+  updated_at &time_to_s
+end
