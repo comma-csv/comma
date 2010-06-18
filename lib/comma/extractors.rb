@@ -33,6 +33,8 @@ module Comma
           @results << arg.to_s.humanize
         when String
           @results << arg
+        when Array
+          @results << arg.collect(&:to_s).collect(&:titleize).join(' ')
         else
           raise "Unknown header symbol #{arg.inspect}"
         end
@@ -66,6 +68,8 @@ module Comma
           end
         when String
           @results << (block ? yield(@instance.send(sym)) : @instance.send(sym)).to_s
+        when Array
+          @results << (@instance.send(sym).nil? ? '' : arg.compact.inject(@instance.send(sym)) { |result, element| result.try(element) || '' })
         else
           raise "Unknown data symbol #{arg.inspect}"
         end
