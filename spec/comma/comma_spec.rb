@@ -173,10 +173,13 @@ describe Comma, 'to_comma data/headers object extensions' do
         attr_accessor :content, :created_at, :updated_at
         comma do
           time_to_s = lambda { |i| i && i.to_s(:db) }
+          time_short = lambda { |i| i && i.to_s(:short) }
           content
           content('Truncated Content') {|i| i && i.length > 10 ? i[0..10] : '---' }
           created_at &time_to_s
           updated_at &time_to_s
+          created_at time_short => 'Created Custom Label'
+          updated_at time_short => 'Updated at Custom Label'
         end
 
         def initialize(content, created_at = Time.now, updated_at = Time.now)
@@ -193,7 +196,12 @@ describe Comma, 'to_comma data/headers object extensions' do
 
     it 'should return yielded values by block' do
       header, foo = Array(@foo).to_comma.split("\n")
-      foo.should == [@content, @content[0..10], @time.to_s(:db), @time.to_s(:db)].join(',')
+      foo.should == [@content, @content[0..10], @time.to_s(:db), @time.to_s(:db), @time.to_s(:short), @time.to_s(:short)].join(',')
+    end
+
+    it 'should return headers with custom labels from block' do
+      header, foo = Array(@foo).to_comma.split("\n")
+      header.should == ['Content', 'Truncated Content', 'Created at', 'Updated at', 'Created Custom Label', 'Updated at Custom Label'].join(',')
     end
 
   end

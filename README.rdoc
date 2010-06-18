@@ -125,6 +125,51 @@ You can pass the :filename option and have Comma writes the CSV output to this f
 
  Book.limited(10).to_comma(:filename => 'books.csv')
 
+== Using blocks
+
+For more complex relationships you can pass blocks for calculated values, or related values. Following the previous example here is a comma set using blocks (both with and without labels for your CSV headings):
+
+ class Publisher < ActiveRecord::Base
+   # ================
+   # = Associations =
+   # ================
+   has_one  :primary_contact, :class_name => "User" #(basic user with a name)
+   has_many :users
+ end
+
+ class Book < ActiveRecord::Base
+
+   # ================
+   # = Associations =
+   # ================
+   has_many   :pages
+   has_one    :isbn
+   belongs_to :publisher
+
+   # ===============
+   # = CSV support =
+   # ===============
+   comma do
+     publishers_contact     = lambda { |publisher| publisher.primary_contact.name.to_s.titleize }
+     total_publisher_users  = lambda { |publisher| publisher.users.size }
+     name
+     description
+
+     pages :size => 'Pages'
+     publisher :name
+     publisher &publishers_contact
+     publisher total_publishers_users => 'Number of publisher users'
+     isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13'
+     blurb 'Summary'
+
+   end
+
+ end
+
+ In the preceding example, the 2 new fields added (both based on the publisher relationship) mean that the following will be added:
+  - the first example 'publishers_contact' is loaded straight as a block. The value returned by the lambda is displayed with a header value of 'Publisher'
+  - the second example 'total_publishers_users' is sent via a hash and a custom label is set, if used in the first examples method the header would be 'Publisher', but sent as a hash the header is 'Number of publisher users'.
+
 === USING WITH RAILS
 
 When used with Rails (ie. add 'comma' as a gem dependency), Comma automatically adds support for rendering CSV output in your controllers:
