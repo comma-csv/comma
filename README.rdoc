@@ -162,16 +162,6 @@ If you have any questions or suggestions for Comma, please feel free to contact 
 
 
 ## TODO:
-* Add specs and instructions to readme for array usage (sequential commands) eg : on a trade object:
-
-comma do
- bid  [:creator, :name, :to_s, :titleize]
- buyer
- seller
-
-end
-
-will sequentially run the commands on the initial item, great for complex relationships
 
 * Add readme info for using lambda in comma description :
 eg:
