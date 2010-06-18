@@ -182,3 +182,28 @@ comma do
   created_at &time_to_s
   updated_at &time_to_s
 end
+
+* Add ability to label passed arrays (still necessary with lambdas improved with labels?)
+* Add readme + spec for block with label
+eg:
+
+omma :internal do
+  bid_creator_name = lambda{ |bid| trade.try(:creator).try(:name) || ''}
+  bid_creator_name2 = lambda{ |bid| trade.try(:creator).try(:to_s) || ''}
+  reference
+
+  seller :name => 'Seller'
+  buyer :name  => 'Buyer'
+  bid  bid_creator_name => 'Something'   #ADD INFO ABOUT THIS LINE!
+  bid &bid_creator_name2
+
+  grain_type :name
+  bin_grade  :code => 'Bin Grade'
+  bhc_site   :state, :name => 'Site', :bulk_handler => 'BHC', :port => 'Port Zone'
+
+  traded_quantity
+  trade_price_per_ton
+  created_at 'Date'
+end
+
+

@@ -22,7 +22,6 @@ module Comma
 
     def method_missing(sym, *args, &block)
       @results << sym.to_s.humanize if args.blank?
-
       args.each do |arg|
         case arg
         when Hash
@@ -54,10 +53,13 @@ module Comma
         case arg
         when Hash
           arg.each do |k, v|
-            if block
-              @results << (@instance.send(sym).nil? ? '' : yield(@instance.send(sym).send(k)).to_s )
+            obj = @instance.send(sym)
+            if !obj
+              @results << ''
+              next
             else
-              @results << (@instance.send(sym).nil? ? '' : @instance.send(sym).send(k).to_s )
+              value = Proc === k ? k.call(obj) : obj.send(k)
+              @results << (block ? (value.to_s) : value.to_s
             end
           end
         when Symbol
