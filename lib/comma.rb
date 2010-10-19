@@ -1,5 +1,5 @@
 # conditional loading of activesupport
-if defined? Rails and Rails.version < '2.3.5'
+if defined? Rails and (Rails.version.split('.').map(&:to_i) <=> [2,3,5]) < 0
   require 'activesupport'
 else
   require 'active_support/core_ext/class/inheritable_attributes'
