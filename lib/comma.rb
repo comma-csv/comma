@@ -13,7 +13,7 @@ else
   begin
     # try faster csv
     require 'fastercsv'
-  rescue StandardError => e
+  rescue Exception => e
     if defined? Rails
       Rails.logger.info "FasterCSV not installed, falling back on CSV"
     else
