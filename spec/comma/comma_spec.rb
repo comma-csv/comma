@@ -172,14 +172,12 @@ describe Comma, 'to_comma data/headers object extensions' do
       class Foo
         attr_accessor :content, :created_at, :updated_at
         comma do
-          time_to_s = lambda { |i| i && i.to_s(:db) }
-          time_short = lambda { |i| i && i.to_s(:short) }
           content
           content('Truncated Content') {|i| i && i.length > 10 ? i[0..10] : '---' }
-          created_at &time_to_s
-          updated_at &time_to_s
-          created_at time_short => 'Created Custom Label'
-          updated_at time_short => 'Updated at Custom Label'
+          created_at { |i| i && i.to_s(:db) }
+          updated_at { |i| i && i.to_s(:db) }
+          created_at 'Created Custom Label' do |i| i && i.to_s(:short) end
+          updated_at 'Updated at Custom Label' do |i| i && i.to_s(:short) end
         end
 
         def initialize(content, created_at = Time.now, updated_at = Time.now)

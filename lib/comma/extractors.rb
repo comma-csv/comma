@@ -51,12 +51,10 @@ module Comma
         case arg
         when Hash
           arg.each do |k, v|
-            obj = @instance.send(sym)
-            if !obj
-              @results << ''
+            if block
+              @results << (@instance.send(sym).nil? ? '' : yield(@instance.send(sym).send(k)).to_s )
             else
-              value = Proc === k ? k.call(obj) : obj.send(k)
-              @results << (block ? (value.to_s) : value.to_s)
+              @results << (@instance.send(sym).nil? ? '' : @instance.send(sym).send(k).to_s )
             end
           end
         when Symbol

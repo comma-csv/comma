@@ -150,15 +150,13 @@ For more complex relationships you can pass blocks for calculated values, or rel
    # = CSV support =
    # ===============
    comma do
-     publishers_contact     = lambda { |publisher| publisher.primary_contact.name.to_s.titleize }
-     total_publisher_users  = lambda { |publisher| publisher.users.size }
      name
      description
 
      pages :size => 'Pages'
      publisher :name
-     publisher &publishers_contact
-     publisher total_publishers_users => 'Number of publisher users'
+     publisher { |publisher| publisher.primary_contact.name.to_s.titleize }
+     publisher 'Number of publisher users' do |publisher| publisher.users.size end
      isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13'
      blurb 'Summary'
 
