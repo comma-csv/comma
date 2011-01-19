@@ -31,8 +31,15 @@ require 'comma/object'
 require 'comma/render_as_csv'
 
 if defined?(ActiveRecord)
-  require 'comma/named_scope'
   require 'comma/association_proxy'
+end
+
+if defined?(ActiveRecord::NamedScope::Scope)
+  require 'commma/named_scope'
+end
+
+if defined?(ActiveRecord::Relation)
+  require 'comma/relation'
 end
 
 if defined?(ActionController)
