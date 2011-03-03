@@ -25,7 +25,9 @@ module Comma
     private
     def append_csv(csv, iterator_method)
       return '' if @instance.empty?
-      csv << @instance.first.to_comma_headers(@style) # REVISIT: request to optionally include headers
+      if not @options.key? :write_headers || @options[:write_headers]
+        csv << @instance.first.to_comma_headers(@style)
+      end
       @instance.send(iterator_method) do |object|
         csv << object.to_comma(@style)
       end

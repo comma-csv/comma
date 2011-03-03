@@ -125,6 +125,10 @@ You can pass the :filename option and have Comma writes the CSV output to this f
 
  Book.limited(10).to_comma(:filename => 'books.csv')
 
+You also can pass the :write_header option to hide the header line (true is default):
+
+ Book.limited(10).to_comma(:write_headers => false)
+
 == Using blocks
 
 For more complex relationships you can pass blocks for calculated values, or related values. Following the previous example here is a comma set using blocks (both with and without labels for your CSV headings):
