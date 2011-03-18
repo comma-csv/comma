@@ -1,4 +1,4 @@
-require 'activesupport'
+require 'active_support'
 
 # load the right csv library
 if RUBY_VERSION >= '1.9'
