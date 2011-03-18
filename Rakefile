@@ -12,6 +12,7 @@ begin
     gem.homepage = "http://github.com/crafterm/comma"
     gem.authors = ["Marcus Crafter"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.add_dependency("i18n")
     gem.add_dependency("activesupport", ">= 2.2.2")
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
