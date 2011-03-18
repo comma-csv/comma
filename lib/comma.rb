@@ -2,10 +2,10 @@
 if defined? Rails and (Rails.version.split('.').map(&:to_i) <=> [2,3,5]) < 0
   require 'activesupport'
 else
-  require 'active_support'
-  # require 'active_support/i18n'
-  # require 'active_support/core_ext/class/inheritable_attributes'
-  # require 'active_support/core_ext/object/blank'
+  require 'active_support/i18n'
+  require 'active_support/core_ext/class/inheritable_attributes'
+  require 'active_support/core_ext/object/blank'
+  require 'active_support/inflector'
 end
 
 # load the right csv library
