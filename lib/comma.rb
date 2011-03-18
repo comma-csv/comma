@@ -4,6 +4,7 @@ if defined? Rails and (Rails.version.split('.').map(&:to_i) <=> [2,3,5]) < 0
 else
   require 'active_support/core_ext/class/inheritable_attributes'
   require 'active_support/core_ext/object/blank'
+  require 'activesupport/lib/active_support/inflector/inflections'
 end
 
 # load the right csv library
