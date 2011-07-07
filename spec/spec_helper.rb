@@ -1,6 +1,6 @@
 require 'rubygems'
-require 'spec'
-require 'activerecord'
+require 'rspec'
+require 'active_record'
 ActiveRecord::ActiveRecordError # http://tinyurl.com/24f84gf
 
 $:.unshift(File.dirname(__FILE__) + '/../lib')
