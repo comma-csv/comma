@@ -35,6 +35,6 @@ if defined?(ActiveRecord)
   require 'comma/association_proxy'
 end
 
-if defined?(ActionController)
+if defined?(RenderAsCSV) && defined?(ActionController)
   ActionController::Base.send :include, RenderAsCSV
 end
