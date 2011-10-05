@@ -19,7 +19,7 @@ module Comma
   end
 
   class HeaderExtractor < Extractor
-
+    
     def method_missing(sym, *args, &block)
       @results << sym.to_s.humanize if args.blank?
       args.each do |arg|
