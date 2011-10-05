@@ -187,6 +187,17 @@ When used with Rails (ie. add 'comma' as a gem dependency), Comma automatically 
 
  end
 
+You can specify which output format you would like to use by specifying a style parameter:
+ class BooksController < ApplicationController
+
+   def index
+     respond_to do |format|
+       format.csv { render :csv => Book.limited(50), :style => :brief }
+     end
+   end
+
+ end
+
 When used with Rails 2.3.*, Comma also adds support for exporting named scopes:
 
  class Book < ActiveRecord::Base
