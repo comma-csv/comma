@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.version = "0.4.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = [%q{Marcus Crafter}]
-  s.date = %q{2011-10-05}
+  s.authors = ["Marcus Crafter"]
+  s.date = %q{2011-10-14}
   s.description = %q{Ruby Comma Seperated Values generation library}
   s.email = %q{crafterm@redartisan.com}
   s.extra_rdoc_files = [
@@ -36,13 +36,12 @@ Gem::Specification.new do |s|
     "spec/comma/comma_spec.rb",
     "spec/comma/extractors_spec.rb",
     "spec/spec.opts",
-    "spec/spec_helper.rb",
-    "sudo"
+    "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/crafterm/comma}
-  s.require_paths = [%q{lib}]
+  s.require_paths = ["lib"]
   s.rubyforge_project = %q{comma}
-  s.rubygems_version = %q{1.8.6}
+  s.rubygems_version = %q{1.4.2}
   s.summary = %q{Ruby Comma Seperated Values generation library}
 
   if s.respond_to? :specification_version then
