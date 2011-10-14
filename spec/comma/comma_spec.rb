@@ -201,6 +201,16 @@ describe Comma, 'to_comma data/headers object extensions' do
       header, foo = Array(@foo).to_comma.split("\n")
       header.should == ['Content', 'Truncated Content', 'Created at', 'Updated at', 'Created Custom Label', 'Updated at Custom Label'].join(',')
     end
+    
+    it 'should put headers in place when forced' do
+      header, foo = Array(@foo).to_comma(:write_headers => true).split("\n")
+      header.should == ['Content', 'Truncated Content', 'Created at', 'Updated at', 'Created Custom Label', 'Updated at Custom Label'].join(',')
+    end
+        
+    it 'should not write headers if specified' do
+      header, foo = Array(@foo).to_comma(:write_headers => false).split("\n")
+      header.should == [@content, @content[0..10], @time.to_s(:db), @time.to_s(:db), @time.to_s(:short), @time.to_s(:short)].join(',')
+    end
 
   end
 
