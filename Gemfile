@@ -1,7 +1,7 @@
 source :rubygems
 
 gem "activesupport", ">= 2.2.2"
-gem "rspec", "~> 2.3.0"
+gem "rspec", ">= 2.3.0"
 gem "fastercsv"
 
 group :development do
