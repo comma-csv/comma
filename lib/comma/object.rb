@@ -1,5 +1,5 @@
 class Object
-  class_inheritable_accessor :comma_formats
+  class_attribute :comma_formats
 
   def self.comma(style = :default, &block)
     (self.comma_formats ||= {})[style] = block
