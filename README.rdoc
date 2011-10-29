@@ -198,6 +198,10 @@ You can specify which output format you would like to use by specifying a style 
 
  end
 
+With the Rails renderer you can supply any of the regular parameters that you would use with to_comma such as :filename,
+:write_headers, :force_quotes, etc. The parameters just need to be supplied after you specify the collection for the csv as demonstrated
+above.
+
 When used with Rails 2.3.*, Comma also adds support for exporting named scopes:
 
  class Book < ActiveRecord::Base
