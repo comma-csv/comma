@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Comma, 'generating CSV from an ActiveRecord object' do
   before(:all) do
     class Person < ActiveRecord::Base
-      named_scope :teenagers, :conditions => { :age => 13..19 }
+      scope :teenagers, :conditions => { :age => 13..19 }
       comma do
         name
         age
