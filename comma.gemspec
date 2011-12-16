@@ -18,11 +18,10 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency(%q<activesupport>, [">= 2.2.2"])
-  s.add_runtime_dependency(%q<fastercsv>, [">= 0"])
+  s.add_runtime_dependency(%q<fastercsv>, ["1.5.4"])
 
   s.add_development_dependency(%q<rake>, ["0.8.7"])
   s.add_development_dependency(%q<rspec>, ["~> 2.3.0"])
-  s.add_development_dependency(%q<activerecord>, [">= 2.2.2"])
 
+  s.add_development_dependency(%q<appraisal>, [">= 0.4.0"])
 end

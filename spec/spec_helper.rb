@@ -7,7 +7,6 @@ $:.unshift(File.dirname(__FILE__) + '/../lib')
 
 require 'comma'
 
-
 class Book
   attr_accessor :name, :description, :isbn
 
