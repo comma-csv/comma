@@ -1,30 +1,37 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Comma, 'generating CSV from an ActiveRecord object' do
-  before(:all) do
-    class Person < ActiveRecord::Base
+
+  class Person < ActiveRecord::Base
+
+    if defined?(ActiveRecord::Relation)
+      #Rails 3.x
+      scope :teenagers, lambda { {:conditions => { :age => 13..19 }} }
+    else
+      #Rails 2.x
       named_scope :teenagers, :conditions => { :age => 13..19 }
-      comma do
-        name
-        age
-      end
     end
 
-    require 'active_record/connection_adapters/abstract_adapter'
-    Column = ActiveRecord::ConnectionAdapters::Column
+    comma do
+      name
+      age
+    end
+
   end
 
-  before do
-    Person.stub!(:columns).and_return [Column.new('age', 0, 'integer', false),
-                                       Column.new('name', nil, 'string', false) ]
-    Person.stub!(:table_exists?).and_return(true)
+  before(:all) do
+    #Setup AR model in memory
+    ActiveRecord::Base.connection.create_table :people, :force => true do |table|
+      table.column :name, :string
+      table.column :age, :integer
+    end
+    Person.reset_column_information
   end
 
-  describe 'case' do
+  describe "case" do
     before do
-      people = [ Person.new(:age => 18, :name => 'Junior') ]
-      Person.stub!(:find_every).and_return people
-      Person.stub!(:calculate).with(:count, :all, {}).and_return people.size
+      @person = Person.new(:age => 18, :name => 'Junior')
+      @person.save!
     end
 
     it 'should extend ActiveRecord::NamedScope::Scope to add a #to_comma method which will return CSV content for objects within the scope' do

@@ -31,14 +31,12 @@ if defined?(ActiveRecord)
   if defined?(ActiveRecord::Relation)
     #Rails 3.x relations
     require 'comma/relation'
-
   elsif defined?(ActiveRecord::NamedScope::Scope)
     #Rails 2.x scoping
     require 'comma/named_scope'
   end
 
 end
-
 
 require 'comma/extractors'
 require 'comma/generator'

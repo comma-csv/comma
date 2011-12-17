@@ -5,8 +5,8 @@ require "comma/version"
 Gem::Specification.new do |s|
   s.name        = "comma"
   s.version     = Comma::VERSION
-  s.authors     = ["Marcus Crafter", "Tom Meier"]
-  s.email       = ["crafterm@redartisan.com", "tom@venombytes.com"]
+  s.authors     = ["Marcus Crafter"]
+  s.email       = ["crafterm@redartisan.com"]
   s.homepage    = "http://github.com/crafterm/comma"
   s.summary     = %q{Ruby Comma Seperated Values generation library}
   s.description = %q{Ruby Comma Seperated Values generation library}
@@ -21,7 +21,9 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<fastercsv>, ["1.5.4"])
 
   s.add_development_dependency(%q<rake>, ["0.8.7"])
-  s.add_development_dependency(%q<rspec>, ["~> 2.3.0"])
+  s.add_development_dependency('sqlite3', '~> 1.3.4')
+  s.add_development_dependency(%q<rspec>, ["~> 2.7.0"])
 
   s.add_development_dependency(%q<appraisal>, [">= 0.4.0"])
+
 end
