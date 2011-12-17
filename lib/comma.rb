@@ -1,11 +1,12 @@
 # load the right csv library
 if RUBY_VERSION >= '1.9'
   require 'csv'
-  FasterCSV = CSV
+  CSV_HANDLER = CSV
 else
   begin
     # try faster csv
     require 'fastercsv'
+    CSV_HANDLER = FasterCSV
   rescue Exception => e
     fail_message = "FasterCSV not installed, please `gem install fastercsv` for faster processing"
     if defined? Rails
@@ -14,7 +15,7 @@ else
       puts fail_message
     end
     require 'csv'
-    FasterCSV = CSV
+    CSV_HANDLER = CSV
   end
 end
 
