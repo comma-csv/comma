@@ -33,6 +33,7 @@ else
 
     protected
 
+    #TODO : Rails 2.3.x Deprecation
     def render_stream(options)
       status  = options[:status]
       content = options[:content]

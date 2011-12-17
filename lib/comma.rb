@@ -19,6 +19,7 @@ else
   end
 end
 
+#TODO : Rails 2.3.x Deprecation
 # conditional loading of activesupport
 if defined? Rails and (Rails.version.split('.').map(&:to_i) <=> [2,3,5]) < 0
   require 'activesupport'
@@ -29,6 +30,7 @@ end
 if defined?(ActiveRecord)
   require 'comma/association_proxy'
 
+  #TODO : Rails 2.3.x Deprecation
   if defined?(ActiveRecord::Relation)
     #Rails 3.x relations
     require 'comma/relation'
