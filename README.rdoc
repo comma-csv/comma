@@ -223,4 +223,18 @@ If you're on Ruby 1.8.*, the FasterCSV gem is recommended for performance reason
 
 If you have any questions or suggestions for Comma, please feel free to contact me at crafterm@redartisan.com, all feedback welcome!
 
+== TESTING
+
+This gem has been tested on :
+Ruby 1.8.7, 1.9.2
+
+And on Rails 2.x and 3.x.
+
+To run the test suite across multiple gem file sets, we're using [Appraisal](https://github.com/thoughtbot/appraisal), use the following commands :
+
+```
+bundle install
+bundle exec rake appraisals:install
+bundle exec rake appraisals spec
+```
 

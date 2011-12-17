@@ -1,5 +1,5 @@
 PATH
-  remote: .
+  remote: /Users/tom/Development/Projects/comma
   specs:
     comma (0.4.2)
       fastercsv (= 1.5.4)
@@ -7,6 +7,9 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
+    activerecord (2.3.14)
+      activesupport (= 2.3.14)
+    activesupport (2.3.14)
     appraisal (0.4.0)
       bundler
       rake
@@ -27,6 +30,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord (< 3)
+  activesupport (< 3)
   appraisal (>= 0.4.0)
   comma!
   rake (= 0.8.7)
