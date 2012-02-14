@@ -1,12 +1,15 @@
 require 'rubygems'
 require 'rspec'
 require 'active_record'
+
 ActiveRecord::ActiveRecordError # http://tinyurl.com/24f84gf
 
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 
-require 'comma'
+config = YAML::load(IO.read(File.dirname(__FILE__) + '/support/database.yml'))
+ActiveRecord::Base.establish_connection(config['test'])
 
+require 'comma'
 
 class Book
   attr_accessor :name, :description, :isbn
