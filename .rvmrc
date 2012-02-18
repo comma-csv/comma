@@ -1,0 +1,5 @@
+rvm 1.9.2-p290@comma --create
+
+if ! command -v bundle ; then
+  gem install bundler
+fi
