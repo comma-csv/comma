@@ -1,7 +1,7 @@
 if defined?(ActionController::Renderers) && ActionController::Renderers.respond_to?(:add)
   ActionController::Renderers.add :csv do |obj, options|
     filename = options[:filename] || 'data'
-    send_data obj.to_comma, :type => Mime::CSV, :disposition => "attachment; filename=#{filename}.csv"
+    send_data obj.to_comma(options), :type => Mime::CSV, :disposition => "attachment; filename=#{filename}.csv"
   end
 else
   module RenderAsCSV
