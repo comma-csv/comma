@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    comma (0.4.2)
+    comma (0.5.2)
       fastercsv (= 1.5.4)
 
 GEM
