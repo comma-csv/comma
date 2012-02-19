@@ -19,26 +19,18 @@ else
   end
 end
 
-#TODO : Rails 2.3.x Deprecation
-# conditional loading of activesupport
-if defined? Rails and (Rails.version.split('.').map(&:to_i) <=> [2,3,5]) < 0
-  require 'activesupport'
-else
-  require 'active_support/core_ext/class/inheritable_attributes'
-end
+#Enable class_attribute_accessor
+require 'active_support/core_ext/class/inheritable_attributes'
+
+# begin
+#   require 'action_controller'
+# rescue Exception => e
+#   #Force load rails for specs until controller specs completed
+# end
 
 if defined?(ActiveRecord)
   require 'comma/association_proxy'
-
-  #TODO : Rails 2.3.x Deprecation
-  if defined?(ActiveRecord::Relation)
-    #Rails 3.x relations
-    require 'comma/relation'
-  elsif defined?(ActiveRecord::NamedScope::Scope)
-    #Rails 2.x scoping
-    require 'comma/named_scope'
-  end
-
+  require 'comma/named_scope'
 end
 
 require 'comma/extractors'
