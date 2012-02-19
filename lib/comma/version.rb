@@ -1,3 +1,3 @@
 module Comma
-  VERSION = "0.5.2"
+  VERSION = "3.0.0"
 end

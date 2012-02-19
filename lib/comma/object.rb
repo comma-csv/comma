@@ -1,11 +1,5 @@
 class Object
-  if Class.respond_to?(:class_attribute)
-    class_attribute :comma_formats
-  else
-    #TODO : Rails 2.3.x Deprecation
-    #Deprecated method for class accessors - Maintained for those still on Rails 2.3.x
-    class_inheritable_accessor :comma_formats
-  end
+  class_attribute :comma_formats
 
   def self.comma(style = :default, &block)
     (self.comma_formats ||= {})[style] = block

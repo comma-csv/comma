@@ -3,14 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Comma, 'generating CSV from an ActiveRecord object' do
 
   class Person < ActiveRecord::Base
-    #TODO : Rails 2.3.x Deprecation
-    if defined?(ActiveRecord::Relation)
-      #Rails 3.x
-      scope :teenagers, lambda { {:conditions => { :age => 13..19 }} }
-    else
-      #Rails 2.x
-      named_scope :teenagers, :conditions => { :age => 13..19 }
-    end
+    scope :teenagers, lambda { {:conditions => { :age => 13..19 }} }
 
     comma do
       name

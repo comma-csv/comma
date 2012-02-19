@@ -3,50 +3,25 @@ if RUBY_VERSION >= '1.9'
   require 'csv'
   CSV_HANDLER = CSV
 else
-  begin
-    # try faster csv
-    require 'fastercsv'
-    CSV_HANDLER = FasterCSV
-  rescue Exception => e
-    fail_message = "FasterCSV not installed, please `gem install fastercsv` for faster processing"
-    if defined? Rails
-      Rails.logger.info fail_message
-    else
-      puts fail_message
-    end
-    require 'csv'
-    CSV_HANDLER = CSV
-  end
+  raise "Error - This Comma version only supports Ruby 1.9. Please use an older version."
 end
 
-#TODO : Rails 2.3.x Deprecation
-# conditional loading of activesupport
-if defined? Rails and (Rails.version.split('.').map(&:to_i) <=> [2,3,5]) < 0
-  require 'activesupport'
-else
-  require 'active_support/core_ext/class/inheritable_attributes'
+if defined? Rails and (Rails.version.split('.').map(&:to_i).first < 3)
+  raise "Error - This Comma version only supports Rails 3.x. Please use a 2.x version of Comma for use with earlier rails versions."
 end
 
-if defined?(ActiveRecord)
-  require 'comma/association_proxy'
-
-  #TODO : Rails 2.3.x Deprecation
-  if defined?(ActiveRecord::Relation)
-    #Rails 3.x relations
-    require 'comma/relation'
-  elsif defined?(ActiveRecord::NamedScope::Scope)
-    #Rails 2.x scoping
-    require 'comma/named_scope'
-  end
-
-end
+require 'active_support/core_ext/class/attribute'
+require 'comma/relation' if defined?(ActiveRecord::Relation)
 
 require 'comma/extractors'
 require 'comma/generator'
 require 'comma/array'
 require 'comma/object'
-require 'comma/render_as_csv'
 
-if defined?(RenderAsCSV) && defined?(ActionController)
-  ActionController::Base.send :include, RenderAsCSV
+#Load into Rails controllers
+if defined?(ActionController::Renderers) && ActionController::Renderers.respond_to?(:add)
+  ActionController::Renderers.add :csv do |obj, options|
+    filename = options[:filename] || 'data'
+    send_data obj.to_comma, :type => Mime::CSV, :disposition => "attachment; filename=#{filename}.csv"
+  end
 end
