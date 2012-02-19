@@ -200,8 +200,9 @@ For more complex relationships you can pass blocks for calculated values, or rel
 ```
 
 In the preceding example, the 2 new fields added (both based on the publisher relationship) mean that the following will be added:
-  - the first example 'publishers_contact' is loaded straight as a block. The value returned by the lambda is displayed with a header value of 'Publisher'
-  - the second example 'total_publishers_users' is sent via a hash and a custom label is set, if used in the first examples method the header would be 'Publisher', but sent as a hash the header is 'Number of publisher users'.
+
+*   the first example 'publishers_contact' is loaded straight as a block. The value returned by the lambda is displayed with a header value of 'Publisher'
+*   the second example 'total_publishers_users' is sent via a hash and a custom label is set, if used in the first examples method the header would be 'Publisher', but sent as a hash the header is 'Number of publisher users'.
 
 ###USING WITH RAILS
 
@@ -280,8 +281,10 @@ And on multiple Rails 2.x projects.
 To run the test suite across multiple gem file sets, we're using [Appraisal](https://github.com/thoughtbot/appraisal), use the following commands :
 
 ```
+
 bundle install
 bundle exec rake appraisals:install
 bundle exec rake appraisals spec
+
 ```
 
