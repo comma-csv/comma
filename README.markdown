@@ -10,6 +10,23 @@ http://github.com/crafterm/comma
 ##LOOKING FOR RAILS 3?
   Rails 3 is supported in the main branch of this project, and versioned in the 3.x version of this gem. (http://github.com/crafterm/comma)
 
+##INSTALLATION
+
+Comma is distributed as a gem, best installed via Bundler.
+
+Include the gem in your Gemfile:
+
+```Ruby
+  gem "comma", "~> 2.0"
+```
+
+Or, if you want to live life on the edge, you can get master from the main comma repository:
+
+```Ruby
+  gem "comma",  :git => "git://github.com/crafterm/comma.git", :branch => 'rails2'
+```
+
+
 ##DESCRIPTION:
 
 Comma is a CSV (i.e. comma separated values) generation extension for Ruby objects, that lets you seamlessly define a CSV output format via a small DSL. Comma works well on pure Ruby objects with attributes, as well as complex ones such as ActiveRecord objects with associations, extensions, etc. It doesn't distinguish between attributes, methods, associations, extensions, etc. - they all are considered equal and invoked identically via the Comma DSL description. Multiple different CSV output descriptions can also be defined.
