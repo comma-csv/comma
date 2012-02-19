@@ -280,7 +280,7 @@ And on multiple Rails 2.x projects.
 
 To run the test suite across multiple gem file sets, we're using [Appraisal](https://github.com/thoughtbot/appraisal), use the following commands :
 
-```
+```Bash
 
 bundle install
 bundle exec rake appraisals:install
