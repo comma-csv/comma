@@ -153,7 +153,7 @@ You can specify which output format you would like to use via an optional parame
 
 Specifying no description name to to_comma is equivalent to specifying :default as the description name.
 
-You can pass options for FasterCSV, e.g.
+You can pass all options for the CSV renderer (see : http://ruby-doc.org/stdlib-1.9.2/libdoc/csv/rdoc/CSV.html ), e.g.
 
 ```Ruby
  Book.limited(10).to_comma(:style        => :brief,
@@ -239,7 +239,7 @@ When used with Rails (ie. add 'comma' as a gem dependency), Comma automatically 
 
 ```
 
-You can specify which output format you would like to use by specifying a style parameter:
+You can specify which output format you would like to use by specifying a style parameter or adding any available CSV option:
 
 ```Ruby
 
@@ -259,12 +259,12 @@ With the Rails renderer you can supply any of the regular parameters that you wo
 :write_headers, :force_quotes, etc. The parameters just need to be supplied after you specify the collection for the csv as demonstrated
 above.
 
-When used with Rails 2.3.*, Comma also adds support for exporting named scopes:
+When used with Rails 3.+, Comma also adds support for exporting scopes:
 
 ```Ruby
 
  class Book < ActiveRecord::Base
-   named_scope :recent,
+   scope :recent,
                lambda { { :conditions => ['created_at > ?', 1.month.ago] } }
 
    # ...
@@ -272,7 +272,7 @@ When used with Rails 2.3.*, Comma also adds support for exporting named scopes:
 
 ```
 
-Calling the to_comma method on the named scope will internally use Rails' find_each method, instantiating only 1,000 ActiveRecord objects at a time:
+Calling the to_comma method on the scope will internally use Rails' find_each method, instantiating only 1,000 ActiveRecord objects at a time:
 
 ```Ruby
 
@@ -282,18 +282,16 @@ Calling the to_comma method on the named scope will internally use Rails' find_e
 
 ##DEPENDENCIES
 
-If you're on Ruby 1.8.*, the FasterCSV gem is recommended for performance reasons.
-
- gem install fastercsv
+Currently set on Ruby 1.9+.
 
 If you have any questions or suggestions for Comma, please feel free to contact me at tom@venombytes.com, all feedback welcome!
 
 ##TESTING
 
 This gem has been tested on :
-Ruby 1.8.7, 1.9.2
+Ruby 1.9.2
 
-And on multiple Rails 2.x projects.
+And on multiple Rails 3.x versions.
 
 To run the test suite across multiple gem file sets, we're using [Appraisal](https://github.com/thoughtbot/appraisal), use the following commands :
 
