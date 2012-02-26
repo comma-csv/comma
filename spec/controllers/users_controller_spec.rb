@@ -47,6 +47,25 @@ if defined?(ActionController) && defined?(Rails)
         response.body.should              == expected_content
       end
 
+      describe 'with comma options' do
+
+        it 'should allow the style to be chosen from the renderer' do
+          #Must be passed in same format (string/symbol) eg:
+          # format.csv  { render User.all, :style => :shortened }
+
+          get :with_custom_style, :format => :csv
+
+          expected_content =<<-CSV.gsub(/^\s+/,'')
+          First name,Last name
+          Fred,Flintstone
+          Wilma,Flintstone
+          CSV
+
+          response.body.should              == expected_content
+        end
+
+      end
+
       describe 'with custom options' do
 
         it 'should allow a filename to be set' do

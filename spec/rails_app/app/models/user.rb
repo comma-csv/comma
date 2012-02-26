@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
     full_name "Name"
   end
 
-  comma :brief do
+  comma :shortened do
     first_name
     last_name
   end

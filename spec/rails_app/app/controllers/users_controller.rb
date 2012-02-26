@@ -14,4 +14,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def with_custom_style
+    respond_to do |format|
+      format.csv  { render :csv => User.all, :style => :shortened }
+    end
+  end
+
 end

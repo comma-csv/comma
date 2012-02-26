@@ -9,7 +9,7 @@ module Comma
 
       if @style.is_a? Hash
         @options                  = @style.clone
-        @style                    = @options.delete(:style) || :default
+        @style                    = @options.delete(:style) || Comma::DEFAULT_OPTIONS[:style]
         @filename                 = @options.delete(:filename)
       end
     end
