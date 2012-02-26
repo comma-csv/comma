@@ -1,13 +1,20 @@
 require 'rubygems'
 require 'rspec'
 require 'simplecov'
-SimpleCov.start
+
+SimpleCov.start do
+  add_filter  "spec"
+  use_merging true
+  merge_timeout 600
+end
 
 begin
-  #Load Rails
+  #Conditionally load rails app for controller tests if rspec-rails gem is installed
   require "rails_app/config/environment"
   require 'rspec/rails'
   ENV["RAILS_ENV"] = "test"
+
+  SimpleCov.command_name 'rspec:with_rails'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -24,8 +31,9 @@ begin
   end
 
 rescue LoadError => e
-  #Conditionally load rails app for controller tests if rspec-rails gem is installed
   # Normal tests : Basic active record + support only calls
+  SimpleCov.command_name 'rspec:without_rails'
+
   require 'active_record'
 
   config = YAML::load(IO.read(File.dirname(__FILE__) + '/rails_app/config/database.yml'))
