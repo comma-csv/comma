@@ -22,7 +22,10 @@ require 'comma/object'
 #Load into Rails controllers
 if defined?(ActionController::Renderers) && ActionController::Renderers.respond_to?(:add)
   ActionController::Renderers.add :csv do |obj, options|
-    filename = options[:filename] || 'data'
-    send_data obj.to_comma, :type => Mime::CSV, :disposition => "attachment; filename=#{filename}.csv"
+    filename    = options[:filename] || 'data'
+    #Capture any CSV optional settings passed to comma
+    csv_options = options.slice(*CSV_HANDLER::DEFAULT_OPTIONS.merge(:write_headers => nil).keys)
+
+    send_data obj.to_comma(csv_options), :type => Mime::CSV, :disposition => "attachment; filename=#{filename}.csv"
   end
 end
