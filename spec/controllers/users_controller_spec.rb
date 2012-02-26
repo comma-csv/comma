@@ -4,12 +4,24 @@ if defined?(ActionController) && defined?(Rails)
 
   describe UsersController do
 
-    before(:each) do
-      @user_1 = User.create!(:first_name => 'Fred', :last_name => 'Flintstone')
-      @user_2 = User.create!(:first_name => 'Wilma', :last_name => 'Flintstone')
+    describe "rails setup" do
+
+      it 'should capture the CSV renderer provided by Rails' do
+        mock_users = [mock_model(User), mock_model(User)]
+        User.stub!(:all).and_return(mock_users)
+
+        mock_users.should_receive(:to_comma).once
+
+        get :index, :format => :csv
+      end
+
     end
 
     describe "basic controller" do
+      before(:each) do
+        @user_1 = User.create!(:first_name => 'Fred', :last_name => 'Flintstone')
+        @user_2 = User.create!(:first_name => 'Wilma', :last_name => 'Flintstone')
+      end
 
       it 'should not affect html requested' do
         get :index
@@ -34,6 +46,7 @@ if defined?(ActionController) && defined?(Rails)
 
         response.body.should              == expected_content
       end
+
     end
   end
 end
