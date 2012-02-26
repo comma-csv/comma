@@ -305,3 +305,9 @@ bundle exec rake appraisals spec
 
 ```
 
+When rebuilding for a new rails version, to test across controller and the stack itself, a fake rails app must be generated :
+
+```
+rails plugin new rails_app --full --dummy-path=spec/dummy --skip-bundle --skip-gemspec --skip-test-unit --skip-sprockets --skip-javascript --skip-gemfile --skip-git
+```
+

@@ -11,6 +11,7 @@ if defined? Rails and (Rails.version.split('.').map(&:to_i).first < 3)
 end
 
 require 'active_support/core_ext/class/attribute'
+require 'active_support/core_ext/module/delegation'
 require 'comma/relation' if defined?(ActiveRecord::Relation)
 
 require 'comma/extractors'

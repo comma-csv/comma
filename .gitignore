@@ -2,3 +2,4 @@ pkg/*
 .*.swp
 *~
 .bundle
+spec/rails_app/log

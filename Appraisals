@@ -3,6 +3,7 @@
 
   appraise "rails#{ clean_number }" do
     gem "rails", version_number
+    gem "rspec-rails"
   end
 
   appraise "active#{ clean_number }" do
