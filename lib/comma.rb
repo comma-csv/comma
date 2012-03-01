@@ -3,7 +3,14 @@ if RUBY_VERSION >= '1.9'
   require 'csv'
   CSV_HANDLER = CSV
 else
-  raise "Error - This Comma version only supports Ruby 1.9. Please use an older version."
+  begin
+    gem 'fastercsv'
+    require 'fastercsv'
+
+    CSV_HANDLER = FasterCSV
+  rescue LoadError => e
+    raise "Error : FasterCSV not installed, please `gem install fastercsv` for faster processing on <Ruby 1.9"
+  end
 end
 
 if defined? Rails and (Rails.version.split('.').map(&:to_i).first < 3)
