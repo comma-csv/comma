@@ -3,4 +3,5 @@ pkg/*
 *~
 .bundle
 spec/rails_app/log
-spec/rails_app/db/development.sqlite3
+spec/rails_app/db/development.sqlite*
+.rbx/
