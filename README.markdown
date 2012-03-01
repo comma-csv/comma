@@ -3,13 +3,14 @@
 http://github.com/crafterm/comma
 
 ##COMPATIBILITY
-  The mainline of this project builds gems to the 3.x version series, and is compatible and tested with :
-    - Ruby 1.8.7, 1.9.1, 1.9.2, 1.9.3
-    - Rails 3.x (all versions)
+The mainline of this project builds gems to the 3.x version series, and is compatible and tested with :
+
+* Ruby 1.8.7, REE 1.8.7, 1.9.2, 1.9.3
+* Rails 3.x (all versions)
 
 [![Build Status](https://secure.travis-ci.org/crafterm/comma.png)](http://travis-ci.org/crafterm/comma)
 
-##LOOKING FOR RAILS 2?
+###LOOKING FOR RAILS 2?
 *   Rails 2 is supported in the 'rails2' branch of this project, and versioned in the 2.x version of this gem. (https://github.com/crafterm/comma/tree/rails2).
 
 ##INSTALLATION

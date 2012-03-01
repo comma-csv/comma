@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    comma (3.0.2)
+    comma (3.0.3)
 
 GEM
   remote: http://rubygems.org/
