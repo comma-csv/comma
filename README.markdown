@@ -7,6 +7,8 @@ http://github.com/crafterm/comma
     - Ruby 1.9.2
     - Rails 3.x
 
+[![Build Status](https://secure.travis-ci.org/crafterm/comma.png)](http://travis-ci.org/crafterm/comma)
+
 ##LOOKING FOR RAILS 2? Ruby 1.8.7?
 *   Rails 2 is supported in the 'rails2' branch of this project, and versioned in the 2.x version of this gem. (https://github.com/crafterm/comma/tree/rails2).
 *   Ruby 1.8.7 has been deprecated in favour of Ruby 1.9+. If you would like to use Ruby 1.8.7 please let me know or use the last compatible version that could be used with Rails 2+3 and Ruby 1.8.7 and Ruby 1.9.2 (Comma version : 0.5.2)
