@@ -1,0 +1,9 @@
+language: ruby
+rvm:
+  - ree
+  - 1.8.7
+  - 1.9.2
+  - 1.9.3
+  - rbx-18mode
+
+script: "bundle exec rake appraisal:install && bundle exec rake appraisal spec"
