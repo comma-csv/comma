@@ -221,6 +221,46 @@ In the preceding example, the 2 new fields added (both based on the publisher re
 *   the first example 'publishers_contact' is loaded straight as a block. The value returned by the lambda is displayed with a header value of 'Publisher'
 *   the second example 'total_publishers_users' is sent via a hash and a custom label is set, if used in the first examples method the header would be 'Publisher', but sent as a hash the header is 'Number of publisher users'.
 
+##Dynamic Columns
+
+There are time when you don't know the number of columns in advance, i.e. if you're storing user defined custom fields.  In that case you can add a 'custom_columns' block that returns an array of two-element arrays.  The .first value of each array is taken as the column header, and the .last value is taken as the column value:
+
+```Ruby
+
+ class Publisher < ActiveRecord::Base
+   serialize :custom_data, Array   # (Array of custom column names)
+ end
+
+ class Book < ActiveRecord::Base
+
+   # ================
+   # = Associations =
+   # ================
+   belongs_to :publisher
+
+   serialize :custom_values, Hash   # (Hash with column name as the key)
+
+   # ===============
+   # = CSV support =
+   # ===============
+   comma do
+     name
+     description
+
+     publisher :name
+
+     custom_columns { publisher.custom_data.collect {|header| [header, custom_values[header]] } } 
+
+   end
+
+ end
+
+```
+
+In the above example, if you had a publisher with ['Copyright', 'Editor', 'Format'] as the custom_data, you'd get those 3 columns added to your CSV output along with the values stored for each Book.
+
+Keep in mind that when you call to_comma on an Array of Book objects, the 'custom_columns' headers will be taken from the first book in your Array.  It's assumed that all of the Book objects in your array have the same custom headers. 
+
 ###USING WITH RAILS
 
 When used with Rails (ie. add 'comma' as a gem dependency), Comma automatically adds support for rendering CSV output in your controllers:
