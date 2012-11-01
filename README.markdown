@@ -259,22 +259,6 @@ You can specify which output format you would like to use by specifying a style 
 
 ```
 
-You can also specify a different file extension ('csv' by default)
-
-```Ruby
-
-class BooksController < ApplicationController
-
-  def index
-    respond_to do |format|
-      format.csv { render :csv => Book.limited(50), :extension => 'txt' }
-    end
-  end
-
-end
-
-```
-
 With the Rails renderer you can supply any of the regular parameters that you would use with to_comma such as :filename,
 :write_headers, :force_quotes, etc. The parameters just need to be supplied after you specify the collection for the csv as demonstrated
 above.
@@ -311,8 +295,8 @@ To run the test suite across multiple gem file sets, we're using [Appraisal](htt
 ```Bash
 
 bundle install
-bundle exec rake appraisal:install
-bundle exec rake appraisal spec
+bundle exec rake appraisals:install
+bundle exec rake appraisals spec
 
 ```
 
