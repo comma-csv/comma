@@ -84,6 +84,12 @@ if defined?(ActionController) && defined?(Rails)
           response.header["Content-Disposition"].should include('filename=data.txt')
         end
 
+        it 'should allow mime type to be set' do
+          get :with_custom_options, :format => :csv, :custom_options => { :mime_type => Mime::TEXT }
+          response.status.should            == 200
+          response.content_type.should      == 'text/plain'
+        end
+
         describe 'headers' do
 
           it 'should allow toggling on' do
