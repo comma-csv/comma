@@ -76,6 +76,14 @@ if defined?(ActionController) && defined?(Rails)
           response.header["Content-Disposition"].should include('filename=my_custom_name.csv')
         end
 
+        it 'should allow a file extension to be set' do
+          get :with_custom_options, :format => :csv, :custom_options => { :extension => :txt }
+
+          response.status.should            == 200
+          response.content_type.should      == 'text/csv'
+          response.header["Content-Disposition"].should include('filename=data.txt')
+        end
+
         describe 'headers' do
 
           it 'should allow toggling on' do
