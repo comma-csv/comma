@@ -300,8 +300,8 @@ To run the test suite across multiple gem file sets, we're using [Appraisal](htt
 ```Bash
 
 bundle install
-bundle exec rake appraisals:install
-bundle exec rake appraisals spec
+bundle exec rake appraisal:install
+bundle exec rake appraisal spec
 
 ```
 
