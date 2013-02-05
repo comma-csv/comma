@@ -1,7 +1,7 @@
 PATH
   remote: /Users/tom/development/projects/current/comma
   specs:
-    comma (3.0.3)
+    comma (3.0.4)
 
 GEM
   remote: http://rubygems.org/
