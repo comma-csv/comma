@@ -32,14 +32,14 @@ module RenderAsCSV
     content = options[:content]
     style   = options[:style]
 
-    unless self.respond_to?(:status=)
-      render :status => status, :text => Proc.new { |response, output|
+    if self.respond_to?(:status=)
+      self.status = status
+      self.response_body = proc { |response, output|
         output.write CSV_HANDLER.generate_line(content.first.to_comma_headers(style))
         content.each { |line| output.write CSV_HANDLER.generate_line(line.to_comma(style)) }
       }
     else
-      self.status = status
-      self.response_body = proc { |response, output|
+      render :status => status, :text => Proc.new { |response, output|
         output.write CSV_HANDLER.generate_line(content.first.to_comma_headers(style))
         content.each { |line| output.write CSV_HANDLER.generate_line(line.to_comma(style)) }
       }
