@@ -1,0 +1,57 @@
+PATH
+  remote: /Users/tom/src/personal/comma
+  specs:
+    comma (3.0.4)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    activemodel (3.1.12)
+      activesupport (= 3.1.12)
+      builder (~> 3.0.0)
+      i18n (~> 0.6)
+    activerecord (3.1.12)
+      activemodel (= 3.1.12)
+      activesupport (= 3.1.12)
+      arel (~> 2.2.3)
+      tzinfo (~> 0.3.29)
+    activesupport (3.1.12)
+      multi_json (~> 1.0)
+    appraisal (0.4.1)
+      bundler
+      rake
+    arel (2.2.3)
+    builder (3.0.4)
+    diff-lcs (1.1.3)
+    fastercsv (1.5.5)
+    i18n (0.6.4)
+    multi_json (1.7.4)
+    rake (0.9.6)
+    rspec (2.8.0)
+      rspec-core (~> 2.8.0)
+      rspec-expectations (~> 2.8.0)
+      rspec-mocks (~> 2.8.0)
+    rspec-core (2.8.0)
+    rspec-expectations (2.8.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.8.0)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
+    sqlite3 (1.3.7)
+    tzinfo (0.3.37)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  activerecord (= 3.1.12)
+  activesupport (= 3.1.12)
+  appraisal (~> 0.4.1)
+  comma!
+  fastercsv
+  rake (~> 0.9.2)
+  rspec (~> 2.8.0)
+  simplecov
+  sqlite3 (~> 1.3.4)
