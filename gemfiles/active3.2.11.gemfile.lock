@@ -1,5 +1,5 @@
 PATH
-  remote: /Users/tom/development/projects/current/comma
+  remote: /Users/tom/src/personal/comma
   specs:
     comma (3.0.4)
 
