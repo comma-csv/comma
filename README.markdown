@@ -8,7 +8,7 @@ The mainline of this project builds gems to the 3.x version series, and is compa
 * Ruby 1.8.7, 1.9.2, 1.9.3
 * REE 1.8.7
 * RBX 1.8
-* Rails 3.x (all versions)
+* Rails 3.x (all versions, with ActiveRecord and Mongoid support)
 
 [![Build Status](https://secure.travis-ci.org/crafterm/comma.png)](http://travis-ci.org/crafterm/comma)
 
