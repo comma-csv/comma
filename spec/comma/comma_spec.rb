@@ -224,4 +224,53 @@ describe Comma, 'to_comma data/headers object extensions' do
 
   end
 
+  describe 'with custom_columns' do
+    before do
+      class Bar
+        attr_accessor :content, :custom_headers, :custom_fields
+
+        comma do
+          content
+          custom_columns {
+            arr = []
+            (0...custom_headers.size).each {|i| arr << [custom_headers[i], custom_fields[i]]}
+            arr
+          }
+        end
+
+        def initialize(content, custom_headers = [], custom_fields = [])
+          @content = content
+          @custom_headers = custom_headers
+          @custom_fields = custom_fields
+        end
+      end
+
+      @content = 'content ' * 5
+      @custom_headers = ['Header 1', 'Header 2']
+      @custom_fields = ['Value 1', 'Value 2']
+      @bar = Bar.new @content, @custom_headers, @custom_fields
+    end
+
+    it 'should return yielded values by block' do
+      header, bar = Array(@bar).to_comma.split("\n")
+      bar.should == [@content, @custom_fields.flatten].join(',')
+    end
+
+    it 'should return headers with custom labels from block' do
+      header, bar = Array(@bar).to_comma.split("\n")
+      header.should == ['Content', @custom_headers.flatten].join(',')
+    end
+
+    it 'should return headers with custom labels from block' do
+      header, bar = Array(@bar).to_comma(:write_headers => true).split("\n")
+      header.should == ['Content', @custom_headers.flatten].join(',')
+    end
+
+    it 'should not write headers if specified' do
+      header, bar = Array(@bar).to_comma(:write_headers => false).split("\n")
+      header.should == [@content, @custom_fields.flatten].join(',')
+    end
+
+  end
+
 end

@@ -36,6 +36,7 @@ end
 require 'comma/extractors'
 require 'comma/generator'
 require 'comma/array'
+require 'comma/gen'
 require 'comma/object'
 require 'comma/render_as_csv'
 
