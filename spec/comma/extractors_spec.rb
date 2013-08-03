@@ -103,3 +103,19 @@ describe Comma::DataExtractor, 'id attribute' do
     @data.should include('42')
   end
 end
+
+describe Comma::DataExtractor, 'nil value' do
+  before do
+    @data = Class.new(Struct.new(:id, :name)) do
+      comma do
+        name
+        name 'Name'
+        name 'Name' do |name| nil end
+      end
+    end.new(1, nil).to_comma
+  end
+
+  it 'should extract nil' do
+    @data.should eq([nil, nil, nil])
+  end
+end
