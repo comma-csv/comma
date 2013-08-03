@@ -37,6 +37,10 @@ module Comma
         end
       end
     end
+
+    def __static_column__(header = '', &block)
+      @results << header
+    end
   end
 
   class DataExtractor < Extractor
@@ -69,6 +73,10 @@ module Comma
           raise "Unknown data symbol #{arg.inspect}"
         end
       end
+    end
+
+    def __static_column__(header = nil, &block)
+      @results << (block ? yield : nil)
     end
   end
 end
