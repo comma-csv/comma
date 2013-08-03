@@ -89,3 +89,17 @@ describe Comma::DataExtractor do
   end
 
 end
+
+describe Comma::DataExtractor, 'id attribute' do
+  before do
+    @data = Class.new(Struct.new(:id)) do
+      comma do
+        id 'ID' do |id| '42' end
+      end
+    end.new(1).to_comma
+  end
+
+  it 'id attribute should yield block' do
+    @data.should include('42')
+  end
+end
