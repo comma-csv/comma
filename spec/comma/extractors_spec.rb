@@ -50,6 +50,22 @@ describe Comma::HeaderExtractor do
 
 end
 
+describe Comma::HeaderExtractor, 'with static column method' do
+  before do
+    @headers = Class.new(Struct.new(:id, :name)) do
+      comma do
+        __static_column__
+        __static_column__ 'STATIC'
+        __static_column__ 'STATIC' do '' end
+      end
+    end.new(1, 'John Doe').to_comma_headers
+  end
+
+  it 'should extract headers' do
+    @headers.should eq(['', 'STATIC', 'STATIC'])
+  end
+end
+
 describe Comma::DataExtractor do
 
   before do
@@ -101,5 +117,21 @@ describe Comma::DataExtractor, 'id attribute' do
 
   it 'id attribute should yield block' do
     @data.should include('42')
+  end
+end
+
+describe Comma::DataExtractor, 'with static column method' do
+  before do
+    @data = Class.new(Struct.new(:id, :name)) do
+      comma do
+        __static_column__
+        __static_column__ 'STATIC'
+        __static_column__ 'STATIC' do '' end
+      end
+    end.new(1, 'John Doe').to_comma
+  end
+
+  it 'should extract headers' do
+    @data.should eq([nil, nil, ''])
   end
 end
