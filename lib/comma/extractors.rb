@@ -21,7 +21,7 @@ module Comma
   class HeaderExtractor < Extractor
     
     def method_missing(sym, *args, &block)
-      @results << sym.to_s.humanize if args.blank?
+      @results << humanize(sym) if args.blank?
       args.each do |arg|
         case arg
         when Hash
@@ -37,6 +37,16 @@ module Comma
         end
       end
     end
+    
+    def humanize(sym)
+      klass = @instance.class
+      if klass.respond_to? :human_attribute_name
+        klass.human_attribute_name(sym)
+      else
+        sym.to_s.humanize
+      end
+    end
+    
   end
 
   class DataExtractor < Extractor
