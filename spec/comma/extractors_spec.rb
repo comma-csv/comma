@@ -135,3 +135,19 @@ describe Comma::DataExtractor, 'with static column method' do
     @data.should eq([nil, nil, ''])
   end
 end
+
+describe Comma::DataExtractor, 'nil value' do
+  before do
+    @data = Class.new(Struct.new(:id, :name)) do
+      comma do
+        name
+        name 'Name'
+        name 'Name' do |name| nil end
+      end
+    end.new(1, nil).to_comma
+  end
+
+  it 'should extract nil' do
+    @data.should eq([nil, nil, nil])
+  end
+end
