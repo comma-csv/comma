@@ -10,7 +10,7 @@ The mainline of this project builds gems to the 3.x version series, and is compa
 * RBX 1.8
 * Rails 3.x (all versions)
 
-[![Build Status](https://secure.travis-ci.org/crafterm/comma.png)](http://travis-ci.org/crafterm/comma)
+[![Build Status](https://travis-ci.org/comma-csv/comma.png?branch=master)](https://travis-ci.org/comma-csv/comma)
 
 ###LOOKING FOR RAILS 2?
 *   Rails 2 is supported in the 'rails2' branch of this project, and versioned in the 2.x version of this gem. (https://github.com/crafterm/comma/tree/rails2).
