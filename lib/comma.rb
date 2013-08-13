@@ -27,6 +27,7 @@ end
 require 'active_support/core_ext/class/attribute'
 require 'active_support/core_ext/module/delegation'
 require 'comma/relation' if defined?(ActiveRecord::Relation)
+require 'comma/mongoid'
 
 require 'comma/extractors'
 require 'comma/generator'
