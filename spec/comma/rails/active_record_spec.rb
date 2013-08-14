@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Comma, 'generating CSV from an ActiveRecord object' do
 
   class Person < ActiveRecord::Base
-    scope :teenagers, lambda { {:conditions => { :age => 13..19 }} }
+    scope :teenagers, lambda { where(:age => 13..19) }
 
     comma do
       name

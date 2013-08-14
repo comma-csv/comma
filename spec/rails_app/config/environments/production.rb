@@ -32,4 +32,6 @@ RailsApp::Application.configure do
   # config.threadsafe!
 
   config.active_support.deprecation = :log
+
+  config.eager_load = true
 end

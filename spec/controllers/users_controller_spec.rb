@@ -18,7 +18,7 @@ if defined?(ActionController) && defined?(Rails)
     end
 
     describe "controller" do
-      before(:each) do
+      before(:all) do
         @user_1 = User.create!(:first_name => 'Fred', :last_name => 'Flintstone')
         @user_2 = User.create!(:first_name => 'Wilma', :last_name => 'Flintstone')
       end
