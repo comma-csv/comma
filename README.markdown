@@ -1,19 +1,21 @@
 #COMMA
 
-http://github.com/crafterm/comma
+http://github.com/comma-csv/comma
+
+[![Gem Version](https://badge.fury.io/rb/comma.png)](http://badge.fury.io/rb/comma)
 
 ##COMPATIBILITY
 The mainline of this project builds gems to the 3.x version series, and is compatible and tested with :
 
 * Ruby 1.8.7, 1.9.2, 1.9.3, 2.0.0
 * REE 1.8.7
-* RBX 1.8
+* RBX 1.8 mode, 1.9 mode
 * Rails 3.x (all versions, with ActiveRecord and Mongoid support)
 
 [![Build Status](https://travis-ci.org/comma-csv/comma.png?branch=master)](https://travis-ci.org/comma-csv/comma)
 
 ###LOOKING FOR RAILS 2?
-*   Rails 2 is supported in the 'rails2' branch of this project, and versioned in the 2.x version of this gem. (https://github.com/crafterm/comma/tree/rails2).
+*   Rails 2 is supported in the 'rails2' branch of this project, and versioned in the 2.x version of this gem. (https://github.com/comma-csv/comma/tree/rails2).
 
 ##INSTALLATION
 
@@ -22,13 +24,13 @@ Comma is distributed as a gem, best installed via Bundler.
 Include the gem in your Gemfile:
 
 ```Ruby
-  gem "comma", "~> 3.0"
+  gem "comma", "~> 3.0.5"
 ```
 
 Or, if you want to live life on the edge, you can get master from the main comma repository:
 
 ```Ruby
-  gem "comma",  :git => "git://github.com/crafterm/comma.git"
+  gem "comma",  :git => "git://github.com/comma-csv/comma.git"
 ```
 
 ##DESCRIPTION:
@@ -225,7 +227,7 @@ In the preceding example, the 2 new fields added (both based on the publisher re
 *   the first example 'publishers_contact' is loaded straight as a block. The value returned by the lambda is displayed with a header value of 'Publisher'
 *   the second example 'total_publishers_users' is sent via a hash and a custom label is set, if used in the first examples method the header would be 'Publisher', but sent as a hash the header is 'Number of publisher users'.
 
-###USING WITH RAILS
+##USING WITH RAILS
 
 When used with Rails (ie. add 'comma' as a gem dependency), Comma automatically adds support for rendering CSV output in your controllers:
 
