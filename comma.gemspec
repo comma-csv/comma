@@ -15,16 +15,16 @@ Gem::Specification.new do |s|
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
   s.licenses = ['MIT']
 
-  s.add_development_dependency(%q<rake>, ["~> 0.9.2"])
-  s.add_development_dependency('sqlite3', '~> 1.3.4')
-  s.add_development_dependency(%q<appraisal>, ["~> 0.4.1"])
+  s.add_dependency 'activesupport', ['>= 3.0.0']
 
-  s.add_development_dependency('rspec', '~> 2.8.0')
-  s.add_development_dependency 'simplecov'
+  s.add_development_dependency 'rake', ['~> 0.9.2']
+  s.add_development_dependency 'sqlite3', ['~> 1.3.4']
+  s.add_development_dependency 'appraisal', ['~> 0.4.1']
+  s.add_development_dependency 'rspec', ['~> 2.8.0']
+  s.add_development_dependency 'simplecov', ['>= 0']
 
 end
