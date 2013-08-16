@@ -127,12 +127,13 @@ describe Comma::DataExtractor, 'with static column method' do
         __static_column__
         __static_column__ 'STATIC'
         __static_column__ 'STATIC' do '' end
+        __static_column__ 'STATIC' do |o| o.name end
       end
     end.new(1, 'John Doe').to_comma
   end
 
   it 'should extract headers' do
-    @data.should eq([nil, nil, ''])
+    @data.should eq([nil, nil, '', 'John Doe'])
   end
 end
 

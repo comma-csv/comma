@@ -80,7 +80,7 @@ module Comma
     end
 
     def __static_column__(header = nil, &block)
-      @results << (block ? yield : nil)
+      @results << (block ? yield(@instance) : nil)
     end
 
     private
