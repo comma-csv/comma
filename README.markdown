@@ -14,6 +14,8 @@ The mainline of this project builds gems to the 3.x version series, and is compa
 
 [![Build Status](https://travis-ci.org/comma-csv/comma.png?branch=master)](https://travis-ci.org/comma-csv/comma)
 
+[![Code Climate](https://codeclimate.com/github/comma-csv/comma.png)](https://codeclimate.com/github/comma-csv/comma)
+
 ###LOOKING FOR RAILS 2?
 *   Rails 2 is supported in the 'rails2' branch of this project, and versioned in the 2.x version of this gem. (https://github.com/comma-csv/comma/tree/rails2).
 
