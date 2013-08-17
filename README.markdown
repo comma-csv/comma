@@ -24,7 +24,7 @@ Comma is distributed as a gem, best installed via Bundler.
 Include the gem in your Gemfile:
 
 ```Ruby
-  gem "comma", "~> 3.0.5"
+  gem "comma", "~> 3.1.0"
 ```
 
 Or, if you want to live life on the edge, you can get master from the main comma repository:
