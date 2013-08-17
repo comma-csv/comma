@@ -225,3 +225,27 @@ describe Comma, 'to_comma data/headers object extensions' do
   end
 
 end
+
+describe Comma, '__use__ keyword' do
+  before(:all) do
+    @obj = Class.new(Struct.new(:id, :title, :description)) do
+      comma do
+        title
+        __use__ :description
+      end
+
+      comma :description do
+        __use__ :static
+        description
+      end
+
+      comma :static do
+        __static_column__ do 'Foo, Inc.' end
+      end
+    end.new(1, 'Programming Ruby', 'The Pickaxe book')
+  end
+
+  subject { @obj.to_comma }
+  its(:size) { should eq(3) }
+  it { should eq(['Programming Ruby', 'Foo, Inc.', 'The Pickaxe book']) }
+end
