@@ -12,3 +12,9 @@
     gem "activerecord", version_number
   end
 end
+
+if RUBY_VERSION >= '1.9.3'
+  appraise 'mongoid3.1.4' do
+    gem 'mongoid', '3.1.4'
+  end
+end
