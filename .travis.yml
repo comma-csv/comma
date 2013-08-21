@@ -1,3 +1,5 @@
+services: mongodb
+
 language: ruby
 rvm:
   - 'ree'
