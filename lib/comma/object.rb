@@ -6,12 +6,21 @@ class Object
   end
 
   def to_comma(style = :default)
-    raise "No comma format for class #{self.class} defined for style #{style}" unless self.comma_formats and self.comma_formats[style]
-    Comma::DataExtractor.new(self, style, self.class.comma_formats).results
+    extract_with(Comma::DataExtractor, style)
   end
 
   def to_comma_headers(style = :default)
-    raise "No comma format for class #{self.class} defined for style #{style}" unless self.comma_formats and self.comma_formats[style]
-    Comma::HeaderExtractor.new(self, style, self.class.comma_formats).results
+    extract_with(Comma::HeaderExtractor, style)
+  end
+
+  private
+
+  def extract_with(extractor_class, style = :default)
+    raise_unless_style_exists(style)
+    extractor_class.new(self, style, self.class.comma_formats).results
+  end
+
+  def raise_unless_style_exists(style)
+    raise "No comma format for class #{self.class} defined for style #{style}" unless self.comma_formats && self.comma_formats[style]
   end
 end
