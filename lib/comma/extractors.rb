@@ -69,7 +69,7 @@ module Comma
 
     def get_association_class(model_class, association)
       model_class.respond_to?(:reflect_on_association) ?
-        model_class.reflect_on_association(arg).klass : nil
+        model_class.reflect_on_association(association).klass : nil
     end
   end
 
