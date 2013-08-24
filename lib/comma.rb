@@ -32,7 +32,6 @@ ActiveSupport.on_load(:mongoid) do
   require 'comma/mongoid'
 end
 
-require 'comma/extractors'
 require 'comma/generator'
 require 'comma/array'
 require 'comma/object'
