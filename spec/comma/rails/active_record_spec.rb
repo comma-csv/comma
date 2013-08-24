@@ -13,6 +13,15 @@ if defined? ActiveRecord
         age
       end
 
+      has_one :job
+
+      comma :issue_75 do
+        job :title
+      end
+    end
+
+    class Job < ActiveRecord::Base
+      belongs_to :person
     end
 
     before(:all) do
@@ -22,14 +31,18 @@ if defined? ActiveRecord
         table.column :age, :integer
       end
       Person.reset_column_information
+
+      ActiveRecord::Base.connection.create_table :jobs, :force => true do |table|
+        table.column :person_id, :integer
+        table.column :title, :string
+      end
+      Job.reset_column_information
+
+      @person = Person.new(:age => 18, :name => 'Junior')
+      @person.save!
     end
 
     describe "case" do
-      before do
-        @person = Person.new(:age => 18, :name => 'Junior')
-        @person.save!
-      end
-
       it 'should extend ActiveRecord::NamedScope::Scope to add a #to_comma method which will return CSV content for objects within the scope' do
         Person.teenagers.to_comma.should == "Name,Age\nJunior,18\n"
       end
@@ -53,8 +66,6 @@ if defined? ActiveRecord
         I18n.config.backend.store_translations(:ja, {:activerecord => {:attributes => {:person => {:age => '年齢', :name => '名前'}}}})
         @original_locale = I18n.locale
         I18n.locale = :ja
-
-        Person.create(:age => 19, :name => 'John')
       end
 
       after do
@@ -66,6 +77,12 @@ if defined? ActiveRecord
 
       it 'should i18n-ize header values' do
         Person.teenagers.to_comma.should match(/^名前,年齢/)
+      end
+    end
+
+    describe 'github issue 75' do
+      it 'should find association' do
+        lambda { Person.all.to_comma(:issue_75) }.should_not raise_error
       end
     end
   end
