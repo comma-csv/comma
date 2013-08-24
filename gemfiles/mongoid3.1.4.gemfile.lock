@@ -1,5 +1,5 @@
 PATH
-  remote: /Users/eito/Sources/private/comma
+  remote: /Users/tom/src/personal/comma
   specs:
     comma (3.1.0)
       activesupport (>= 3.0.0)
