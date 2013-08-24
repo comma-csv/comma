@@ -1,7 +1,7 @@
 PATH
-  remote: /Users/tom/src/personal/comma
+  remote: ..
   specs:
-    comma (3.1.0)
+    comma (3.1.1)
       activesupport (>= 3.0.0)
 
 GEM
