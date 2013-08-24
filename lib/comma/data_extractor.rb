@@ -3,29 +3,69 @@ require 'comma/extractor'
 
 module Comma
 
+
   class DataExtractor < Extractor
+
+    class ExtractValueFromInstance
+      def initialize(instance)
+        @instance = instance
+      end
+
+      def extract(sym, &block)
+        yield_block_with_value(extract_value(sym), &block)
+      end
+
+      private
+
+      def yield_block_with_value(value, &block)
+        block ? yield(value) : value
+      end
+
+      def extract_value(method)
+        extraction_object.send(method)
+      end
+
+      def extraction_object
+        @instance
+      end
+    end
+
+    class ExtractValueFromAssociationOfInstance < ExtractValueFromInstance
+      def initialize(instance, association_name)
+        super(instance)
+        @association_name = association_name
+      end
+
+      private
+
+      def extraction_object
+        @instance.send(@association_name) || null_association
+      end
+
+      def null_association
+        @null_association ||= Class.new(Class.const_defined?(:BasicObject) ? ::BasicObject : ::Object) do
+          def method_missing(symbol, *args, &block)
+            nil
+          end
+        end.new
+      end
+    end
 
     def method_missing(sym, *args, &block)
       if args.blank?
-        @results << yield_block_with_value(
-                      extract_value_from_object(@instance, sym), &block)
+        @results << ExtractValueFromInstance.new(@instance).extract(sym, &block)
       end
 
       args.each do |arg|
         case arg
         when Hash
           arg.each do |k, v|
-            @results << yield_block_with_value(
-                          extract_value_from_object(
-                            get_association(@instance, sym), k), &block)
+            @results << ExtractValueFromAssociationOfInstance.new(@instance, sym).extract(k, &block)
           end
         when Symbol
-          @results << yield_block_with_value(
-                        extract_value_from_object(
-                          get_association(@instance, sym), arg), &block)
+          @results << ExtractValueFromAssociationOfInstance.new(@instance, sym).extract(arg, &block)
         when String
-          @results << yield_block_with_value(
-              extract_value_from_object(@instance, sym), &block)
+          @results << ExtractValueFromInstance.new(@instance).extract(sym, &block)
         else
           raise "Unknown data symbol #{arg.inspect}"
         end
@@ -35,27 +75,5 @@ module Comma
     def __static_column__(header = nil, &block)
       @results << (block ? yield(@instance) : nil)
     end
-
-    private
-
-    def yield_block_with_value(value, &block)
-      block ? yield(value) : value
-    end
-
-    def extract_value_from_object(object, method)
-      object.send(method)
-    end
-
-    def get_association(model, association_name)
-      model.send(association_name) || NullAssociation.new
-    end
-
   end
-
-  class NullAssociation < Class.const_defined?(:BasicObject) ? ::BasicObject : ::Object
-    def method_missing(symbol, *args, &block)
-      nil
-    end
-  end
-
 end
