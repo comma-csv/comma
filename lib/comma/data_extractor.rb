@@ -3,7 +3,6 @@ require 'comma/extractor'
 
 module Comma
 
-
   class DataExtractor < Extractor
 
     class ExtractValueFromInstance
