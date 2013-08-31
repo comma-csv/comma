@@ -18,3 +18,8 @@ if RUBY_VERSION >= '1.9.3'
     gem 'mongoid', '3.1.4'
   end
 end
+
+appraise 'data_mapper1.2.0' do
+  gem 'data_mapper', '1.2.0'
+  gem 'dm-sqlite-adapter', '1.2.0'
+end
