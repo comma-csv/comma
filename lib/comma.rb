@@ -28,9 +28,12 @@ require 'active_support/lazy_load_hooks'
 ActiveSupport.on_load(:active_record) do
   require 'comma/relation' if defined?(ActiveRecord::Relation)
 end
+
 ActiveSupport.on_load(:mongoid) do
   require 'comma/mongoid'
 end
+
+require 'comma/data_mapper_collection' if defined? DataMapper
 
 require 'comma/generator'
 require 'comma/array'

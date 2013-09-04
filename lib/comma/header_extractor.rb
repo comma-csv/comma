@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 require 'comma/extractor'
 require 'active_support/core_ext/class/attribute'
+require 'active_support/core_ext/date_time/conversions'
+require 'active_support/core_ext/object/blank'
+require 'active_support/core_ext/string/inflections'
 
 module Comma
   class HeaderExtractor < Extractor
