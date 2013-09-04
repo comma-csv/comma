@@ -227,6 +227,47 @@ In the preceding example, the 2 new fields added (both based on the publisher re
 *   the first example 'publishers_contact' is loaded straight as a block. The value returned by the lambda is displayed with a header value of 'Publisher'
 *   the second example 'total_publishers_users' is sent via a hash and a custom label is set, if used in the first examples method the header would be 'Publisher', but sent as a hash the header is 'Number of publisher users'.
 
+##Using special fields
+
+###\_\_use\_\_
+
+With `__use__` field, you can reuse output formats that are defined in
+the same class. In the example below, default format (`:default`)
+includes `:minimum` format when `#to_comma` is called.
+
+```ruby
+ class Book < ActiveRecord::Base
+   comma do
+     __use__ :minimum
+
+     description
+
+     isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13'
+   end
+
+   comma :minimum do
+     name
+   end
+ end
+```
+
+###\_\_static_column\_\_
+
+When you want to have static value in your CSV output, you can use
+`__static__` field. You can provide values to output to blocks.
+Without block, field will become empty.
+
+```ruby
+ class Book < ActiveRecord::Base
+   comma do
+     __static_column__ 'Check' do ' ' end
+     name
+     __static_column__ 'Spacer'
+     description
+   end
+ end
+```
+
 ##USING WITH RAILS
 
 When used with Rails (ie. add 'comma' as a gem dependency), Comma automatically adds support for rendering CSV output in your controllers:
