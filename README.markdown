@@ -10,7 +10,7 @@ The mainline of this project builds gems to the 3.x version series, and is compa
 * Ruby 1.8.7, 1.9.2, 1.9.3, 2.0.0
 * REE 1.8.7
 * RBX 1.8 mode, 1.9 mode
-* Rails 3.x (all versions, with ActiveRecord and Mongoid support)
+* Rails 3.x (all versions, with ActiveRecord, DataMapper and Mongoid support)
 
 [![Build Status](https://travis-ci.org/comma-csv/comma.png?branch=master)](https://travis-ci.org/comma-csv/comma) [![Code Climate](https://codeclimate.com/github/comma-csv/comma.png)](https://codeclimate.com/github/comma-csv/comma)
 
@@ -364,4 +364,3 @@ When rebuilding for a new rails version, to test across controller and the stack
 ```
 rails plugin new rails_app --full --dummy-path=spec/dummy --skip-bundle --skip-gemspec --skip-test-unit --skip-sprockets --skip-javascript --skip-gemfile --skip-git
 ```
-
