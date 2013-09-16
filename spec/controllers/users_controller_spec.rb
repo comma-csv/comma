@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-if defined?(ActionController) && defined?(Rails)
+if defined?(Rails)
 
   describe UsersController do
 
