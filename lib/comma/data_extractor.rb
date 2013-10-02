@@ -1,9 +1,17 @@
 # -*- coding: utf-8 -*-
 require 'comma/extractor'
+require 'comma/multicolumn_extractor'
+require 'ostruct'
 
 module Comma
 
   class DataExtractor < Extractor
+
+    def multicolumn(method, &block)
+      Comma::MulticolumnExtractor.new(@instance, method, &block).extract_values.each do |result|
+        @results << result
+      end
+    end
 
     class ExtractValueFromInstance
       def initialize(instance)
