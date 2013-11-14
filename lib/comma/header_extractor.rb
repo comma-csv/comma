@@ -40,13 +40,11 @@ module Comma
 
     private
 
-    def get_association_class(model_class, association)
-      association_class = nil
+    def get_association_class(model_class, association)      
       if model_class.respond_to?(:reflect_on_association)
-        association = model_class.reflect_on_association(association)
-        association_class = association.klass if association
-      end
-      association_class
+        association = model_class.reflect_on_association(association) rescue nil
+        association.klass if association
+      end      
     end
   end
 end
