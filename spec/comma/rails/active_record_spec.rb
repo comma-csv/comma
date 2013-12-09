@@ -22,6 +22,24 @@ if defined? ActiveRecord
 
     class Job < ActiveRecord::Base
       belongs_to :person
+
+      comma do
+        person_formatter :name => 'Name'
+      end
+
+      def person_formatter
+        @person_formatter ||= PersonFormatter.new(self.person)
+      end
+    end
+
+    class PersonFormatter
+      def initialize(persor)
+        @person = persor
+      end
+
+      def name
+        @person.name
+      end
     end
 
     before(:all) do
@@ -39,6 +57,7 @@ if defined? ActiveRecord
       Job.reset_column_information
 
       @person = Person.new(:age => 18, :name => 'Junior')
+      @person.build_job(:title => 'Nice job')
       @person.save!
     end
 
@@ -83,6 +102,12 @@ if defined? ActiveRecord
     describe 'github issue 75' do
       it 'should find association' do
         lambda { Person.all.to_comma(:issue_75) }.should_not raise_error
+      end
+    end
+
+    describe 'with accessor' do
+      it 'should not raise exception' do
+        Job.all.to_comma.should eq("Name\nJunior\n")
       end
     end
   end
