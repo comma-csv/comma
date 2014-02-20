@@ -42,8 +42,8 @@ module Comma
 
     def get_association_class(model_class, association)      
       if model_class.respond_to?(:reflect_on_association)
-        association = model_class.reflect_on_association(association) rescue nil
-        association.klass if association
+        association = model_class.reflect_on_association(association)
+        association.klass rescue nil
       end      
     end
   end
