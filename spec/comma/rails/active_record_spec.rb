@@ -5,6 +5,14 @@ if defined? ActiveRecord
 
   describe Comma, 'generating CSV from an ActiveRecord object' do
 
+    class Picture < ActiveRecord::Base
+      belongs_to :imageable, :polymorphic => true
+
+      comma :pr_83 do
+        imageable :name => 'Picture'
+      end
+    end
+
     class Person < ActiveRecord::Base
       scope :teenagers, lambda { where(:age => 13..19) }
 
@@ -18,6 +26,8 @@ if defined? ActiveRecord
       comma :issue_75 do
         job :title
       end
+
+      has_many :pictures, :as => :imageable
     end
 
     class Job < ActiveRecord::Base
@@ -44,6 +54,12 @@ if defined? ActiveRecord
 
     before(:all) do
       #Setup AR model in memory
+      ActiveRecord::Base.connection.create_table :pictures, :force => true do |table|
+        table.column :name, :string
+        table.column :imageable_id, :integer
+        table.column :imageable_type, :string
+      end
+
       ActiveRecord::Base.connection.create_table :people, :force => true do |table|
         table.column :name, :string
         table.column :age, :integer
@@ -59,6 +75,7 @@ if defined? ActiveRecord
       @person = Person.new(:age => 18, :name => 'Junior')
       @person.build_job(:title => 'Nice job')
       @person.save!
+      Picture.create(:name => 'photo.jpg', :imageable_id => @person.id, :imageable_type => 'Person')
     end
 
     describe "case" do
@@ -108,6 +125,12 @@ if defined? ActiveRecord
     describe 'with accessor' do
       it 'should not raise exception' do
         Job.all.to_comma.should eq("Name\nJunior\n")
+      end
+    end
+
+    describe 'github pull-request 83' do
+      it 'should not raise NameError' do
+        lambda { Picture.all.to_comma(:pr_83) }.should_not raise_exception(NameError)
       end
     end
   end
