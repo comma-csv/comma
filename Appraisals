@@ -1,4 +1,4 @@
-['3.0.20', '3.1.12', '3.2.14', '4.0.0'].each do |version_number|
+['3.0.20', '3.1.12', '3.2.17', '4.0.4'].each do |version_number|
   clean_number = version_number.gsub(/[<>~=]*/, '')
   next if RUBY_VERSION < '1.9.3' && version_number >= '4.0.0'
 
@@ -14,8 +14,8 @@
 end
 
 if RUBY_VERSION >= '1.9.3'
-  appraise 'mongoid3.1.4' do
-    gem 'mongoid', '3.1.4'
+  appraise 'mongoid3.1.6' do
+    gem 'mongoid', '3.1.6'
   end
 end
 
