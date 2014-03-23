@@ -48,7 +48,7 @@ ActiveSupport.on_load(:action_controller) do
       mime_type   = options[:mime_type] || Mime::CSV
       #Capture any CSV optional settings passed to comma or comma specific options
       csv_options = options.slice(*CSV_HANDLER::DEFAULT_OPTIONS.merge(Comma::DEFAULT_OPTIONS).keys)
-      send_data obj.to_comma(csv_options), :type => mime_type, :disposition => "attachment; filename=#{filename}.#{extension}"
+      send_data obj.to_comma(csv_options), :type => mime_type, :disposition => "attachment; filename=\"#{filename}.#{extension}\""
     end
   end
 end

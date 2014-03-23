@@ -47,6 +47,7 @@ class UsersController < ApplicationController
       format.csv  { render :csv => User.all, :style => :shortened }
     end
   end
+
 end
 
 # helpers
