@@ -7,7 +7,40 @@ rvm:
   - '1.9.2'
   - '1.9.3'
   - '2.0.0'
-  - 'rbx-18mode'
-  - 'rbx-19mode'
-before_script: 'bundle exec rake appraisal:install'
-script: 'bundle exec rake appraisal spec'
+  - '2.1.0'
+  - 'rbx-2.1.1'
+gemfile:
+  - gemfiles/active3.0.20.gemfile
+  - gemfiles/active3.1.12.gemfile
+  - gemfiles/active3.2.14.gemfile
+  - gemfiles/active4.0.0.gemfile
+  - gemfiles/data_mapper1.2.0.gemfile
+  - gemfiles/mongoid3.1.4.gemfile
+  - gemfiles/rails3.0.20.gemfile
+  - gemfiles/rails3.1.12.gemfile
+  - gemfiles/rails3.2.14.gemfile
+  - gemfiles/rails4.0.0.gemfile
+matrix:
+  exclude:
+    - rvm: ree
+      gemfile: gemfiles/active4.0.0.gemfile
+    - rvm: ree
+      gemfile: gemfiles/mongoid3.1.4.gemfile
+    - rvm: ree
+      gemfile: gemfiles/rails4.0.0.gemfile
+    - rvm: 1.8.7
+      gemfile: gemfiles/active4.0.0.gemfile
+    - rvm: 1.8.7
+      gemfile: gemfiles/mongoid3.1.4.gemfile
+    - rvm: 1.8.7
+      gemfile: gemfiles/rails4.0.0.gemfile
+    - rvm: 1.9.2
+      gemfile: gemfiles/active4.0.0.gemfile
+    - rvm: 1.9.2
+      gemfile: gemfiles/mongoid3.1.4.gemfile
+    - rvm: 1.9.2
+      gemfile: gemfiles/rails4.0.0.gemfile
+  allow_failures:
+    - rvm: rbx-2.1.1
+  fast_finish: true
+script: 'bundle exec rake spec'
