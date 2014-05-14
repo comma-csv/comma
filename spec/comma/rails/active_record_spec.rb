@@ -149,4 +149,49 @@ if defined? ActiveRecord
     end
   end
 
+  describe Comma, 'generating CSV from an ActiveRecord object using Single Table Inheritance' do
+
+    class Animal < ActiveRecord::Base
+      comma do;
+        name 'Name' do |name|
+          'Super-' + name
+        end
+      end
+    end
+
+    class Dog < Animal
+      comma do
+        name 'Name' do |name|
+          'Dog-' + name
+        end
+      end
+    end
+
+    class Cat < Animal
+    end
+
+    before(:all) do
+      #Setup AR model in memory
+      ActiveRecord::Base.connection.create_table :animals, :force => true do |table|
+        table.column :name, :string
+        table.column :type, :string
+      end
+
+      @dog = Dog.new(:name => 'Rex')
+      @dog.save!
+      @cat = Cat.new(:name => 'Kitty')
+      @cat.save!
+    end
+
+    it 'should return and array of data content, as defined in comma block in child class' do
+      @dog.to_comma.should == %w(Dog-Rex)
+    end
+
+    #FIXME: this one is failing - the comma block from Dog is executed instead of the one from the super class
+    it 'should return and array of data content, as defined in comma block in super class, if not present in child' do
+      @cat.to_comma.should == %w(Super-Kitty)
+    end
+
+  end
+
 end
