@@ -90,7 +90,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  appraisal (~> 0.4.1)
+  appraisal
   comma!
   data_mapper (= 1.2.0)
   dm-sqlite-adapter (= 1.2.0)

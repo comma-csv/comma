@@ -2,8 +2,8 @@
 
 source "http://rubygems.org"
 
-gem "fastercsv", :platforms=>:ruby_18
+gem "fastercsv", :platforms => :ruby_18
 gem "activesupport", "3.0.20"
 gem "activerecord", "3.0.20"
 
-gemspec :path=>"../"
+gemspec :path => "../"

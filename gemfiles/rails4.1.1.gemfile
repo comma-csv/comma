@@ -2,8 +2,8 @@
 
 source "http://rubygems.org"
 
-gem "fastercsv", :platforms=>:ruby_18
+gem "fastercsv", :platforms => :ruby_18
 gem "rails", "4.1.1"
 gem "rspec-rails"
 
-gemspec :path=>"../"
+gemspec :path => "../"
