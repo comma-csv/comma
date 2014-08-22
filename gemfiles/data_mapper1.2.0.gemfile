@@ -2,8 +2,8 @@
 
 source "http://rubygems.org"
 
-gem "fastercsv", :platforms=>:ruby_18
+gem "fastercsv", :platforms => :ruby_18
 gem "data_mapper", "1.2.0"
 gem "dm-sqlite-adapter", "1.2.0"
 
-gemspec :path=>"../"
+gemspec :path => "../"
