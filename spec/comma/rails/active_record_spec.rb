@@ -78,13 +78,27 @@ if defined? ActiveRecord
       Picture.create(:name => 'photo.jpg', :imageable_id => @person.id, :imageable_type => 'Person')
     end
 
-    describe "case" do
+    describe "#to_comma on scopes" do
       it 'should extend ActiveRecord::NamedScope::Scope to add a #to_comma method which will return CSV content for objects within the scope' do
         Person.teenagers.to_comma.should == "Name,Age\nJunior,18\n"
       end
 
       it 'should find in batches' do
-        Person.teenagers.to_comma
+        scope = Person.teenagers
+        scope.should_receive(:find_each).and_yield @person
+        scope.to_comma
+      end
+
+      it 'should fall back to iterating with each when scope has limit clause' do
+        scope = Person.limit(1)
+        scope.should_receive(:each).and_yield @person
+        scope.to_comma
+      end
+
+      it 'should fall back to iterating with each when scope has order clause' do
+        scope = Person.order(:age)
+        scope.should_receive(:each).and_yield @person
+        scope.to_comma
       end
     end
 
