@@ -13,47 +13,61 @@ gemfile:
   - gemfiles/active3.0.20.gemfile
   - gemfiles/active3.1.12.gemfile
   - gemfiles/active3.2.20.gemfile
-  - gemfiles/active4.0.11.gemfile
-  - gemfiles/active4.1.7.gemfile
+  - gemfiles/active4.0.13.gemfile
+  - gemfiles/active4.1.10.gemfile
+  - gemfiles/active4.2.1.gemfile
   - gemfiles/data_mapper1.2.0.gemfile
   - gemfiles/mongoid3.1.6.gemfile
   - gemfiles/rails3.0.20.gemfile
   - gemfiles/rails3.1.12.gemfile
   - gemfiles/rails3.2.20.gemfile
-  - gemfiles/rails4.0.11.gemfile
-  - gemfiles/rails4.1.7.gemfile
+  - gemfiles/rails4.0.13.gemfile
+  - gemfiles/rails4.1.10.gemfile
+  - gemfiles/rails4.2.1.gemfile
 matrix:
   exclude:
     - rvm: ree
-      gemfile: gemfiles/active4.0.11.gemfile
+      gemfile: gemfiles/active4.0.13.gemfile
     - rvm: ree
-      gemfile: gemfiles/active4.1.7.gemfile
+      gemfile: gemfiles/active4.1.10.gemfile
+    - rvm: ree
+      gemfile: gemfiles/active4.2.1.gemfile
     - rvm: ree
       gemfile: gemfiles/mongoid3.1.6.gemfile
     - rvm: ree
-      gemfile: gemfiles/rails4.0.11.gemfile
+      gemfile: gemfiles/rails4.0.13.gemfile
     - rvm: ree
-      gemfile: gemfiles/rails4.1.7.gemfile
+      gemfile: gemfiles/rails4.1.10.gemfile
+    - rvm: ree
+      gemfile: gemfiles/rails4.2.1.gemfile
     - rvm: 1.8.7
-      gemfile: gemfiles/active4.0.11.gemfile
+      gemfile: gemfiles/active4.0.13.gemfile
     - rvm: 1.8.7
-      gemfile: gemfiles/active4.1.7.gemfile
+      gemfile: gemfiles/active4.1.10.gemfile
+    - rvm: 1.8.7
+      gemfile: gemfiles/active4.2.1.gemfile
     - rvm: 1.8.7
       gemfile: gemfiles/mongoid3.1.6.gemfile
     - rvm: 1.8.7
-      gemfile: gemfiles/rails4.0.11.gemfile
+      gemfile: gemfiles/rails4.0.13.gemfile
     - rvm: 1.8.7
-      gemfile: gemfiles/rails4.1.7.gemfile
+      gemfile: gemfiles/rails4.1.10.gemfile
+    - rvm: 1.8.7
+      gemfile: gemfiles/rails4.2.1.gemfile
     - rvm: 1.9.2
-      gemfile: gemfiles/active4.0.11.gemfile
+      gemfile: gemfiles/active4.0.13.gemfile
     - rvm: 1.9.2
-      gemfile: gemfiles/active4.1.7.gemfile
+      gemfile: gemfiles/active4.1.10.gemfile
+    - rvm: 1.9.2
+      gemfile: gemfiles/active4.2.1.gemfile
     - rvm: 1.9.2
       gemfile: gemfiles/mongoid3.1.6.gemfile
     - rvm: 1.9.2
-      gemfile: gemfiles/rails4.0.11.gemfile
+      gemfile: gemfiles/rails4.0.13.gemfile
     - rvm: 1.9.2
-      gemfile: gemfiles/rails4.1.7.gemfile
+      gemfile: gemfiles/rails4.1.10.gemfile
+    - rvm: 1.9.2
+      gemfile: gemfiles/rails4.2.1.gemfile
   allow_failures:
     - rvm: rbx-2.1.1
   fast_finish: true

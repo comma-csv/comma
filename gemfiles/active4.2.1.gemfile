@@ -3,7 +3,7 @@
 source "http://rubygems.org"
 
 gem "fastercsv", :platforms=>:ruby_18
-gem "activesupport", "4.1.7"
-gem "activerecord", "4.1.7"
+gem "activesupport", "4.2.1"
+gem "activerecord", "4.2.1"
 
 gemspec :path=>"../"
