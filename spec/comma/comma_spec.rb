@@ -14,6 +14,18 @@ describe Comma do
     Object.should respond_to(:to_comma_headers)
   end
 
+  describe '.to_comma_header' do
+    it 'should not crash (#94)' do
+      klass = Class.new do
+        attr_accessor :name
+
+        comma :brief do
+          name
+        end
+      end
+      expect { klass.to_comma_headers(:brief) }.to_not raise_error
+    end
+  end
 end
 
 describe Comma, 'generating CSV' do

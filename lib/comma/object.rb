@@ -21,7 +21,7 @@ class Object
 
   def extract_with(extractor_class, style = :default)
     raise_unless_style_exists(style)
-    extractor_class.new(self, style, self.class.comma_formats).results
+    extractor_class.new(self, style, self.comma_formats).results
   end
 
   def raise_unless_style_exists(style)
