@@ -1,6 +1,7 @@
 services: mongodb
 
 language: ruby
+cache: bundler
 rvm:
   - 'ree'
   - '1.8.7'
