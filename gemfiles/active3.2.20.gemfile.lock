@@ -1,7 +1,7 @@
 PATH
   remote: ../
   specs:
-    comma (3.2.2)
+    comma (3.2.3)
       activesupport (>= 3.0.0)
 
 GEM
