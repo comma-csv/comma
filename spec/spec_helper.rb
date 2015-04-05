@@ -2,13 +2,16 @@
 require 'rubygems'
 $LOAD_PATH.unshift(File.expand_path(File.join(*%w{.. .. lib}), __FILE__))
 
-require 'bundler/setup'
-Bundler.require
+require 'coveralls'
+Coveralls.wear!
 
 begin
   require 'rails'
 rescue LoadError
 end
+
+require 'bundler/setup'
+Bundler.require
 
 %w{data_mapper mongoid active_record}.each do |orm|
   begin
