@@ -16,7 +16,8 @@ describe Comma do
 
   describe '.to_comma_header' do
     it 'should not crash (#94)' do
-      klass = Class.new do
+      klass = Class.new
+      klass.instance_eval do
         attr_accessor :name
 
         comma :brief do

@@ -150,12 +150,16 @@ if defined? ActiveRecord
   end
 
   describe Comma, 'generating CSV from an ActiveRecord object using Single Table Inheritance' do
-
     class Animal < ActiveRecord::Base
-      comma do;
+      comma do
         name 'Name' do |name|
           'Super-' + name
         end
+      end
+
+      comma :with_type do
+        name
+        type
       end
     end
 
@@ -192,6 +196,8 @@ if defined? ActiveRecord
       @cat.to_comma.should == %w(Super-Kitty)
     end
 
+    it 'should call definion in parent class' do
+      lambda { @dog.to_comma(:with_type) }.should_not raise_error
+    end
   end
-
 end

@@ -3,19 +3,16 @@ require 'comma/data_extractor'
 require 'comma/header_extractor'
 
 class Object
+  class_attribute :comma_formats
+
   class << self
     def comma(style = :default, &block)
-      (@comma_formats ||= {})[style] = block
+      (self.comma_formats ||= {})[style] = block
     end
 
-    def comma_formats
-      @comma_formats ||= begin
-        if self == Object
-          {}
-        else
-          self.superclass.comma_formats
-        end
-      end
+    def inherited(subclass)
+      super
+      subclass.comma_formats = self.comma_formats ? self.comma_formats.dup : {}
     end
   end
 
@@ -31,12 +28,10 @@ class Object
 
   def extract_with(extractor_class, style = :default)
     raise_unless_style_exists(style)
-    formats = respond_to?(:comma_formats) ? self.comma_formats : self.class.comma_formats
-    extractor_class.new(self, style, formats).results
+    extractor_class.new(self, style, self.comma_formats).results
   end
 
   def raise_unless_style_exists(style)
-    formats = respond_to?(:comma_formats) ? self.comma_formats : self.class.comma_formats
-    raise "No comma format for class #{self.class} defined for style #{style}" unless formats && formats[style]
+    raise "No comma format for class #{self.class} defined for style #{style}" unless self.comma_formats && self.comma_formats[style]
   end
 end
