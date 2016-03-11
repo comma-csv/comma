@@ -112,6 +112,18 @@ if defined?(Rails)
           expect(response.content_type).to eq 'text/plain'
         end
 
+        it 'should allow bom to be set' do
+          get_ :with_custom_options, format: :csv, params: { custom_options: { with_bom: true } }
+
+          expected_content = <<-CSV.gsub(/^\s+/, '')
+          \xEF\xBB\xBFFirst name,Last name,Name
+          Fred,Flintstone,Fred Flintstone
+          Wilma,Flintstone,Wilma Flintstone
+          CSV
+
+          expect(response.body). to eq expected_content
+        end
+
         describe 'headers' do
           it 'should allow toggling on' do
             get_ :with_custom_options, format: :csv, params: { custom_options: { write_headers: 'true' } }

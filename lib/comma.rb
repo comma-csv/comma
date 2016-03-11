@@ -31,12 +31,12 @@ ActiveSupport.on_load(:action_controller) do
     ActionController::Renderers.add :csv do |obj, options|
       filename    = options[:filename]  || 'data'
       extension   = options[:extension] || 'csv'
-
       mime_type = if Rails.version >= '5.0.0'
                     options[:mime_type] || Mime[:csv]
                   else
                     options[:mime_type] || Mime::CSV
                   end
+      with_bom = options.delete(:with_bom) || false
 
       # Capture any CSV optional settings passed to comma or comma specific options
       csv_options = options.slice(*CSV_HANDLER::DEFAULT_OPTIONS.merge(Comma::DEFAULT_OPTIONS).keys)
@@ -50,6 +50,7 @@ ActiveSupport.on_load(:action_controller) do
                end
       end
       data = obj.to_comma(csv_options)
+      data = "\xEF\xBB\xBF#{data}" if with_bom
       disposition = "attachment; filename=\"#{filename}.#{extension}\""
       send_data data, type: mime_type, disposition: disposition
     end
