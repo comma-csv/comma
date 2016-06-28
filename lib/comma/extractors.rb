@@ -19,23 +19,30 @@ module Comma
   end
 
   class HeaderExtractor < Extractor
-    
+
     def method_missing(sym, *args, &block)
-      @results << sym.to_s.humanize if args.blank?
+
+      @results << header_string(sym) if args.blank?
       args.each do |arg|
         case arg
         when Hash
           arg.each do |k, v|
-            @results << ((v.is_a? String) ? v : v.to_s.humanize)
+            @results << ((v.is_a? String) ? v : header_string(sym))
           end
         when Symbol
-          @results << arg.to_s.humanize
+          @results << header_string(arg)
         when String
           @results << arg
         else
           raise "Unknown header symbol #{arg.inspect}"
         end
       end
+    end
+
+    def header_string attribute
+      key = "activerecord.attributes.#{@instance.class.to_s.underscore}.#{attribute.to_s}"
+      ap key
+      I18n.t(key, default: attribute.to_s.humanize)
     end
   end
 
