@@ -41,7 +41,6 @@ module Comma
 
     def header_string attribute
       key = "activerecord.attributes.#{@instance.class.to_s.underscore}.#{attribute.to_s}"
-      ap key
       I18n.t(key, default: attribute.to_s.humanize)
     end
   end
