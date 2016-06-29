@@ -40,8 +40,7 @@ module Comma
     end
 
     def header_string attribute
-      key = "activerecord.attributes.#{@instance.class.to_s.underscore}.#{attribute.to_s}"
-      I18n.t(key, default: attribute.to_s.humanize)
+      @instance.class.human_attribute_name attribute
     end
   end
 
