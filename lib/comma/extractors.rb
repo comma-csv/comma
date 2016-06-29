@@ -27,7 +27,7 @@ module Comma
         case arg
         when Hash
           arg.each do |k, v|
-            @results << ((v.is_a? String) ? v : header_string(sym))
+            @results << ((v.is_a? String) ? v : header_string(v))
           end
         when Symbol
           @results << header_string(arg)
