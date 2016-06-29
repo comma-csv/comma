@@ -103,6 +103,18 @@ if defined?(Rails)
           response.content_type.should      == 'text/plain'
         end
 
+        it 'should allow bom to be set' do
+          get :with_custom_options, :format => :csv, :custom_options => { :with_bom => true }
+
+          expected_content =<<-CSV.gsub(/^\s+/,'')
+          \xEF\xBB\xBFFirst name,Last name
+          Fred,Flintstone
+          Wilma,Flintstone
+          CSV
+
+          response.body.should              == expected_content
+        end
+
         describe 'headers' do
 
           it 'should allow toggling on' do
