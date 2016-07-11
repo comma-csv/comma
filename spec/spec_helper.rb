@@ -5,13 +5,13 @@ $LOAD_PATH.unshift(File.expand_path(File.join(*%w{.. .. lib}), __FILE__))
 require 'coveralls'
 Coveralls.wear!
 
+require 'bundler/setup'
+Bundler.require
+
 begin
   require 'rails'
 rescue LoadError
 end
-
-require 'bundler/setup'
-Bundler.require
 
 %w{data_mapper mongoid active_record}.each do |orm|
   begin

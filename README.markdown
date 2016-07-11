@@ -7,17 +7,11 @@ http://github.com/comma-csv/comma
 ##COMPATIBILITY
 The mainline of this project builds gems to the 3.x version series, and is compatible and tested with :
 
-* Ruby 1.8.7, 1.9.2, 1.9.3, 2.0.0, 2.1
-* REE 1.8.7
-* RBX 1.8 mode, 1.9 mode
-* Rails 3.x, 4.x (all versions, with ActiveRecord, DataMapper and Mongoid support)
+* Ruby 2.x
+* RBX2
+* Rails (all versions, with ActiveRecord, DataMapper and Mongoid support)
 
 [![Build Status](https://travis-ci.org/comma-csv/comma.png?branch=master)](https://travis-ci.org/comma-csv/comma) [![Code Climate](https://codeclimate.com/github/comma-csv/comma.png)](https://codeclimate.com/github/comma-csv/comma)
-
-###LOOKING FOR RAILS 2?
-*   Rails 2 is supported in the 'rails2' branch of this project, and versioned in the 2.x version of this gem. (https://github.com/comma-csv/comma/tree/rails2).
-
-##INSTALLATION
 
 Comma is distributed as a gem, best installed via Bundler.
 
