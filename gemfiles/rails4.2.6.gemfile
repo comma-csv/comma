@@ -3,9 +3,8 @@
 source "https://rubygems.org"
 
 gem "coveralls", :require=>false
-gem "fastercsv", :platforms=>:ruby_18
-gem "rest-client", "> 1.6.2", "< 1.7", :require=>false
-gem "rails", "4.2.1"
+gem "rails", "4.2.6"
 gem "rspec-rails"
+gem "test-unit"
 
 gemspec :path=>"../"

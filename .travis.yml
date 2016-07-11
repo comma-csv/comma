@@ -3,73 +3,25 @@ services: mongodb
 language: ruby
 cache: bundler
 rvm:
-  - 'ree'
-  - '1.8.7'
-  - '1.9.2'
-  - '1.9.3'
-  - '2.0.0'
-  - '2.1.0'
-  - 'rbx-2.1.1'
+  - 2.0
+  - 2.1
+  - 2.2.5
+  - 2.3.1
+  - rbx-2
+  - jruby
 gemfile:
-  - gemfiles/active3.0.20.gemfile
-  - gemfiles/active3.1.12.gemfile
-  - gemfiles/active3.2.20.gemfile
   - gemfiles/active4.0.13.gemfile
-  - gemfiles/active4.1.10.gemfile
-  - gemfiles/active4.2.1.gemfile
-  - gemfiles/data_mapper1.2.0.gemfile
-  - gemfiles/mongoid3.1.6.gemfile
-  - gemfiles/rails3.0.20.gemfile
-  - gemfiles/rails3.1.12.gemfile
-  - gemfiles/rails3.2.20.gemfile
+  - gemfiles/active4.1.15.gemfile
+  - gemfiles/active4.2.6.gemfile
   - gemfiles/rails4.0.13.gemfile
-  - gemfiles/rails4.1.10.gemfile
-  - gemfiles/rails4.2.1.gemfile
+  - gemfiles/rails4.1.15.gemfile
+  - gemfiles/rails4.2.6.gemfile
 matrix:
-  exclude:
-    - rvm: ree
-      gemfile: gemfiles/active4.0.13.gemfile
-    - rvm: ree
-      gemfile: gemfiles/active4.1.10.gemfile
-    - rvm: ree
-      gemfile: gemfiles/active4.2.1.gemfile
-    - rvm: ree
-      gemfile: gemfiles/mongoid3.1.6.gemfile
-    - rvm: ree
-      gemfile: gemfiles/rails4.0.13.gemfile
-    - rvm: ree
-      gemfile: gemfiles/rails4.1.10.gemfile
-    - rvm: ree
-      gemfile: gemfiles/rails4.2.1.gemfile
-    - rvm: 1.8.7
-      gemfile: gemfiles/active4.0.13.gemfile
-    - rvm: 1.8.7
-      gemfile: gemfiles/active4.1.10.gemfile
-    - rvm: 1.8.7
-      gemfile: gemfiles/active4.2.1.gemfile
-    - rvm: 1.8.7
-      gemfile: gemfiles/mongoid3.1.6.gemfile
-    - rvm: 1.8.7
-      gemfile: gemfiles/rails4.0.13.gemfile
-    - rvm: 1.8.7
-      gemfile: gemfiles/rails4.1.10.gemfile
-    - rvm: 1.8.7
-      gemfile: gemfiles/rails4.2.1.gemfile
-    - rvm: 1.9.2
-      gemfile: gemfiles/active4.0.13.gemfile
-    - rvm: 1.9.2
-      gemfile: gemfiles/active4.1.10.gemfile
-    - rvm: 1.9.2
-      gemfile: gemfiles/active4.2.1.gemfile
-    - rvm: 1.9.2
-      gemfile: gemfiles/mongoid3.1.6.gemfile
-    - rvm: 1.9.2
-      gemfile: gemfiles/rails4.0.13.gemfile
-    - rvm: 1.9.2
-      gemfile: gemfiles/rails4.1.10.gemfile
-    - rvm: 1.9.2
-      gemfile: gemfiles/rails4.2.1.gemfile
   allow_failures:
-    - rvm: rbx-2.1.1
+    - rvm: rbx-2
+    - rvm: jruby
   fast_finish: true
+# Need to update because there is a bug in bundler that Travis CI uses.
+before_install:
+  - gem update bundler
 script: 'bundle exec rake spec'

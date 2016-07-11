@@ -3,8 +3,7 @@
 source "https://rubygems.org"
 
 gem "coveralls", :require=>false
-gem "fastercsv", :platforms=>:ruby_18
-gem "rest-client", "> 1.6.2", "< 1.7", :require=>false
-gem "mongoid", "3.1.6"
+gem "activesupport", "4.1.15"
+gem "activerecord", "4.1.15"
 
 gemspec :path=>"../"
