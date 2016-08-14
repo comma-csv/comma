@@ -8,6 +8,9 @@ Coveralls.wear!
 require 'bundler/setup'
 Bundler.require
 
+require 'rspec/active_model/mocks'
+require 'rspec/its'
+
 begin
   require 'rails'
 rescue LoadError
