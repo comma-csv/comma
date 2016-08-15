@@ -2,9 +2,9 @@
 
 source "https://rubygems.org"
 
-gem "coveralls", :require=>false
-gem "rails", "4.1.15"
+gem "coveralls", :require => false
+gem "rails", "5.0.0.1"
 gem "rspec-rails"
 gem "test-unit"
 
-gemspec :path=>"../"
+gemspec :path => "../"

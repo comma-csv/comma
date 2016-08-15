@@ -2,13 +2,13 @@ require 'spec_helper'
 
 if defined?(Rails)
 
-  describe UsersController do
+  RSpec.describe UsersController, type: :controller do
 
     describe "rails setup" do
 
       it 'should capture the CSV renderer provided by Rails' do
         mock_users = [mock_model(User), mock_model(User)]
-        User.stub!(:all).and_return(mock_users)
+        allow(User).to receive(:all).and_return(mock_users)
 
         mock_users.should_receive(:to_comma).once
 

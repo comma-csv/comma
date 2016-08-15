@@ -3,8 +3,7 @@
 source "https://rubygems.org"
 
 gem "coveralls", :require => false
-gem "rails", "4.0.13"
-gem "rspec-rails"
-gem "test-unit"
+gem "activesupport", "4.2.7.1"
+gem "activerecord", "4.2.7.1"
 
 gemspec :path => "../"
