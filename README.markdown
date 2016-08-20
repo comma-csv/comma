@@ -8,8 +8,7 @@ http://github.com/comma-csv/comma
 The mainline of this project builds gems to the 3.x version series, and is compatible and tested with :
 
 * Ruby 2.x
-* RBX2
-* Rails (all versions, with ActiveRecord, DataMapper and Mongoid support)
+* Rails 4.x, 5.0 (with ActiveRecord, DataMapper and Mongoid support)
 
 [![Build Status](https://travis-ci.org/comma-csv/comma.png?branch=master)](https://travis-ci.org/comma-csv/comma) [![Code Climate](https://codeclimate.com/github/comma-csv/comma.png)](https://codeclimate.com/github/comma-csv/comma)
 
@@ -18,7 +17,7 @@ Comma is distributed as a gem, best installed via Bundler.
 Include the gem in your Gemfile:
 
 ```Ruby
-  gem "comma", "~> 3.2.1"
+  gem "comma", "~> 4.0.0"
 ```
 
 Or, if you want to live life on the edge, you can get master from the main comma repository:
@@ -348,13 +347,7 @@ To run the test suite across multiple gem file sets, we're using [Appraisal](htt
 ```Bash
 
 bundle install
-bundle exec rake appraisal:install
-bundle exec rake appraisal spec
+bundle exec appraisal install
+bundle exec appraisal rake spec
 
-```
-
-When rebuilding for a new rails version, to test across controller and the stack itself, a fake rails app must be generated :
-
-```
-rails plugin new rails_app --full --dummy-path=spec/dummy --skip-bundle --skip-gemspec --skip-test-unit --skip-sprockets --skip-javascript --skip-gemfile --skip-git
 ```
