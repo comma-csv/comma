@@ -45,7 +45,13 @@ ActiveSupport.on_load(:action_controller) do
     ActionController::Renderers.add :csv do |obj, options|
       filename    = options[:filename]  || 'data'
       extension   = options[:extension] || 'csv'
-      mime_type   = options[:mime_type] || Mime::CSV
+
+      if Rails.version >= "5.0.0"
+        mime_type   = options[:mime_type] || Mime[:csv]
+      else
+        mime_type   = options[:mime_type] || Mime::CSV
+      end
+
       #Capture any CSV optional settings passed to comma or comma specific options
       csv_options = options.slice(*CSV_HANDLER::DEFAULT_OPTIONS.merge(Comma::DEFAULT_OPTIONS).keys).each_with_object({}) do |(k, v), h|
         # XXX: Convert string to boolean
