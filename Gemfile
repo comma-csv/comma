@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'coveralls', :require => false
-
 gemspec
+
+gem 'coveralls', require: false
+gem 'rubocop', require: false
