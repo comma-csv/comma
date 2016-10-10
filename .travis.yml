@@ -35,4 +35,6 @@ matrix:
 # Need to update because there is a bug in bundler that Travis CI uses.
 before_install:
   - gem update bundler
-script: 'bundle exec rake spec'
+script:
+  - bundle exec rake rubocop
+  - bundle exec rake spec
