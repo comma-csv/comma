@@ -1,3 +1,5 @@
+sudo: false
+
 services: mongodb
 
 language: ruby
