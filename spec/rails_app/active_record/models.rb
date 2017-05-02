@@ -28,7 +28,14 @@ class User < ActiveRecord::Base
   end
 end
 
-class CreateTables < ActiveRecord::Migration
+MIGRATION_CLASS =
+  if Rails::VERSION::STRING =~ /^5.*/
+    ActiveRecord::Migration[4.2]
+  else
+    ActiveRecord::Migration
+  end
+
+class CreateTables < MIGRATION_CLASS
   def self.up
     create_table :users do |t|
       t.string      :first_name
