@@ -67,9 +67,20 @@ if defined?(Rails)
       end
 
       describe 'with custom options' do
+        def is_rails_4?
+          Rails::VERSION::STRING =~ /^4.*/
+        end
+
+        def get_(name, **args)
+          if is_rails_4? && args[:params]
+            args.merge!(args[:params])
+            args.delete(:params)
+          end
+          get name, **args
+        end
 
         it 'should allow a filename to be set' do
-          get :with_custom_options, :format => :csv, :custom_options => { :filename => 'my_custom_name' }
+          get_ :with_custom_options, :format => :csv, :params => { :custom_options => { :filename => 'my_custom_name' } }
 
           response.status.should            == 200
           response.content_type.should      == 'text/csv'
@@ -78,7 +89,7 @@ if defined?(Rails)
 
         it "should allow a custom filename with spaces" do
           require 'shellwords'
-          get :with_custom_options, :format => :csv, :custom_options => { :filename => 'filename with a lot of spaces' }
+          get_ :with_custom_options, :format => :csv, :params => { :custom_options => { :filename => 'filename with a lot of spaces' } }
 
           response.status.should            == 200
           response.content_type.should      == 'text/csv'
@@ -90,7 +101,7 @@ if defined?(Rails)
         end
 
         it 'should allow a file extension to be set' do
-          get :with_custom_options, :format => :csv, :custom_options => { :extension => :txt }
+          get_ :with_custom_options, :format => :csv, :params => { :custom_options => { :extension => :txt } }
 
           response.status.should            == 200
           response.content_type.should      == 'text/csv'
@@ -98,7 +109,7 @@ if defined?(Rails)
         end
 
         it 'should allow mime type to be set' do
-          get :with_custom_options, :format => :csv, :custom_options => { :mime_type => Mime::TEXT }
+          get_ :with_custom_options, :format => :csv, :params => { :custom_options => { :mime_type => 'text/plain' } }
           response.status.should            == 200
           response.content_type.should      == 'text/plain'
         end
@@ -106,7 +117,7 @@ if defined?(Rails)
         describe 'headers' do
 
           it 'should allow toggling on' do
-            get :with_custom_options, :format => :csv, :custom_options => { :write_headers => 'true' }
+            get_ :with_custom_options, :format => :csv, :params => { :custom_options => { :write_headers => 'true' } }
 
             response.status.should            == 200
             response.content_type.should      == 'text/csv'
@@ -121,7 +132,7 @@ if defined?(Rails)
           end
 
           it 'should allow toggling off' do
-            get :with_custom_options, :format => :csv, :custom_options => {:write_headers => false}
+            get_ :with_custom_options, :format => :csv, :params => { :custom_options => {:write_headers => false} }
 
             response.status.should            == 200
             response.content_type.should      == 'text/csv'
@@ -137,7 +148,7 @@ if defined?(Rails)
         end
 
         it 'should allow forcing of quotes' do
-          get :with_custom_options, :format => :csv, :custom_options => { :force_quotes => true }
+          get_ :with_custom_options, :format => :csv, :params => { :custom_options => { :force_quotes => true } }
 
           response.status.should            == 200
           response.content_type.should      == 'text/csv'
@@ -152,7 +163,7 @@ if defined?(Rails)
         end
 
         it 'should allow combinations of options' do
-          get :with_custom_options, :format => :csv, :custom_options => { :write_headers => false, :force_quotes => true, :col_sep => '||', :row_sep => "ENDOFLINE\n" }
+          get_ :with_custom_options, :format => :csv, :params => { :custom_options => { :write_headers => false, :force_quotes => true, :col_sep => '||', :row_sep => "ENDOFLINE\n" } }
 
           response.status.should            == 200
           response.content_type.should      == 'text/csv'

@@ -5,10 +5,10 @@ services: mongodb
 language: ruby
 cache: bundler
 rvm:
-  - 2.0
   - 2.1
   - 2.2.5
   - 2.3.1
+  - 2.4.1
   - rbx-2
   - jruby
 gemfile:
@@ -16,24 +16,39 @@ gemfile:
   - gemfiles/active4.1.16.gemfile
   - gemfiles/active4.2.7.1.gemfile
   - gemfiles/active5.0.0.1.gemfile
+  - gemfiles/active5.1.0.0.gemfile
   - gemfiles/rails4.0.13.gemfile
   - gemfiles/rails4.1.16.gemfile
   - gemfiles/rails4.2.7.1.gemfile
   - gemfiles/rails5.0.0.1.gemfile
+  - gemfiles/rails5.1.0.0.gemfile
 matrix:
   exclude:
-    - rvm: 2.0
-      gemfile: gemfiles/active5.0.0.1.gemfile
     - rvm: 2.1
       gemfile: gemfiles/active5.0.0.1.gemfile
-    - rvm: 2.0
-      gemfile: gemfiles/rails5.0.0.1.gemfile
     - rvm: 2.1
       gemfile: gemfiles/rails5.0.0.1.gemfile
+    - rvm: 2.1
+      gemfile: gemfiles/active5.1.0.0.gemfile
+    - rvm: 2.1
+      gemfile: gemfiles/rails5.1.0.0.gemfile
+    - rvm: 2.4.1
+      gemfile: gemfiles/active4.0.13.gemfile
+    - rvm: 2.4.1
+      gemfile: gemfiles/active4.1.16.gemfile
+    - rvm: 2.4.1
+      gemfile: gemfiles/active4.2.7.1.gemfile
+    - rvm: 2.4.1
+      gemfile: gemfiles/rails4.0.13.gemfile
+    - rvm: 2.4.1
+      gemfile: gemfiles/rails4.1.16.gemfile
+    - rvm: 2.4.1
+      gemfile: gemfiles/rails4.2.7.1.gemfile
   allow_failures:
     - rvm: rbx-2
     - rvm: jruby
   fast_finish: true
+bundler_args: ""
 # Need to update because there is a bug in bundler that Travis CI uses.
 before_install:
   - gem update bundler

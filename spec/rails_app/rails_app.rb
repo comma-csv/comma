@@ -24,18 +24,42 @@ end
 # models
 require 'rails_app/active_record/models' if defined?(ActiveRecord)
 
+def is_rails_4?
+  Rails::VERSION::STRING =~ /^4.*/
+end
+
+if is_rails_4?
+  def symbolize_param_keys(params)
+    params.symbolize_keys
+  end
+else
+  def symbolize_param_keys(params)
+    if params
+      params.to_unsafe_h.symbolize_keys
+    else
+      {}
+    end
+  end
+end
+
 # controllers
 class ApplicationController < ActionController::Base; end
 class UsersController < ApplicationController
   def index
     respond_to do |format|
-      format.html { render :text => 'Users!' }
-      format.csv  { render :csv => User.all  }
+      format.html do
+        if is_rails_4?
+          render :text => 'Users!'
+        else
+          render :plain => 'Users!'
+        end
+      end
+      format.csv  { render :csv => User.all }
     end
   end
 
   def with_custom_options
-    render_options = {:csv => User.all}.update(params[:custom_options].symbolize_keys)
+    render_options = {:csv => User.all}.update(symbolize_param_keys(params[:custom_options]))
 
     respond_to do |format|
       format.csv  { render render_options }
