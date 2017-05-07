@@ -66,6 +66,45 @@ An example Comma CSV enabled ActiveRecord class:
 
 ```
 
+An example Comma CSV enabled ActiveRecord class with a has\_many association:
+
+```Ruby
+
+ class Book < ActiveRecord::Base
+
+   # ================
+   # = Associations =
+   # ================
+   has_many   :pages
+   has_one    :isbn
+   belongs_to :publisher
+
+   # ===============
+   # = CSV support =
+   # ===============
+   comma do
+
+     name
+     description
+
+     publisher :name
+     isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13'
+     blurb 'Summary'
+
+     # Allows for a group of columns per association to be 
+     # added to the end of the csv
+     multicolumn :pages do |result, book, page|
+       # you can add as many columns per association as you want by adding another name, value hash to the result
+
+       result << { "name" => "#{book.name} p#{page.number} - content", "value" => page.content }
+       result << { "name" => "#{book.name}", "value" => page.notes } 
+     end
+   end
+
+ end
+
+```
+
 Annotated, the comma description is as follows:
 
 ```Ruby

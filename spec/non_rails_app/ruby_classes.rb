@@ -29,3 +29,32 @@ class Isbn
 
   def authority; 'ISBN'; end
 end
+
+class MultiAttributeField
+  attr_accessor :name, :address, :number, :children
+
+  def initialize(name, address, number, children = [])
+    @name, @address, @number, @children =  name, address, number, children
+  end
+
+  comma do
+    name
+    multicolumn :children do |result, field, child|
+      result << {'name' => 'OBJ ~ ID',    'value' => child.id}
+      result << {'name' => 'OBJ ~ Name',  'value' => child.name}
+      result << {'name' => 'OBJ ~ Value', 'value' => child.value}
+    end
+  end
+end
+
+class Field
+  attr_accessor :name, :value
+
+  def initialize(name, value)
+    @name, @value = name, value
+  end
+
+  def id
+    123
+  end
+end

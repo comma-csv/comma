@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'comma/extractor'
+require 'comma/multicolumn_extractor'
 require 'active_support/core_ext/class/attribute'
 require 'active_support/core_ext/date_time/conversions'
 require 'active_support/core_ext/object/blank'
@@ -14,6 +15,12 @@ module Comma
       value.is_a?(String) ? value : value.to_s.humanize
     end
     self.value_humanizer = DEFAULT_VALUE_HUMANIZER
+
+    def multicolumn(method, &block)
+      Comma::MulticolumnExtractor.new(@instance, method, &block).extract_header.each do |result|
+        @results << result
+      end
+    end
 
     def method_missing(sym, *args, &block)
       model_class = @instance.class
@@ -40,11 +47,11 @@ module Comma
 
     private
 
-    def get_association_class(model_class, association)      
+    def get_association_class(model_class, association)
       if model_class.respond_to?(:reflect_on_association)
         association = model_class.reflect_on_association(association)
         association.klass rescue nil
-      end      
+      end
     end
   end
 end

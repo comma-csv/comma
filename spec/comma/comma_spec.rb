@@ -83,6 +83,20 @@ describe Comma, 'generating CSV' do # rubocop:disable Metrics/BlockLength
   end
 end
 
+describe Comma, 'generating CSV with multicolumn dynamic fields' do
+  let(:fields) do
+    [].tap do |a|
+      a << Field.new("Foo", "fritz")
+      a << Field.new("Bar", "bank")
+    end
+  end
+  let(:nested_field) { MultiAttributeField.new("Fred", "111 Stone St.", "867-5309", fields) }
+
+  it 'should extend Array to add a #to_comma method which will return CSV content for objects within the array' do
+    [nested_field].to_comma.should == "Name,OBJ ~ ID,OBJ ~ Name,OBJ ~ Value,OBJ ~ ID,OBJ ~ Name,OBJ ~ Value\nFred,123,Foo,fritz,123,Bar,bank\n"
+  end
+end
+
 describe Comma, 'defining CSV descriptions' do
 
   describe 'with an unnamed description' do
