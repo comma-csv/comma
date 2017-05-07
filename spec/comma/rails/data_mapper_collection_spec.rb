@@ -3,7 +3,7 @@ require 'spec_helper'
 
 if defined? DataMapper
 
-  describe Comma, 'generating CSV from an DataMapper object' do
+  describe Comma, 'generating CSV from an DataMapper object' do # rubocop:disable Metrics/BlockLength
 
     class Person
       include DataMapper::Resource

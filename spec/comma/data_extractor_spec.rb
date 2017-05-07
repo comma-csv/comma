@@ -8,7 +8,7 @@ require 'spec_helper'
 #   isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13'
 # end
 
-describe Comma::DataExtractor do
+describe Comma::DataExtractor do # rubocop:disable Metrics/BlockLength
 
   before do
     @isbn = Isbn.new('123123123', '321321321')

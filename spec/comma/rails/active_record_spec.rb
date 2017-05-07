@@ -3,7 +3,7 @@ require 'spec_helper'
 
 if defined? ActiveRecord
 
-  describe Comma, 'generating CSV from an ActiveRecord object' do
+  describe Comma, 'generating CSV from an ActiveRecord object' do # rubocop:disable Metrics/BlockLength
 
     class Picture < ActiveRecord::Base
       belongs_to :imageable, :polymorphic => true
@@ -14,7 +14,7 @@ if defined? ActiveRecord
     end
 
     class Person < ActiveRecord::Base
-      scope :teenagers, lambda { where(:age => 13..19) }
+      scope(:teenagers, lambda { where(:age => 13..19) })
 
       comma do
         name
@@ -149,7 +149,7 @@ if defined? ActiveRecord
     end
   end
 
-  describe Comma, 'generating CSV from an ActiveRecord object using Single Table Inheritance' do
+  describe Comma, 'generating CSV from an ActiveRecord object using Single Table Inheritance' do # rubocop:disable Metrics/BlockLength
     class Animal < ActiveRecord::Base
       comma do
         name 'Name' do |name|
@@ -188,12 +188,12 @@ if defined? ActiveRecord
     end
 
     it 'should return and array of data content, as defined in comma block in child class' do
-      @dog.to_comma.should == %w(Dog-Rex)
+      @dog.to_comma.should == %w[Dog-Rex]
     end
 
     #FIXME: this one is failing - the comma block from Dog is executed instead of the one from the super class
     it 'should return and array of data content, as defined in comma block in super class, if not present in child' do
-      @cat.to_comma.should == %w(Super-Kitty)
+      @cat.to_comma.should == %w[Super-Kitty]
     end
 
     it 'should call definion in parent class' do

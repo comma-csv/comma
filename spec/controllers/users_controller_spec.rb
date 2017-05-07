@@ -2,7 +2,7 @@ require 'spec_helper'
 
 if defined?(Rails)
 
-  RSpec.describe UsersController, type: :controller do
+  RSpec.describe UsersController, type: :controller do # rubocop:disable Metrics/BlockLength
 
     describe "rails setup" do
 
@@ -17,7 +17,7 @@ if defined?(Rails)
 
     end
 
-    describe "controller" do
+    describe "controller" do # rubocop:disable Metrics/BlockLength
       before(:all) do
         @user_1 = User.create!(:first_name => 'Fred', :last_name => 'Flintstone')
         @user_2 = User.create!(:first_name => 'Wilma', :last_name => 'Flintstone')
@@ -26,16 +26,16 @@ if defined?(Rails)
       it 'should not affect html requested' do
         get :index
 
-        response.status.should        == 200
-        response.content_type.should  == 'text/html'
+        response.status.should eq 200
+        response.content_type.should eq 'text/html'
         response.body.should          == 'Users!'
       end
 
       it "should return a csv when requested" do
         get :index, :format => :csv
 
-        response.status.should            == 200
-        response.content_type.should      == 'text/csv'
+        response.status.should eq 200
+        response.content_type.should eq 'text/csv'
         response.header["Content-Disposition"].should include('filename="data.csv"')
 
         expected_content =<<-CSV.gsub(/^\s+/,'')
@@ -66,7 +66,7 @@ if defined?(Rails)
 
       end
 
-      describe 'with custom options' do
+      describe 'with custom options' do # rubocop:disable Metrics/BlockLength
         def is_rails_4?
           Rails::VERSION::STRING =~ /^4.*/
         end
@@ -82,8 +82,8 @@ if defined?(Rails)
         it 'should allow a filename to be set' do
           get_ :with_custom_options, :format => :csv, :params => { :custom_options => { :filename => 'my_custom_name' } }
 
-          response.status.should            == 200
-          response.content_type.should      == 'text/csv'
+          response.status.should eq 200
+          response.content_type.should eq 'text/csv'
           response.header["Content-Disposition"].should include('filename="my_custom_name.csv"')
         end
 
@@ -91,8 +91,8 @@ if defined?(Rails)
           require 'shellwords'
           get_ :with_custom_options, :format => :csv, :params => { :custom_options => { :filename => 'filename with a lot of spaces' } }
 
-          response.status.should            == 200
-          response.content_type.should      == 'text/csv'
+          response.status.should eq 200
+          response.content_type.should eq 'text/csv'
           response.header["Content-Disposition"].should include('filename="filename with a lot of spaces.csv"')
 
           filename_string = response.header["Content-Disposition"].split('=').last
@@ -103,14 +103,14 @@ if defined?(Rails)
         it 'should allow a file extension to be set' do
           get_ :with_custom_options, :format => :csv, :params => { :custom_options => { :extension => :txt } }
 
-          response.status.should            == 200
-          response.content_type.should      == 'text/csv'
+          response.status.should eq 200
+          response.content_type.should eq 'text/csv'
           response.header["Content-Disposition"].should include('filename="data.txt"')
         end
 
         it 'should allow mime type to be set' do
           get_ :with_custom_options, :format => :csv, :params => { :custom_options => { :mime_type => 'text/plain' } }
-          response.status.should            == 200
+          response.status.should eq 200
           response.content_type.should      == 'text/plain'
         end
 
@@ -119,8 +119,8 @@ if defined?(Rails)
           it 'should allow toggling on' do
             get_ :with_custom_options, :format => :csv, :params => { :custom_options => { :write_headers => 'true' } }
 
-            response.status.should            == 200
-            response.content_type.should      == 'text/csv'
+            response.status.should eq 200
+            response.content_type.should eq 'text/csv'
 
             expected_content =<<-CSV.gsub(/^\s+/,'')
             First name,Last name,Name
@@ -134,8 +134,8 @@ if defined?(Rails)
           it 'should allow toggling off' do
             get_ :with_custom_options, :format => :csv, :params => { :custom_options => {:write_headers => false} }
 
-            response.status.should            == 200
-            response.content_type.should      == 'text/csv'
+            response.status.should eq 200
+            response.content_type.should eq 'text/csv'
 
             expected_content =<<-CSV.gsub(/^\s+/,'')
             Fred,Flintstone,Fred Flintstone
@@ -150,8 +150,8 @@ if defined?(Rails)
         it 'should allow forcing of quotes' do
           get_ :with_custom_options, :format => :csv, :params => { :custom_options => { :force_quotes => true } }
 
-          response.status.should            == 200
-          response.content_type.should      == 'text/csv'
+          response.status.should eq 200
+          response.content_type.should eq 'text/csv'
 
           expected_content =<<-CSV.gsub(/^\s+/,'')
           "First name","Last name","Name"
@@ -165,8 +165,8 @@ if defined?(Rails)
         it 'should allow combinations of options' do
           get_ :with_custom_options, :format => :csv, :params => { :custom_options => { :write_headers => false, :force_quotes => true, :col_sep => '||', :row_sep => "ENDOFLINE\n" } }
 
-          response.status.should            == 200
-          response.content_type.should      == 'text/csv'
+          response.status.should eq 200
+          response.content_type.should eq 'text/csv'
 
           expected_content =<<-CSV.gsub(/^\s+/,'')
           "Fred"||"Flintstone"||"Fred Flintstone"ENDOFLINE

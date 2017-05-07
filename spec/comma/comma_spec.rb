@@ -29,7 +29,7 @@ describe Comma do
   end
 end
 
-describe Comma, 'generating CSV' do
+describe Comma, 'generating CSV' do # rubocop:disable Metrics/BlockLength
 
   before do
     @isbn = Isbn.new('123123123', '321321321')
@@ -114,7 +114,7 @@ describe Comma, 'defining CSV descriptions' do
   end
 end
 
-describe Comma, 'to_comma data/headers object extensions' do
+describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable Metrics/BlockLength
 
   describe 'with unnamed descriptions' do
 
@@ -132,11 +132,11 @@ describe Comma, 'to_comma data/headers object extensions' do
     end
 
     it 'should return and array of data content, using the :default CSV description if none requested' do
-      @foo.to_comma.should == %w(content)
+      @foo.to_comma.should == %w[content]
     end
 
     it 'should return and array of header content, using the :default CSV description if none requested' do
-      @foo.to_comma_headers.should == %w(Content)
+      @foo.to_comma_headers.should == %w[Content]
     end
 
     it 'should return the CSV representation including header and content when called on an array' do
@@ -161,11 +161,11 @@ describe Comma, 'to_comma data/headers object extensions' do
     end
 
     it 'should return and array of data content, using the :default CSV description if none requested' do
-      @foo.to_comma(:detailed).should == %w(content)
+      @foo.to_comma(:detailed).should == %w[content]
     end
 
     it 'should return and array of header content, using the :default CSV description if none requested' do
-      @foo.to_comma_headers(:detailed).should == %w(Content)
+      @foo.to_comma_headers(:detailed).should == %w[Content]
     end
 
     it 'should return the CSV representation including header and content when called on an array' do
@@ -180,7 +180,7 @@ describe Comma, 'to_comma data/headers object extensions' do
 
   end
 
-  describe 'with block' do
+  describe 'with block' do # rubocop:disable BlockLength
     before do
       class Foo
         attr_accessor :content, :created_at, :updated_at
@@ -206,22 +206,22 @@ describe Comma, 'to_comma data/headers object extensions' do
     end
 
     it 'should return yielded values by block' do
-      header, foo = Array(@foo).to_comma.split("\n")
+      _header, foo = Array(@foo).to_comma.split("\n")
       foo.should == [@content, @content[0..10], @time.to_s(:db), @time.to_s(:db), @time.to_s(:short), @time.to_s(:short)].join(',')
     end
 
     it 'should return headers with custom labels from block' do
-      header, foo = Array(@foo).to_comma.split("\n")
+      header, _foo = Array(@foo).to_comma.split("\n")
       header.should == ['Content', 'Truncated Content', 'Created at', 'Updated at', 'Created Custom Label', 'Updated at Custom Label'].join(',')
     end
 
     it 'should put headers in place when forced' do
-      header, foo = Array(@foo).to_comma(:write_headers => true).split("\n")
+      header, _foo = Array(@foo).to_comma(:write_headers => true).split("\n")
       header.should == ['Content', 'Truncated Content', 'Created at', 'Updated at', 'Created Custom Label', 'Updated at Custom Label'].join(',')
     end
 
     it 'should not write headers if specified' do
-      header, foo = Array(@foo).to_comma(:write_headers => false).split("\n")
+      header, _foo = Array(@foo).to_comma(:write_headers => false).split("\n")
       header.should == [@content, @content[0..10], @time.to_s(:db), @time.to_s(:db), @time.to_s(:short), @time.to_s(:short)].join(',')
     end
 
@@ -265,11 +265,11 @@ describe Comma, 'to_comma data/headers object extensions' do
     end
 
     it 'should return and array of data content, as defined in comma block in child class' do
-      @childComma.to_comma.should == %w(sub-content)
+      @childComma.to_comma.should == %w[sub-content]
     end
 
     it 'should return and array of data content, as defined in comma block in super class, if not present in child' do
-      @childNoComma.to_comma.should == %w(super-content)
+      @childNoComma.to_comma.should == %w[super-content]
     end
 
   end
