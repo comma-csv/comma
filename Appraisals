@@ -1,4 +1,4 @@
-['4.0.13', '4.1.16', '4.2.7.1', '5.0.0.1'].each do |version_number|
+['4.1.16', '4.2.8', '5.0.1', '5.1.0'].each do |version_number|
   clean_number = version_number.gsub(/[<>~=]*/, '')
 
   appraise "rails#{ clean_number }" do
