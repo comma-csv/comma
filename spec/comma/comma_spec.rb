@@ -3,15 +3,15 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Comma do
 
   it 'should extend object to add a comma method' do
-    Object.should respond_to(:comma)
+    expect(Object).to respond_to(:comma)
   end
 
   it 'should extend object to have a to_comma method' do
-    Object.should respond_to(:to_comma)
+    expect(Object).to respond_to(:to_comma)
   end
 
   it 'should extend object to have a to_comma_headers method' do
-    Object.should respond_to(:to_comma_headers)
+    expect(Object).to respond_to(:to_comma_headers)
   end
 
   describe '.to_comma_header' do
@@ -40,15 +40,15 @@ describe Comma, 'generating CSV' do # rubocop:disable Metrics/BlockLength
   end
 
   it 'should extend Array to add a #to_comma method which will return CSV content for objects within the array' do
-    @books.to_comma.should == "Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n"
+    expect(@books.to_comma).to eq("Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n")
   end
 
   it 'should return an empty string when generating CSV from an empty array' do
-    Array.new.to_comma.should == ''
+    expect(Array.new.to_comma).to eq('')
   end
 
   it "should change the style when specified" do
-    @books.to_comma(:brief).should == "Name,Description\nSmalltalk-80,Language and Implementation\n"
+    expect(@books.to_comma(:brief)).to eq("Name,Description\nSmalltalk-80,Language and Implementation\n")
   end
 
   describe 'with :filename specified' do
@@ -56,27 +56,29 @@ describe Comma, 'generating CSV' do # rubocop:disable Metrics/BlockLength
 
     it "should write to the file" do
       @books.to_comma(:filename => 'comma.csv')
-      File.read('comma.csv').should == "Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n"
+      expect(File.read('comma.csv')).to eq("Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n")
     end
 
     it "should accept FasterCSV options" do
       @books.to_comma(:filename => 'comma.csv', :col_sep => ';', :force_quotes => true)
-      File.read('comma.csv').should == "\"Title\";\"Description\";\"Issuer\";\"ISBN-10\";\"ISBN-13\"\n\"Smalltalk-80\";\"Language and Implementation\";\"ISBN\";\"123123123\";\"321321321\"\n"
+      expect(File.read('comma.csv')).to eq("\"Title\";\"Description\";\"Issuer\";\"ISBN-10\";\"ISBN-13\"\n\"Smalltalk-80\";\"Language and Implementation\";\"ISBN\";\"123123123\";\"321321321\"\n")
     end
 
   end
 
   describe "with FasterCSV options" do
     it "should not change when options are empty" do
-      @books.to_comma({}).should == "Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n"
+      expect(@books.to_comma({})).to eq("Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n")
     end
 
     it 'should accept the options in #to_comma and generate the appropriate CSV' do
-      @books.to_comma(:col_sep => ';', :force_quotes => true).should == "\"Title\";\"Description\";\"Issuer\";\"ISBN-10\";\"ISBN-13\"\n\"Smalltalk-80\";\"Language and Implementation\";\"ISBN\";\"123123123\";\"321321321\"\n"
+      expect(@books.to_comma(:col_sep => ';', :force_quotes => true))
+        .to eq("\"Title\";\"Description\";\"Issuer\";\"ISBN-10\";\"ISBN-13\"\n\"Smalltalk-80\";\"Language and Implementation\";\"ISBN\";\"123123123\";\"321321321\"\n")
     end
 
     it "should change the style when specified" do
-      @books.to_comma(:style => :brief, :col_sep => ';', :force_quotes => true).should == "\"Name\";\"Description\"\n\"Smalltalk-80\";\"Language and Implementation\"\n"
+      expect(@books.to_comma(:style => :brief, :col_sep => ';', :force_quotes => true))
+        .to eq("\"Name\";\"Description\"\n\"Smalltalk-80\";\"Language and Implementation\"\n")
     end
   end
 end
@@ -92,8 +94,8 @@ describe Comma, 'defining CSV descriptions' do
     end
 
     it 'should name the current description :default if no name has been provided' do
-      Foo.comma_formats.should_not be_empty
-      Foo.comma_formats[:default].should_not be_nil
+      expect(Foo.comma_formats).not_to be_empty
+      expect(Foo.comma_formats[:default]).not_to be_nil
     end
   end
 
@@ -107,9 +109,9 @@ describe Comma, 'defining CSV descriptions' do
     end
 
     it 'should use the provided name to index the comma format' do
-      Bar.comma_formats.should_not be_empty
-      Bar.comma_formats[:default].should_not be_nil
-      Bar.comma_formats[:detailed].should_not be_nil
+      expect(Bar.comma_formats).not_to be_empty
+      expect(Bar.comma_formats[:default]).not_to be_nil
+      expect(Bar.comma_formats[:detailed]).not_to be_nil
     end
   end
 end
@@ -132,15 +134,15 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
     end
 
     it 'should return and array of data content, using the :default CSV description if none requested' do
-      @foo.to_comma.should == %w[content]
+      expect(@foo.to_comma).to eq(%w[content])
     end
 
     it 'should return and array of header content, using the :default CSV description if none requested' do
-      @foo.to_comma_headers.should == %w[Content]
+      expect(@foo.to_comma_headers).to eq(%w[Content])
     end
 
     it 'should return the CSV representation including header and content when called on an array' do
-      Array(@foo).to_comma.should == "Content\ncontent\n"
+      expect(Array(@foo).to_comma).to eq("Content\ncontent\n")
     end
 
   end
@@ -161,21 +163,21 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
     end
 
     it 'should return and array of data content, using the :default CSV description if none requested' do
-      @foo.to_comma(:detailed).should == %w[content]
+      expect(@foo.to_comma(:detailed)).to eq(%w[content])
     end
 
     it 'should return and array of header content, using the :default CSV description if none requested' do
-      @foo.to_comma_headers(:detailed).should == %w[Content]
+      expect(@foo.to_comma_headers(:detailed)).to eq(%w[Content])
     end
 
     it 'should return the CSV representation including header and content when called on an array' do
-      Array(@foo).to_comma(:detailed).should == "Content\ncontent\n"
+      expect(Array(@foo).to_comma(:detailed)).to eq("Content\ncontent\n")
     end
 
     it 'should raise an error if the requested description is not avaliable' do
-      lambda { @foo.to_comma(:bad) }.should raise_error
-      lambda { @foo.to_comma_headers(:bad) }.should raise_error
-      lambda { Array(@foo).to_comma(:bad) }.should raise_error
+      expect { @foo.to_comma(:bad) }.to raise_error
+      expect { @foo.to_comma_headers(:bad) }.to raise_error
+      expect { Array(@foo).to_comma(:bad) }.to raise_error
     end
 
   end
@@ -207,22 +209,22 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
 
     it 'should return yielded values by block' do
       _header, foo = Array(@foo).to_comma.split("\n")
-      foo.should == [@content, @content[0..10], @time.to_s(:db), @time.to_s(:db), @time.to_s(:short), @time.to_s(:short)].join(',')
+      expect(foo).to eq([@content, @content[0..10], @time.to_s(:db), @time.to_s(:db), @time.to_s(:short), @time.to_s(:short)].join(','))
     end
 
     it 'should return headers with custom labels from block' do
       header, _foo = Array(@foo).to_comma.split("\n")
-      header.should == ['Content', 'Truncated Content', 'Created at', 'Updated at', 'Created Custom Label', 'Updated at Custom Label'].join(',')
+      expect(header).to eq(['Content', 'Truncated Content', 'Created at', 'Updated at', 'Created Custom Label', 'Updated at Custom Label'].join(','))
     end
 
     it 'should put headers in place when forced' do
       header, _foo = Array(@foo).to_comma(:write_headers => true).split("\n")
-      header.should == ['Content', 'Truncated Content', 'Created at', 'Updated at', 'Created Custom Label', 'Updated at Custom Label'].join(',')
+      expect(header).to eq(['Content', 'Truncated Content', 'Created at', 'Updated at', 'Created Custom Label', 'Updated at Custom Label'].join(','))
     end
 
     it 'should not write headers if specified' do
       header, _foo = Array(@foo).to_comma(:write_headers => false).split("\n")
-      header.should == [@content, @content[0..10], @time.to_s(:db), @time.to_s(:db), @time.to_s(:short), @time.to_s(:short)].join(',')
+      expect(header).to eq([@content, @content[0..10], @time.to_s(:db), @time.to_s(:db), @time.to_s(:short), @time.to_s(:short)].join(','))
     end
 
   end
@@ -231,8 +233,8 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
   describe 'on an object with no comma declaration' do
 
     it 'should raise an error mentioning there is no comma description defined for that class' do
-      lambda { 'a string'.to_comma }.should raise_error('No comma format for class String defined for style default')
-      lambda { 'a string'.to_comma_headers }.should raise_error('No comma format for class String defined for style default')
+      expect { 'a string'.to_comma }.to raise_error('No comma format for class String defined for style default')
+      expect { 'a string'.to_comma_headers }.to raise_error('No comma format for class String defined for style default')
     end
 
   end
@@ -265,11 +267,11 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
     end
 
     it 'should return and array of data content, as defined in comma block in child class' do
-      @childComma.to_comma.should == %w[sub-content]
+      expect(@childComma.to_comma).to eq(%w[sub-content])
     end
 
     it 'should return and array of data content, as defined in comma block in super class, if not present in child' do
-      @childNoComma.to_comma.should == %w[super-content]
+      expect(@childNoComma.to_comma).to eq(%w[super-content])
     end
 
   end
