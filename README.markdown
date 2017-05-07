@@ -7,8 +7,8 @@ http://github.com/comma-csv/comma
 ##COMPATIBILITY
 The mainline of this project builds gems to the 3.x version series, and is compatible and tested with :
 
-* Ruby 2.x
-* Rails 4.x, 5.0 (with ActiveRecord, DataMapper and Mongoid support)
+* Ruby 2.1 or later
+* Rails 4.x, 5.x (with ActiveRecord, DataMapper and Mongoid support)
 
 [![Build Status](https://travis-ci.org/comma-csv/comma.png?branch=master)](https://travis-ci.org/comma-csv/comma) [![Code Climate](https://codeclimate.com/github/comma-csv/comma.png)](https://codeclimate.com/github/comma-csv/comma)
 
@@ -17,7 +17,7 @@ Comma is distributed as a gem, best installed via Bundler.
 Include the gem in your Gemfile:
 
 ```Ruby
-  gem "comma", "~> 4.0.0"
+  gem "comma", "~> 4.1.0"
 ```
 
 Or, if you want to live life on the edge, you can get master from the main comma repository:
