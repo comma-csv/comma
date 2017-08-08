@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version     = Comma::VERSION
   s.authors     = ["Marcus Crafter", "Tom Meier"]
   s.email       = ["crafterm@redartisan.com", "tom@venombytes.com"]
-  s.homepage    = "http://github.com/crafterm/comma"
+  s.homepage    = "http://github.com/comma-csv/comma"
   s.summary     = %q{Ruby Comma Seperated Values generation library}
   s.description = %q{Ruby Comma Seperated Values generation library}
 
