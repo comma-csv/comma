@@ -28,6 +28,10 @@ gem 'comma',  git: 'git://github.com/comma-csv/comma.git'
 
 Then, run `bundle install`.
 
+### Usage
+
+See [this page](https://github.com/comma-csv/comma/wiki) for usages.
+
 ## Running the tests
 
 To run the test suite across multiple gem file sets, we're using [Appraisal](https://github.com/thoughtbot/appraisal), use the following commands:
@@ -37,8 +41,6 @@ $ bundle exec appraisal install
 $ bundle exec appraisal rake spec
 
 ```
-
-## Built With
 
 ## Contributing
 
