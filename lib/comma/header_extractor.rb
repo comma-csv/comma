@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require 'comma/extractor'
 require 'active_support/core_ext/class/attribute'
 require 'active_support/core_ext/date_time/conversions'

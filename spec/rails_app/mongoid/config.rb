@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 Mongoid.configure do |config|
   config.sessions = {
     :default => {

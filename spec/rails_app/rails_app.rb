@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require 'action_controller/railtie'
 require 'action_view/railtie'
 

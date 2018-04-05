@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 # comma do
@@ -8,7 +7,7 @@ require 'spec_helper'
 #   isbn :number_10 => 'ISBN-10', :number_13 => 'ISBN-13'
 # end
 
-describe Comma::HeaderExtractor do # rubocop:disable Metcirs/BlockLength
+describe Comma::HeaderExtractor do # rubocop:disable Metrics/BlockLength
 
   before do
     @isbn = Isbn.new('123123123', '321321321')

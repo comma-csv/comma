@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require 'comma/extractor'
 
 module Comma
@@ -51,9 +50,8 @@ module Comma
     end
 
     def method_missing(sym, *args, &block)
-      if args.blank?
-        @results << ExtractValueFromInstance.new(@instance).extract(sym, &block)
-      end
+      @results << ExtractValueFromInstance.new(@instance).extract(sym, &block) if
+        args.blank?
 
       args.each do |arg|
         case arg

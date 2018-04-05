@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require 'comma/data_extractor'
 require 'comma/header_extractor'
 
