@@ -16,10 +16,12 @@ gemfile:
   - gemfiles/active4.2.8.gemfile
   - gemfiles/active5.0.1.gemfile
   - gemfiles/active5.1.0.gemfile
+  - gemfiles/active5.2.0.gemfile
   - gemfiles/rails4.1.16.gemfile
   - gemfiles/rails4.2.8.gemfile
   - gemfiles/rails5.0.1.gemfile
   - gemfiles/rails5.1.0.gemfile
+  - gemfiles/rails5.2.0.gemfile
 matrix:
   exclude:
     - rvm: 2.1.10
@@ -27,9 +29,13 @@ matrix:
     - rvm: 2.1.10
       gemfile: gemfiles/active5.1.0.gemfile
     - rvm: 2.1.10
+      gemfile: gemfiles/active5.2.0.gemfile
+    - rvm: 2.1.10
       gemfile: gemfiles/rails5.0.1.gemfile
     - rvm: 2.1.10
       gemfile: gemfiles/rails5.1.0.gemfile
+    - rvm: 2.1.10
+      gemfile: gemfiles/rails5.2.0.gemfile
     - rvm: 2.4.1
       gemfile: gemfiles/active4.1.16.gemfile
     - rvm: 2.4.1

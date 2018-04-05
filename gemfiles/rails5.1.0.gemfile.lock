@@ -2,7 +2,7 @@ PATH
   remote: ..
   specs:
     comma (4.1.0)
-      activesupport (>= 4.0.0, < 5.2)
+      activesupport (>= 4.0.0, < 6)
 
 GEM
   remote: https://rubygems.org/
