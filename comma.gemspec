@@ -1,6 +1,4 @@
-# -*- encoding: utf-8 -*-
-
-$:.push File.expand_path("../lib", __FILE__)
+$:.push File.expand_path("lib", __dir__)
 require "comma/version"
 
 Gem::Specification.new do |s|
@@ -20,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.licenses = ['MIT']
 
-  s.add_dependency 'activesupport', ['>= 4.0.0', '< 5.2']
+  s.add_dependency 'activesupport', ['>= 4.0.0', '< 6']
 
   s.add_development_dependency 'appraisal', ['~> 1.0.0']
   s.add_development_dependency 'rake', ['~> 10.5.0']

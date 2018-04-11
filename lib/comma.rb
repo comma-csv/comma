@@ -13,9 +13,8 @@ else
   end
 end
 
-if defined? Rails and (Rails.version.split('.').map(&:to_i).first < 3)
-  raise "Error - This Comma version only supports Rails 3.x. Please use a 2.x version of Comma for use with earlier rails versions."
-end
+raise "Error - This Comma version only supports Rails 3.x. Please use a 2.x version of Comma for use with earlier rails versions." if
+  defined? Rails and (Rails.version.split('.').map(&:to_i).first < 3)
 
 module Comma
   DEFAULT_OPTIONS = {

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require 'rubygems'
 $LOAD_PATH.unshift(File.expand_path(File.join(*%w{.. .. lib}), __FILE__))
 
@@ -35,4 +34,4 @@ end
 
 Dir[File.dirname(__FILE__) + '/support/**/*.rb'].each { |file| require file }
 
-require File.expand_path('../../spec/non_rails_app/ruby_classes' , __FILE__)
+require File.expand_path('../spec/non_rails_app/ruby_classes' , __dir__)

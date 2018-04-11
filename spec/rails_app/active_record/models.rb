@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 class Post < ActiveRecord::Base
   has_one :user
 
