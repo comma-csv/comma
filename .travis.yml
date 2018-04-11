@@ -6,9 +6,10 @@ language: ruby
 cache: bundler
 rvm:
   - 2.1.10
-  - 2.2.7
-  - 2.3.4
-  - 2.4.1
+  - 2.2.10
+  - 2.3.7
+  - 2.4.4
+  - 2.5.1
   - rbx-2
   - jruby
 gemfile:
@@ -36,13 +37,25 @@ matrix:
       gemfile: gemfiles/rails5.1.0.gemfile
     - rvm: 2.1.10
       gemfile: gemfiles/rails5.2.0.gemfile
-    - rvm: 2.4.1
+    - rvm: 2.2.10
+      gemfile: gemfiles/active5.2.0.gemfile
+    - rvm: 2.2.10
+      gemfile: gemfiles/rails5.2.0.gemfile
+    - rvm: 2.4.4
       gemfile: gemfiles/active4.1.16.gemfile
-    - rvm: 2.4.1
+    - rvm: 2.4.4
       gemfile: gemfiles/active4.2.8.gemfile
-    - rvm: 2.4.1
+    - rvm: 2.4.4
       gemfile: gemfiles/rails4.1.16.gemfile
-    - rvm: 2.4.1
+    - rvm: 2.4.4
+      gemfile: gemfiles/rails4.2.8.gemfile
+    - rvm: 2.5.1
+      gemfile: gemfiles/active4.1.16.gemfile
+    - rvm: 2.5.1
+      gemfile: gemfiles/active4.2.8.gemfile
+    - rvm: 2.5.1
+      gemfile: gemfiles/rails4.1.16.gemfile
+    - rvm: 2.5.1
       gemfile: gemfiles/rails4.2.8.gemfile
   allow_failures:
     - rvm: rbx-2
