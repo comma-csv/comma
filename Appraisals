@@ -12,3 +12,14 @@
     gem 'activerecord', version_number
   end
 end
+
+appraise 'rails6.0.0' do
+  gem 'rails', '6.0.0.beta3'
+  gem 'rspec-rails'
+  gem 'test-unit'
+end
+
+appraise 'active6.0.0' do
+  gem 'activesupport', '6.0.0.beta3'
+  gem 'activerecord', '6.0.0.beta3'
+end

@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     comma (4.2.0)
-      activesupport (>= 4.0.0, < 6)
+      activesupport (>= 4.0.0, < 6.1)
 
 GEM
   remote: https://rubygems.org/
@@ -99,4 +99,4 @@ DEPENDENCIES
   sqlite3 (~> 1.3.11)
 
 BUNDLED WITH
-   1.14.6
+   1.17.3

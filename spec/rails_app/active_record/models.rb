@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
 end
 
 MIGRATION_CLASS =
-  if Rails::VERSION::STRING =~ /^5.*/
+  if Rails::VERSION::STRING =~ /^[56].*/
     ActiveRecord::Migration[4.2]
   else
     ActiveRecord::Migration

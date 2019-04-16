@@ -8,7 +8,7 @@ A library to generate comma seperated value (CSV) for Ruby objects like ActiveRe
 
 ### Prerequisites
 
-You need to use ruby 2.1 or later. If you generate CSV from ActiveRecord models, you need to have ActiveRecord 4.x or later.
+You need to use ruby 2.3 or later. If you generate CSV from ActiveRecord models, you need to have ActiveRecord 4.2 or later.
 
 ### Installing
 
