@@ -15,7 +15,7 @@ Lint/AmbiguousOperator:
 # Cop supports --auto-correct.
 # Configuration parameters: AlignWith, SupportedStyles, AutoCorrect.
 # SupportedStyles: keyword, variable, start_of_line
-Lint/EndAlignment:
+Layout/EndAlignment:
   Exclude:
     - 'lib/comma.rb'
 
@@ -108,7 +108,7 @@ Style/BracesAroundHashParameters:
 # Cop supports --auto-correct.
 # Configuration parameters: IndentWhenRelativeTo, SupportedStyles, IndentOneStep, IndentationWidth.
 # SupportedStyles: case, end
-Style/CaseIndentation:
+Layout/CaseIndentation:
   Exclude:
     - 'lib/comma.rb'
 
@@ -146,7 +146,7 @@ Style/Documentation:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/EmptyLines:
+Layout/EmptyLines:
   Exclude:
     - 'spec/comma/comma_spec.rb'
 
@@ -154,7 +154,7 @@ Style/EmptyLines:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundBlockBody:
+Layout/EmptyLinesAroundBlockBody:
   Exclude:
     - 'spec/comma/comma_spec.rb'
     - 'spec/comma/data_extractor_spec.rb'
@@ -168,7 +168,7 @@ Style/EmptyLinesAroundBlockBody:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundClassBody:
+Layout/EmptyLinesAroundClassBody:
   Exclude:
     - 'lib/comma/data_extractor.rb'
     - 'lib/comma/extractor.rb'
@@ -180,7 +180,7 @@ Style/EmptyLinesAroundClassBody:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundModuleBody:
+Layout/EmptyLinesAroundModuleBody:
   Exclude:
     - 'lib/comma/data_extractor.rb'
     - 'lib/comma/extractor.rb'
@@ -195,7 +195,7 @@ Style/EmptyLiteral:
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: AllowForAlignment, ForceEqualSignAlignment.
-Style/ExtraSpacing:
+Layout/ExtraSpacing:
   Exclude:
     - 'spec/controllers/users_controller_spec.rb'
 
@@ -233,7 +233,7 @@ Style/HashSyntax:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
 # SupportedStyles: special_inside_parentheses, consistent, align_braces
-Style/IndentHash:
+Layout/IndentHash:
   Exclude:
     - 'lib/comma.rb'
 
@@ -249,15 +249,18 @@ Style/Lambda:
 
 # Offense count: 7
 # Cop supports --auto-correct.
-Style/LeadingCommentSpace:
+Layout/LeadingCommentSpace:
   Exclude:
     - 'lib/comma.rb'
     - 'lib/comma/mongoid.rb'
     - 'spec/comma/rails/active_record_spec.rb'
     - 'spec/controllers/users_controller_spec.rb'
 
-# Offense count: 3
-Style/MethodMissing:
+Style/MethodMissingSuper:
+  Exclude:
+    - 'lib/comma/data_extractor.rb'
+    - 'lib/comma/header_extractor.rb'
+Style/MissingRespondToMissing:
   Exclude:
     - 'lib/comma/data_extractor.rb'
     - 'lib/comma/header_extractor.rb'
@@ -311,14 +314,14 @@ Style/SingleLineMethods:
 
 # Offense count: 6
 # Cop supports --auto-correct.
-Style/SpaceAfterComma:
+Layout/SpaceAfterComma:
   Exclude:
     - 'spec/controllers/users_controller_spec.rb'
 
 # Offense count: 12
 # Cop supports --auto-correct.
 # Configuration parameters: AllowForAlignment.
-Style/SpaceAroundOperators:
+Layout/SpaceAroundOperators:
   Exclude:
     - 'spec/controllers/users_controller_spec.rb'
 
@@ -326,14 +329,14 @@ Style/SpaceAroundOperators:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: space, no_space
-Style/SpaceBeforeBlockBraces:
+Layout/SpaceBeforeBlockBraces:
   Exclude:
     - 'lib/comma/generator.rb'
     - 'spec/comma/comma_spec.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/SpaceBeforeComma:
+Layout/SpaceBeforeComma:
   Exclude:
     - 'spec/spec_helper.rb'
 
@@ -341,7 +344,7 @@ Style/SpaceBeforeComma:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.
 # SupportedStyles: space, no_space
-Style/SpaceInsideBlockBraces:
+Layout/SpaceInsideBlockBraces:
   Exclude:
     - 'spec/comma/comma_spec.rb'
 
@@ -349,7 +352,7 @@ Style/SpaceInsideBlockBraces:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SupportedStyles.
 # SupportedStyles: space, no_space, compact
-Style/SpaceInsideHashLiteralBraces:
+Layout/SpaceInsideHashLiteralBraces:
   Exclude:
     - 'spec/comma/rails/active_record_spec.rb'
     - 'spec/controllers/users_controller_spec.rb'
@@ -392,13 +395,13 @@ Style/SymbolProc:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: final_newline, final_blank_line
-Style/TrailingBlankLines:
+Layout/TrailingBlankLines:
   Exclude:
     - 'lib/comma/mongoid.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
-Style/TrailingWhitespace:
+Layout/TrailingWhitespace:
   Exclude:
     - 'lib/comma/header_extractor.rb'
 
@@ -411,12 +414,28 @@ Style/UnneededPercentQ:
 # Offense count: 2
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: snake_case, camelCase
-Style/VariableName:
+Naming/VariableName:
   Exclude:
     - 'spec/comma/comma_spec.rb'
 
 # Offense count: 6
 # Configuration parameters: SupportedStyles.
 # SupportedStyles: snake_case, normalcase, non_integer
-Style/VariableNumber:
+Naming/VariableNumber:
   Enabled: false
+
+Layout/EmptyLineAfterGuardClause:
+  Exclude:
+    - lib/comma/generator.rb
+
+Style/SafeNavigation:
+  Exclude:
+    - spec/comma/comma_spec.rb
+
+Performance/RegexpMatch:
+  Exclude:
+    - spec/rails_app/active_record/models.rb
+
+Style/RedundantBegin:
+  Exclude:
+    - spec/spec_helper.rb
