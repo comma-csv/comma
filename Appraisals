@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ['4.1.16', '4.2.8', '5.0.1', '5.1.0', '5.2.0'].each do |version_number|
   clean_number = version_number.gsub(/[<>~=]*/, '')
 

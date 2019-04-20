@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Post < ActiveRecord::Base
   has_one :user
 
@@ -13,7 +15,7 @@ class User < ActiveRecord::Base
   comma do
     first_name
     last_name
-    full_name "Name"
+    full_name 'Name'
   end
 
   comma :shortened do

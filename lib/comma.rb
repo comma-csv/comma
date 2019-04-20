@@ -1,26 +1,13 @@
-# load the right csv library
-if RUBY_VERSION >= '1.9'
-  require 'csv'
-  CSV_HANDLER = CSV
-else
-  begin
-    gem 'fastercsv'
-    require 'fastercsv'
+# frozen_string_literal: true
 
-    CSV_HANDLER = FasterCSV
-  rescue LoadError => e
-    raise "Error : FasterCSV not installed, please `gem install fastercsv` for faster processing on <Ruby 1.9"
-  end
-end
-
-raise "Error - This Comma version only supports Rails 3.x. Please use a 2.x version of Comma for use with earlier rails versions." if
-  defined? Rails and (Rails.version.split('.').map(&:to_i).first < 3)
+require 'csv'
+CSV_HANDLER = CSV
 
 module Comma
   DEFAULT_OPTIONS = {
-      :write_headers => true,
-      :style => :default
-    }
+    write_headers: true,
+    style: :default
+  }.freeze
 end
 
 require 'active_support/lazy_load_hooks'
@@ -38,30 +25,33 @@ require 'comma/generator'
 require 'comma/array'
 require 'comma/object'
 
-#Load into Rails controllers
+# Load into Rails controllers
 ActiveSupport.on_load(:action_controller) do
   if defined?(ActionController::Renderers) && ActionController::Renderers.respond_to?(:add)
     ActionController::Renderers.add :csv do |obj, options|
       filename    = options[:filename]  || 'data'
       extension   = options[:extension] || 'csv'
 
-      if Rails.version >= "5.0.0"
-        mime_type   = options[:mime_type] || Mime[:csv]
-      else
-        mime_type   = options[:mime_type] || Mime::CSV
-      end
+      mime_type = if Rails.version >= '5.0.0'
+                    options[:mime_type] || Mime[:csv]
+                  else
+                    options[:mime_type] || Mime::CSV
+                  end
 
-      #Capture any CSV optional settings passed to comma or comma specific options
-      csv_options = options.slice(*CSV_HANDLER::DEFAULT_OPTIONS.merge(Comma::DEFAULT_OPTIONS).keys).each_with_object({}) do |(k, v), h|
+      # Capture any CSV optional settings passed to comma or comma specific options
+      csv_options = options.slice(*CSV_HANDLER::DEFAULT_OPTIONS.merge(Comma::DEFAULT_OPTIONS).keys)
+      csv_options = csv_options.each_with_object({}) do |(k, v), h|
         # XXX: Convert string to boolean
         h[k] = case k
-        when :write_headers
-          v = (v != 'false') if v.is_a?(String)
-        else
-          v
-        end
+               when :write_headers
+                 (v != 'false') if v.is_a?(String)
+               else
+                 v
+               end
       end
-      send_data obj.to_comma(csv_options), :type => mime_type, :disposition => "attachment; filename=\"#{filename}.#{extension}\""
+      data = obj.to_comma(csv_options)
+      disposition = "attachment; filename=\"#{filename}.#{extension}\""
+      send_data data, type: mime_type, disposition: disposition
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 # comma do
@@ -8,7 +10,6 @@ require 'spec_helper'
 # end
 
 describe Comma::HeaderExtractor do # rubocop:disable Metrics/BlockLength
-
   before do
     @isbn = Isbn.new('123123123', '321321321')
     @book = Book.new('Smalltalk-80', 'Language and Implementation', @isbn)
@@ -17,37 +18,30 @@ describe Comma::HeaderExtractor do # rubocop:disable Metrics/BlockLength
   end
 
   describe 'when no parameters are provided' do
-
     it 'should use the method name as the header name, humanized' do
       @headers.should include('Description')
     end
   end
 
   describe 'when given a string description as a parameter' do
-
     it 'should use the string value, unmodified' do
       @headers.should include('Title')
     end
   end
 
   describe 'when an hash is passed as a parameter' do
-
     describe 'with a string value' do
-
       it 'should use the string value, unmodified' do
         @headers.should include('ISBN-10')
       end
     end
 
     describe 'with a non-string value' do
-
       it 'should use the non string value converted to a string, humanized' do
         @headers.should include('Issuer')
       end
     end
-
   end
-
 end
 
 describe Comma::HeaderExtractor, 'with static column method' do

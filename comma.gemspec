@@ -1,20 +1,22 @@
-$:.push File.expand_path("lib", __dir__)
-require "comma/version"
+# frozen_string_literal: true
+
+$LOAD_PATH.push File.expand_path('lib', __dir__)
+require 'comma/version'
 
 Gem::Specification.new do |s|
-  s.name        = "comma"
+  s.name        = 'comma'
   s.version     = Comma::VERSION
-  s.authors     = ["Marcus Crafter", "Tom Meier"]
-  s.email       = ["crafterm@redartisan.com", "tom@venombytes.com"]
-  s.homepage    = "http://github.com/comma-csv/comma"
-  s.summary     = %q{Ruby Comma Seperated Values generation library}
-  s.description = %q{Ruby Comma Seperated Values generation library}
+  s.authors     = ['Marcus Crafter', 'Tom Meier']
+  s.email       = ['crafterm@redartisan.com', 'tom@venombytes.com']
+  s.homepage    = 'http://github.com/comma-csv/comma'
+  s.summary     = %(Ruby Comma Seperated Values generation library)
+  s.description = %(Ruby Comma Seperated Values generation library)
 
-  s.rubyforge_project = "comma"
+  s.rubyforge_project = 'comma'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.require_paths = ["lib"]
+  s.require_paths = ['lib']
 
   s.licenses = ['MIT']
 

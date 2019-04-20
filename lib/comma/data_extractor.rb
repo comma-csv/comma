@@ -1,9 +1,9 @@
+# frozen_string_literal: true
+
 require 'comma/extractor'
 
 module Comma
-
   class DataExtractor < Extractor
-
     class ExtractValueFromInstance
       def initialize(instance)
         @instance = instance
@@ -42,7 +42,7 @@ module Comma
 
       def null_association
         @null_association ||= Class.new(Class.const_defined?(:BasicObject) ? ::BasicObject : ::Object) do
-          def method_missing(symbol, *args, &block)
+          def method_missing(_symbol, *_args, &_block)
             nil
           end
         end.new
@@ -56,7 +56,7 @@ module Comma
       args.each do |arg|
         case arg
         when Hash
-          arg.each do |k, v|
+          arg.each do |k, _v|
             @results << ExtractValueFromAssociationOfInstance.new(@instance, sym).extract(k, &block)
           end
         when Symbol
@@ -69,7 +69,7 @@ module Comma
       end
     end
 
-    def __static_column__(header = nil, &block)
+    def __static_column__(_header = nil, &block)
       @results << (block ? yield(@instance) : nil)
     end
   end
