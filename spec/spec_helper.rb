@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'rubygems'
-$LOAD_PATH.unshift(File.expand_path(File.join(*%w{.. .. lib}), __FILE__))
+$LOAD_PATH.unshift(File.expand_path(File.join('..', '..', 'lib'), __FILE__))
 
 require 'coveralls'
 Coveralls.wear!
@@ -13,13 +15,15 @@ require 'rspec/its'
 begin
   require 'rails'
 rescue LoadError
+  warn 'rails not loaded'
 end
 
-%w{data_mapper mongoid active_record}.each do |orm|
+%w[data_mapper mongoid active_record].each do |orm|
   begin
     require orm
     break
   rescue LoadError
+    warn "#{orm} not loaded"
   end
 end
 
@@ -34,4 +38,4 @@ end
 
 Dir[File.dirname(__FILE__) + '/support/**/*.rb'].each { |file| require file }
 
-require File.expand_path('../spec/non_rails_app/ruby_classes' , __dir__)
+require File.expand_path('../spec/non_rails_app/ruby_classes', __dir__)

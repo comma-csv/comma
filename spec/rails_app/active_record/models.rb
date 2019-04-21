@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Post < ActiveRecord::Base
   has_one :user
 
@@ -13,7 +15,7 @@ class User < ActiveRecord::Base
   comma do
     first_name
     last_name
-    full_name "Name"
+    full_name 'Name'
   end
 
   comma :shortened do
@@ -27,7 +29,7 @@ class User < ActiveRecord::Base
 end
 
 MIGRATION_CLASS =
-  if Rails::VERSION::STRING =~ /^5.*/
+  if Rails::VERSION::STRING =~ /^[56].*/
     ActiveRecord::Migration[4.2]
   else
     ActiveRecord::Migration

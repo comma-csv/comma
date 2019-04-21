@@ -5,67 +5,47 @@ services: mongodb
 language: ruby
 cache: bundler
 rvm:
-  - 2.1.10
-  - 2.2.9
-  - 2.3.7
-  - 2.4.4
-  - 2.5.1
-  - rbx-2
-  - jruby
+  - 2.3.8
+  - 2.4.6
+  - 2.5.5
+  - 2.6.2
 gemfile:
-  - gemfiles/active4.1.16.gemfile
-  - gemfiles/active4.2.8.gemfile
-  - gemfiles/active5.0.1.gemfile
-  - gemfiles/active5.1.0.gemfile
-  - gemfiles/active5.2.0.gemfile
-  - gemfiles/rails4.1.16.gemfile
-  - gemfiles/rails4.2.8.gemfile
-  - gemfiles/rails5.0.1.gemfile
-  - gemfiles/rails5.1.0.gemfile
-  - gemfiles/rails5.2.0.gemfile
+  - gemfiles/active4.2.11.1.gemfile
+  - gemfiles/active5.0.7.2.gemfile
+  - gemfiles/active5.1.7.gemfile
+  - gemfiles/active5.2.3.gemfile
+  - gemfiles/active6.0.0.gemfile
+  - gemfiles/rails4.2.11.1.gemfile
+  - gemfiles/rails5.0.7.2.gemfile
+  - gemfiles/rails5.1.7.gemfile
+  - gemfiles/rails5.2.3.gemfile
+  - gemfiles/rails6.0.0.gemfile
 matrix:
   exclude:
-    - rvm: 2.1.10
-      gemfile: gemfiles/active5.0.1.gemfile
-    - rvm: 2.1.10
-      gemfile: gemfiles/active5.1.0.gemfile
-    - rvm: 2.1.10
-      gemfile: gemfiles/active5.2.0.gemfile
-    - rvm: 2.1.10
-      gemfile: gemfiles/rails5.0.1.gemfile
-    - rvm: 2.1.10
-      gemfile: gemfiles/rails5.1.0.gemfile
-    - rvm: 2.1.10
-      gemfile: gemfiles/rails5.2.0.gemfile
-    - rvm: 2.2.10
-      gemfile: gemfiles/active5.2.0.gemfile
-    - rvm: 2.2.10
-      gemfile: gemfiles/rails5.2.0.gemfile
-    - rvm: 2.4.4
-      gemfile: gemfiles/active4.1.16.gemfile
-    - rvm: 2.4.4
-      gemfile: gemfiles/active4.2.8.gemfile
-    - rvm: 2.4.4
-      gemfile: gemfiles/rails4.1.16.gemfile
-    - rvm: 2.4.4
-      gemfile: gemfiles/rails4.2.8.gemfile
-    - rvm: 2.5.1
-      gemfile: gemfiles/active4.1.16.gemfile
-    - rvm: 2.5.1
-      gemfile: gemfiles/active4.2.8.gemfile
-    - rvm: 2.5.1
-      gemfile: gemfiles/rails4.1.16.gemfile
-    - rvm: 2.5.1
-      gemfile: gemfiles/rails4.2.8.gemfile
-  allow_failures:
-    - rvm: rbx-2
-    - rvm: jruby
+    - rvm: 2.3.8
+      gemfile: gemfiles/active6.0.0.gemfile
+    - rvm: 2.3.8
+      gemfile: gemfiles/rails6.0.0.gemfile
+    - rvm: 2.4.6
+      gemfile: gemfiles/active4.2.11.1.gemfile
+    - rvm: 2.4.6
+      gemfile: gemfiles/active6.0.0.gemfile
+    - rvm: 2.4.6
+      gemfile: gemfiles/rails4.2.11.1.gemfile
+    - rvm: 2.4.6
+      gemfile: gemfiles/rails6.0.0.gemfile
+    - rvm: 2.5.5
+      gemfile: gemfiles/active4.2.11.1.gemfile
+    - rvm: 2.5.5
+      gemfile: gemfiles/rails4.2.11.1.gemfile
+    - rvm: 2.6.2
+      gemfile: gemfiles/active4.2.11.1.gemfile
+    - rvm: 2.6.2
+      gemfile: gemfiles/rails4.2.11.1.gemfile
   fast_finish: true
-bundler_args: ""
-# Need to update because there is a bug in bundler that Travis CI uses.
 before_install:
-  - gem update --system
-  - gem update bundler
+  - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
+  - gem install bundler -v '< 2'
 script:
   - bundle exec rake rubocop
   - bundle exec rake spec
