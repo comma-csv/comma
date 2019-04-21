@@ -4,7 +4,8 @@ source "https://rubygems.org"
 
 gem "coveralls", :require => false
 gem "rubocop", :require => false
-gem "activesupport", "4.1.16"
-gem "activerecord", "4.1.16"
+gem "rails", "5.2.3"
+gem "rspec-rails"
+gem "test-unit"
 
 gemspec :path => "../"

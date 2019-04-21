@@ -10,15 +10,15 @@ rvm:
   - 2.5.5
   - 2.6.2
 gemfile:
-  - gemfiles/active4.2.8.gemfile
-  - gemfiles/active5.0.1.gemfile
-  - gemfiles/active5.1.0.gemfile
-  - gemfiles/active5.2.0.gemfile
+  - gemfiles/active4.2.11.1.gemfile
+  - gemfiles/active5.0.7.2.gemfile
+  - gemfiles/active5.1.7.gemfile
+  - gemfiles/active5.2.3.gemfile
   - gemfiles/active6.0.0.gemfile
-  - gemfiles/rails4.2.8.gemfile
-  - gemfiles/rails5.0.1.gemfile
-  - gemfiles/rails5.1.0.gemfile
-  - gemfiles/rails5.2.0.gemfile
+  - gemfiles/rails4.2.11.1.gemfile
+  - gemfiles/rails5.0.7.2.gemfile
+  - gemfiles/rails5.1.7.gemfile
+  - gemfiles/rails5.2.3.gemfile
   - gemfiles/rails6.0.0.gemfile
 matrix:
   exclude:
@@ -27,21 +27,21 @@ matrix:
     - rvm: 2.3.8
       gemfile: gemfiles/rails6.0.0.gemfile
     - rvm: 2.4.6
-      gemfile: gemfiles/active4.2.8.gemfile
+      gemfile: gemfiles/active4.2.11.1.gemfile
     - rvm: 2.4.6
       gemfile: gemfiles/active6.0.0.gemfile
     - rvm: 2.4.6
-      gemfile: gemfiles/rails4.2.8.gemfile
+      gemfile: gemfiles/rails4.2.11.1.gemfile
     - rvm: 2.4.6
       gemfile: gemfiles/rails6.0.0.gemfile
     - rvm: 2.5.5
-      gemfile: gemfiles/active4.2.8.gemfile
+      gemfile: gemfiles/active4.2.11.1.gemfile
     - rvm: 2.5.5
-      gemfile: gemfiles/rails4.2.8.gemfile
+      gemfile: gemfiles/rails4.2.11.1.gemfile
     - rvm: 2.6.2
-      gemfile: gemfiles/active4.2.8.gemfile
+      gemfile: gemfiles/active4.2.11.1.gemfile
     - rvm: 2.6.2
-      gemfile: gemfiles/rails4.2.8.gemfile
+      gemfile: gemfiles/rails4.2.11.1.gemfile
   fast_finish: true
 before_install:
   - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
