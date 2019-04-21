@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    comma (4.2.0)
+    comma (4.3.0)
       activesupport (>= 4.0.0, < 6.1)
 
 GEM
@@ -195,4 +195,4 @@ DEPENDENCIES
   test-unit
 
 BUNDLED WITH
-   1.17.2
+   1.17.3
