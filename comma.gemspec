@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.licenses = ['MIT']
 
-  s.add_dependency 'activesupport', ['>= 4.0.0', '< 6.1']
+  s.add_dependency 'activesupport', ['>= 4.2.0', '< 6.1']
 
   s.add_development_dependency 'appraisal', ['~> 1.0.0']
   s.add_development_dependency 'rake', ['~> 10.5.0']
