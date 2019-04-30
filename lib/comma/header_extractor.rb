@@ -45,7 +45,8 @@ module Comma
 
       begin
         model_class.reflect_on_association(association)&.klass
-      rescue NameError
+      rescue ArgumentError, NameError
+        # Since Rails 5.2, ArgumentError is raised.
         nil
       end
     end
