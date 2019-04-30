@@ -144,8 +144,7 @@ if defined? ActiveRecord
 
     describe 'github pull-request 83' do
       it 'should not raise NameError' do
-        expect { Picture.all.to_comma(:pr_83) }
-          .not_to raise_exception(NameError)
+        expect { Picture.all.to_comma(:pr_83) }.not_to raise_error
       end
     end
   end
