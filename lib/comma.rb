@@ -51,7 +51,7 @@ ActiveSupport.on_load(:action_controller) do
       end
       data = obj.to_comma(csv_options)
       disposition = "attachment; filename=\"#{filename}.#{extension}\""
-      send_data data, type: mime_type, disposition: disposition
+      send_data "\uFEFF" + data, type: mime_type, disposition: disposition
     end
   end
 end
