@@ -79,7 +79,7 @@ if defined? ActiveRecord
     end
 
     describe '#to_comma on scopes' do
-      it 'should extend ActiveRecord::NamedScope::Scope to add a #to_comma method which will return CSV content for objects within the scope' do # rubocop:disable Style/LineLength
+      it 'should extend ActiveRecord::NamedScope::Scope to add a #to_comma method which will return CSV content for objects within the scope' do # rubocop:disable Metrics/LineLength
         Person.teenagers.to_comma.should == "Name,Age\nJunior,18\n"
       end
 
@@ -149,7 +149,7 @@ if defined? ActiveRecord
     end
   end
 
-  describe Comma, 'generating CSV from an ActiveRecord object using Single Table Inheritance' do # rubocop:disable Metric/BlockLength
+  describe Comma, 'generating CSV from an ActiveRecord object using Single Table Inheritance' do # rubocop:disable Metrics/BlockLength
     class Animal < ActiveRecord::Base
       comma do
         name 'Name' do |name|
