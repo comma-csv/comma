@@ -171,9 +171,9 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
     end
 
     it 'should raise an error if the requested description is not avaliable' do
-      expect { @foo.to_comma(:bad) }.to raise_error
-      expect { @foo.to_comma_headers(:bad) }.to raise_error
-      expect { Array(@foo).to_comma(:bad) }.to raise_error
+      expect { @foo.to_comma(:bad) }.to raise_error(RuntimeError)
+      expect { @foo.to_comma_headers(:bad) }.to raise_error(RuntimeError)
+      expect { Array(@foo).to_comma(:bad) }.to raise_error(RuntimeError)
     end
   end
 

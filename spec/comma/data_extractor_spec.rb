@@ -19,25 +19,25 @@ describe Comma::DataExtractor do # rubocop:disable Metrics/BlockLength
 
   describe 'when no parameters are provided' do
     it 'should use the string value returned by sending the method name on the object' do
-      @data.should include('Language and Implementation')
+      expect(@data).to include('Language and Implementation')
     end
   end
 
   describe 'when given a string description as a parameter' do
     it 'should use the string value returned by sending the method name on the object' do
-      @data.should include('Smalltalk-80')
+      expect(@data).to include('Smalltalk-80')
     end
   end
 
   describe 'when an hash is passed as a parameter' do
     describe 'with a string value' do
       it 'should use the string value, returned by sending the hash key to the object' do
-        @data.should include('123123123')
-        @data.should include('321321321')
+        expect(@data).to include('123123123')
+        expect(@data).to include('321321321')
       end
 
       it 'should not fail when an associated object is nil' do
-        -> { Book.new('Smalltalk-80', 'Language and Implementation', nil).to_comma }.should_not raise_error
+        expect { Book.new('Smalltalk-80', 'Language and Implementation', nil).to_comma }.not_to raise_error
       end
     end
   end
@@ -53,7 +53,7 @@ describe Comma::DataExtractor, 'id attribute' do
   end
 
   it 'id attribute should yield block' do
-    @data.should include('42')
+    expect(@data).to include('42')
   end
 end
 
@@ -70,7 +70,7 @@ describe Comma::DataExtractor, 'with static column method' do
   end
 
   it 'should extract headers' do
-    @data.should eq([nil, nil, '', 'John Doe'])
+    expect(@data).to eq([nil, nil, '', 'John Doe'])
   end
 end
 
@@ -86,6 +86,6 @@ describe Comma::DataExtractor, 'nil value' do
   end
 
   it 'should extract nil' do
-    @data.should eq([nil, nil, nil])
+    expect(@data).to eq([nil, nil, nil])
   end
 end
