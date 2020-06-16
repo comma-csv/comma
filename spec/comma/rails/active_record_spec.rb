@@ -80,24 +80,24 @@ if defined? ActiveRecord
 
     describe '#to_comma on scopes' do
       it 'should extend ActiveRecord::NamedScope::Scope to add a #to_comma method which will return CSV content for objects within the scope' do # rubocop:disable Metrics/LineLength
-        Person.teenagers.to_comma.should == "Name,Age\nJunior,18\n"
+        expect(Person.teenagers.to_comma).to eq "Name,Age\nJunior,18\n"
       end
 
       it 'should find in batches' do
         scope = Person.teenagers
-        scope.should_receive(:find_each).and_yield @person
+        expect(scope).to receive(:find_each).and_yield @person
         scope.to_comma
       end
 
       it 'should fall back to iterating with each when scope has limit clause' do
         scope = Person.limit(1)
-        scope.should_receive(:each).and_yield @person
+        expect(scope).to receive(:each).and_yield @person
         scope.to_comma
       end
 
       it 'should fall back to iterating with each when scope has order clause' do
         scope = Person.order(:age)
-        scope.should_receive(:each).and_yield @person
+        expect(scope).to receive(:each).and_yield @person
         scope.to_comma
       end
     end
@@ -126,19 +126,19 @@ if defined? ActiveRecord
       end
 
       it 'should i18n-ize header values' do
-        Person.teenagers.to_comma.should match(/^名前,年齢/)
+        expect(Person.teenagers.to_comma).to match(/^名前,年齢/)
       end
     end
 
     describe 'github issue 75' do
       it 'should find association' do
-        -> { Person.all.to_comma(:issue_75) }.should_not raise_error
+        expect { Person.all.to_comma(:issue_75) }.not_to raise_error
       end
     end
 
     describe 'with accessor' do
       it 'should not raise exception' do
-        Job.all.to_comma.should eq("Name\nJunior\n")
+        expect(Job.all.to_comma).to eq("Name\nJunior\n")
       end
     end
 
@@ -188,16 +188,16 @@ if defined? ActiveRecord
     end
 
     it 'should return and array of data content, as defined in comma block in child class' do
-      @dog.to_comma.should == %w[Dog-Rex]
+      expect(@dog.to_comma).to eq %w[Dog-Rex]
     end
 
     # FIXME: this one is failing - the comma block from Dog is executed instead of the one from the super class
     it 'should return and array of data content, as defined in comma block in super class, if not present in child' do
-      @cat.to_comma.should == %w[Super-Kitty]
+      expect(@cat.to_comma).to eq %w[Super-Kitty]
     end
 
     it 'should call definion in parent class' do
-      -> { @dog.to_comma(:with_type) }.should_not raise_error
+      expect { @dog.to_comma(:with_type) }.not_to raise_error
     end
   end
 end
