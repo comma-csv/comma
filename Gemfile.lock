@@ -109,9 +109,9 @@ DEPENDENCIES
   rspec (~> 3.5.0)
   rspec-activemodel-mocks
   rspec-its
-  rubocop
+  rubocop (~> 0.67.2)
   rubocop-performance
-  sqlite3 (~> 1.3.11)
+  sqlite3
 
 BUNDLED WITH
    1.17.3
