@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'activesupport', ['>= 4.2.0', '< 6.1']
 
   s.add_development_dependency 'appraisal', ['~> 1.0.0']
-  s.add_development_dependency 'rake', ['~> 10.5.0']
+  s.add_development_dependency 'rake', '~> 13.0.1'
   s.add_development_dependency 'rspec', ['~> 3.5.0']
   s.add_development_dependency 'rspec-activemodel-mocks'
   s.add_development_dependency 'rspec-its'
