@@ -8,7 +8,7 @@ A library to generate comma seperated value (CSV) for Ruby objects like ActiveRe
 
 ### Prerequisites
 
-You need to use ruby 2.3 or later. If you generate CSV from ActiveRecord models, you need to have ActiveRecord 4.2 or later.
+You need to use ruby 2.4 or later. If you generate CSV from ActiveRecord models, you need to have ActiveRecord 5.0 or later.
 
 ### Installing
 
@@ -17,7 +17,7 @@ Comma is distributed as a gem, best installed via Bundler.
 Include the gem in your Gemfile:
 
 ```ruby
-gem 'comma', '~> 4.3.2'
+gem 'comma', '~> 4.4.0'
 ```
 
 Or, if you want to live life on the edge, you can get master from the main comma repository:
