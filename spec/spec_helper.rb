@@ -3,8 +3,21 @@
 require 'rubygems'
 $LOAD_PATH.unshift(File.expand_path(File.join('..', '..', 'lib'), __FILE__))
 
+require 'simplecov'
 require 'coveralls'
-Coveralls.wear!
+SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+if defined? Rails
+  SimpleCov.start('rails') do
+    add_filter %r{^/spec/comma/rails/data_mapper_collection_spec\.rb$}
+    add_filter %r{^/spec/comma/rails/mongoid_spec\.rb$}
+  end
+else
+  SimpleCov.start do
+    add_filter %r{^/spec/comma/rails/data_mapper_collection_spec\.rb}
+    add_filter %r{^/spec/comma/rails/mongoid_spec\.rb}
+    add_filter %r{^/spec/controllers/}
+  end
+end
 
 require 'bundler/setup'
 Bundler.require
