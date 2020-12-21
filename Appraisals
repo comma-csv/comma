@@ -31,3 +31,14 @@ appraise 'active6.0.3.1' do
   gem 'activesupport', '6.0.3.1'
   gem 'activerecord', '6.0.3.1'
 end
+
+appraise 'rails6.1.0' do
+  gem 'rails', '6.1.0'
+  gem 'rspec-rails'
+  gem 'test-unit'
+end
+
+appraise 'active6.1.0' do
+  gem 'activesupport', '6.1.0'
+  gem 'activerecord', '6.1.0'
+end
