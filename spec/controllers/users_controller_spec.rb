@@ -26,7 +26,7 @@ if defined?(Rails)
         get :index
 
         expect(response.status).to eq 200
-        expect(response.content_type).to eq 'text/html'
+        expect(response.media_type).to eq 'text/html'
         expect(response.body).to eq 'Users!'
       end
 
@@ -34,7 +34,7 @@ if defined?(Rails)
         get :index, format: :csv
 
         expect(response.status).to eq 200
-        expect(response.content_type).to eq 'text/csv'
+        expect(response.media_type).to eq 'text/csv'
         expect(response.header['Content-Disposition']).to include('filename="data.csv"')
 
         expected_content = <<-CSV.gsub(/^\s+/, '')
@@ -80,7 +80,7 @@ if defined?(Rails)
           get_ :with_custom_options, format: :csv, params: { custom_options: { filename: 'my_custom_name' } }
 
           expect(response.status).to eq 200
-          expect(response.content_type).to eq 'text/csv'
+          expect(response.media_type).to eq 'text/csv'
           expect(response.header['Content-Disposition']).to include('filename="my_custom_name.csv"')
         end
 
@@ -90,7 +90,7 @@ if defined?(Rails)
           get_ :with_custom_options, format: :csv, params: params
 
           expect(response.status).to eq 200
-          expect(response.content_type).to eq 'text/csv'
+          expect(response.media_type).to eq 'text/csv'
           expect(response.header['Content-Disposition']).to include('filename="filename with a lot of spaces.csv"')
 
           filename_string = response.header['Content-Disposition'].split('=').last
@@ -102,14 +102,14 @@ if defined?(Rails)
           get_ :with_custom_options, format: :csv, params: { custom_options: { extension: :txt } }
 
           expect(response.status).to eq 200
-          expect(response.content_type).to eq 'text/csv'
+          expect(response.media_type).to eq 'text/csv'
           expect(response.header['Content-Disposition']).to include('filename="data.txt"')
         end
 
         it 'should allow mime type to be set' do
           get_ :with_custom_options, format: :csv, params: { custom_options: { mime_type: 'text/plain' } }
           expect(response.status).to eq 200
-          expect(response.content_type).to eq 'text/plain'
+          expect(response.media_type).to eq 'text/plain'
         end
 
         it 'should allow bom to be set' do
@@ -129,7 +129,7 @@ if defined?(Rails)
             get_ :with_custom_options, format: :csv, params: { custom_options: { write_headers: 'true' } }
 
             expect(response.status).to eq 200
-            expect(response.content_type).to eq 'text/csv'
+            expect(response.media_type).to eq 'text/csv'
 
             expected_content = <<-CSV.gsub(/^\s+/, '')
             First name,Last name,Name
@@ -144,7 +144,7 @@ if defined?(Rails)
             get_ :with_custom_options, format: :csv, params: { custom_options: { write_headers: false } }
 
             expect(response.status).to eq 200
-            expect(response.content_type).to eq 'text/csv'
+            expect(response.media_type).to eq 'text/csv'
 
             expected_content = <<-CSV.gsub(/^\s+/, '')
             Fred,Flintstone,Fred Flintstone
@@ -159,7 +159,7 @@ if defined?(Rails)
           get_ :with_custom_options, format: :csv, params: { custom_options: { force_quotes: true } }
 
           expect(response.status).to eq 200
-          expect(response.content_type).to eq 'text/csv'
+          expect(response.media_type).to eq 'text/csv'
 
           expected_content = <<-CSV.gsub(/^\s+/, '')
           "First name","Last name","Name"
@@ -182,7 +182,7 @@ if defined?(Rails)
           get_ :with_custom_options, format: :csv, params: params
 
           expect(response.status).to eq 200
-          expect(response.content_type).to eq 'text/csv'
+          expect(response.media_type).to eq 'text/csv'
 
           expected_content = <<-CSV.gsub(/^\s+/, '')
           "Fred"||"Flintstone"||"Fred Flintstone"ENDOFLINE
