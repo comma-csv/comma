@@ -9,6 +9,7 @@ rvm:
   - 2.5.8
   - 2.6.6
   - 2.7.2
+  - 3.0.0
 gemfile:
   - gemfiles/active5.0.7.2.gemfile
   - gemfiles/active5.1.7.gemfile
@@ -31,9 +32,6 @@ matrix:
     - rvm: 2.4.10
       gemfile: gemfiles/rails6.1.0.gemfile
   fast_finish: true
-before_install:
-  - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
-  - gem install bundler -v '< 2'
 script:
   - bundle exec rubocop -P
   - bundle exec rspec -f d spec
