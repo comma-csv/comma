@@ -2,7 +2,7 @@ PATH
   remote: ..
   specs:
     comma (4.5.0)
-      activesupport (>= 4.2.0, < 6.2)
+      activesupport (>= 4.2.0)
 
 GEM
   remote: https://rubygems.org/
@@ -103,7 +103,7 @@ GEM
     parser (3.0.2.0)
       ast (~> 2.4.1)
     power_assert (2.0.1)
-    psych (4.0.2)
+    psych (3.3.0)
     racc (1.6.0)
     rack (2.2.3)
     rack-test (1.1.0)
@@ -212,6 +212,7 @@ DEPENDENCIES
   appraisal (~> 1.0.0)
   comma!
   coveralls
+  minitest (= 5.14.4)
   rails (= 6.0.3.6)
   rake (~> 13.0.1)
   rspec (~> 3.5.0)
@@ -224,4 +225,4 @@ DEPENDENCIES
   test-unit
 
 BUNDLED WITH
-   1.17.3
+   2.1.4
