@@ -42,3 +42,9 @@ appraise 'active6.1.0' do
   gem 'activesupport', '6.1.0'
   gem 'activerecord', '6.1.0'
 end
+
+appraise 'railsedge' do
+  gem 'rails', git: 'git@github.com:rails/rails.git', branch: 'main'
+  gem 'activesupport'
+  gem 'activerecord'
+end
