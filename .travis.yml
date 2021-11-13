@@ -20,6 +20,7 @@ gemfile:
   - gemfiles/rails5.2.4.3.gemfile
   - gemfiles/rails6.0.3.1.gemfile
   - gemfiles/rails6.1.0.gemfile
+  - gemfiles/railsedge.gemfile
 matrix:
   exclude:
     - rvm: 2.4.10
@@ -30,6 +31,10 @@ matrix:
       gemfile: gemfiles/rails6.0.3.1.gemfile
     - rvm: 2.4.10
       gemfile: gemfiles/rails6.1.0.gemfile
+    - rvm: 2.4.10
+      gemfile: gemfiles/railsedge.gemfile
+    - rvm: 2.5.8
+      gemfile: gemfiles/railsedge.gemfile
   fast_finish: true
 before_install:
   - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true

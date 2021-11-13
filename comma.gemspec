@@ -18,9 +18,10 @@ Gem::Specification.new do |s|
 
   s.licenses = ['MIT']
 
-  s.add_dependency 'activesupport', ['>= 4.2.0', '< 6.2']
+  s.add_dependency 'activesupport', '>= 4.2.0'
 
   s.add_development_dependency 'appraisal', ['~> 1.0.0']
+  s.add_development_dependency 'minitest', '5.14.4'
   s.add_development_dependency 'rake', '~> 13.0.1'
   s.add_development_dependency 'rspec', ['~> 3.5.0']
   s.add_development_dependency 'rspec-activemodel-mocks'
