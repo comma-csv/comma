@@ -2,7 +2,7 @@
 
 A library to generate comma seperated value (CSV) for Ruby objects like ActiveRecord and Array
 
-[![Gem Version](https://badge.fury.io/rb/comma.svg)](http://badge.fury.io/rb/comma) [![Build Status](https://travis-ci.org/comma-csv/comma.svg?branch=master)](https://travis-ci.org/comma-csv/comma) [![Code Climate](https://codeclimate.com/github/comma-csv/comma.svg)](https://codeclimate.com/github/comma-csv/comma)
+[![Gem Version](https://badge.fury.io/rb/comma.svg)](http://badge.fury.io/rb/comma) [![Build Status](https://github.com/comma-csv/comma/actions/workflows/build.yml/badge.svg)](https://github.com/comma-csv/comma/actions/workflows/build.yml) [![Code Climate](https://codeclimate.com/github/comma-csv/comma.svg)](https://codeclimate.com/github/comma-csv/comma)
 
 ## Getting Started
 
