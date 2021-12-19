@@ -42,13 +42,11 @@ appraise 'active6.1.3.1' do
 end
 
 appraise 'rails7.0.0' do
-  gem 'rails', '~> 7.0.0.alpha2'
+  gem 'rails', '7.0.0'
   gem 'rspec-rails'
-  gem 'activesupport', '~> 7.0.0.alpha2'
-  gem 'activerecord', '~> 7.0.0.alpha2'
 end
 
 appraise 'active7.0.0' do
-  gem 'activesupport', '~> 7.0.0.alpha2'
-  gem 'activerecord', '~> 7.0.0.alpha2'
+  gem 'activesupport', '7.0.0'
+  gem 'activerecord', '7.0.0'
 end
