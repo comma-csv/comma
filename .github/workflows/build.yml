@@ -7,36 +7,37 @@ jobs:
         ruby: ['2.5', '2.6', '2.7', '3.0']
         gemfile: ['active6.0.3.6', 'active6.1.3.1', 'rails6.0.3.6', 'rails6.1.3.1']
         include:
-          - ruby: 2.5
+          - ruby: '2.5'
             gemfile: active5.2.5
-          - ruby: 2.6
+          - ruby: '2.6'
             gemfile: active5.2.5
-          - ruby: 2.7
+          - ruby: '2.7'
             gemfile: active5.2.5
-          - ruby: 2.5
+          - ruby: '2.5'
             gemfile: rails5.2.5
-          - ruby: 2.6
+          - ruby: '2.6'
             gemfile: rails5.2.5
-          - ruby: 2.7
+          - ruby: '2.7'
             gemfile: rails5.2.5
-          - ruby: 2.7
+          - ruby: '2.7'
             gemfile: active7.0.0
-          - ruby: 3.0
+          - ruby: '3.0'
             gemfile: active7.0.0
-          - ruby: 2.7
+          - ruby: '2.7'
             gemfile: rails7.0.0
-          - ruby: 3.0
+          - ruby: '3.0'
             gemfile: rails7.0.0
     runs-on: ubuntu-latest
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
+      RUBY_OPT: --disable=did_you_mean
     services:
       mongodb:
         image: mongo:4.4.10
         ports:
           - 8081:8081
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
