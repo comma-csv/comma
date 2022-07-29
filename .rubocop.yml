@@ -4,10 +4,11 @@ require: rubocop-performance
 
 AllCops:
   DisplayCopNames: true
-  TargetRubyVersion: 2.3
   Exclude:
     - 'gemfiles/**/*'
     - 'vendor/**/*'
+  NewCops: enable
+  TargetRubyVersion: 2.5
 
 Metrics/LineLength:
   IgnoreCopDirectives: true

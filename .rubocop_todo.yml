@@ -8,7 +8,7 @@
 
 # Offense count: 2
 Metrics/AbcSize:
-  Max: 21
+  Max: 22
 
 # Offense count: 3
 # Configuration parameters: CountComments.
@@ -43,10 +43,11 @@ Style/Documentation:
     - 'lib/comma/object.rb'
     - 'lib/comma/relation.rb'
 
-Style/MethodMissingSuper:
+Lint/MissingSuper:
   Exclude:
     - 'lib/comma/data_extractor.rb'
     - 'lib/comma/header_extractor.rb'
+    - 'spec/comma/comma_spec.rb'
 
 Style/MissingRespondToMissing:
   Exclude:
@@ -59,3 +60,40 @@ Style/MissingRespondToMissing:
 Naming/VariableName:
   Exclude:
     - 'spec/comma/comma_spec.rb'
+
+Style/StringConcatenation:
+  Exclude:
+    - 'spec/comma/comma_spec.rb'
+    - 'spec/comma/rails/active_record_spec.rb'
+    - 'spec/spec_helper.rb'
+
+Lint/NonDeterministicRequireOrder:
+  Exclude:
+    - 'spec/spec_helper.rb'
+
+Style/RedundantBegin:
+  Exclude:
+    - 'spec/spec_helper.rb'
+
+Layout/SpaceAroundMethodCallOperator:
+  Exclude:
+    - 'spec/controllers/users_controller_spec.rb'
+
+Lint/ConstantDefinitionInBlock:
+  Exclude:
+    - 'spec/comma/comma_spec.rb'
+    - 'spec/comma/rails/active_record_spec.rb'
+    - 'spec/comma/rails/data_mapper_collection_spec.rb'
+    - 'spec/comma/rails/mongoid_spec.rb'
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Exclude:
+    - 'spec/comma/comma_spec.rb'
+
+Migration/DepartmentName:
+  Exclude:
+    - spec/comma/comma_spec.rb
+
+Gemspec/RequiredRubyVersion:
+  Exclude:
+    - comma.gemspec

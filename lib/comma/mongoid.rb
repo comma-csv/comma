@@ -11,5 +11,6 @@ begin
       end
     end
   end
-rescue LoadError # rubocop:disable Lint/HandleExceptions
+rescue LoadError => e
+  warn e.inspect
 end
