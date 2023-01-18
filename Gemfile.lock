@@ -7,9 +7,9 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (7.0.3.1)
-      activesupport (= 7.0.3.1)
-    activesupport (7.0.3.1)
+    activemodel (7.0.4.1)
+      activesupport (= 7.0.4.1)
+    activesupport (7.0.4.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -57,7 +57,7 @@ GEM
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
       rspec-mocks (~> 3.5.0)
-    rspec-activemodel-mocks (1.0.3)
+    rspec-activemodel-mocks (1.1.0)
       activemodel (>= 3.0)
       activesupport (>= 3.0)
       rspec-mocks (>= 2.99, < 4.0)
