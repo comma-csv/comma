@@ -10,6 +10,7 @@ module Comma
   }.freeze
 end
 
+require 'active_support'
 require 'active_support/lazy_load_hooks'
 ActiveSupport.on_load(:active_record) do
   require 'comma/relation' if defined?(ActiveRecord::Relation)

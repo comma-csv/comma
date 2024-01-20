@@ -1,52 +1,43 @@
 # frozen_string_literal: true
 
-[
-  '5.2.5'
-].each do |version_number|
-  clean_number = version_number.gsub(/[<>~=]*/, '')
-
-  appraise "rails#{clean_number}" do
-    gem 'rails', version_number
-    gem 'rspec-rails'
-    gem 'sprockets', '< 4'
-    gem 'sqlite3', '~> 1.3.11'
-    gem 'test-unit'
-  end
-
-  appraise "active#{clean_number}" do
-    gem 'activesupport', version_number
-    gem 'activerecord', version_number
-  end
-end
-
-appraise 'rails6.0.3.6' do
-  gem 'rails', '6.0.3.6'
+appraise 'rails6.0.6' do
+  gem 'rails', '6.0.6'
   gem 'rspec-rails'
   gem 'test-unit'
 end
 
-appraise 'active6.0.3.6' do
-  gem 'activesupport', '6.0.3.6'
-  gem 'activerecord', '6.0.3.6'
+appraise 'active6.0.6' do
+  gem 'activesupport', '6.0.6'
+  gem 'activerecord', '6.0.6'
 end
 
-appraise 'rails6.1.3.1' do
-  gem 'rails', '6.1.3.1'
+appraise 'rails6.1.7.6' do
+  gem 'rails', '6.1.7.6'
   gem 'rspec-rails'
   gem 'test-unit'
 end
 
-appraise 'active6.1.3.1' do
-  gem 'activesupport', '6.1.3.1'
-  gem 'activerecord', '6.1.3.1'
+appraise 'active6.1.7.6' do
+  gem 'activesupport', '6.1.7.6'
+  gem 'activerecord', '6.1.7.6'
 end
 
-appraise 'rails7.0.0' do
-  gem 'rails', '7.0.0'
+appraise 'rails7.0.8' do
+  gem 'rails', '7.0.8'
   gem 'rspec-rails'
 end
 
-appraise 'active7.0.0' do
-  gem 'activesupport', '7.0.0'
-  gem 'activerecord', '7.0.0'
+appraise 'active7.0.8' do
+  gem 'activesupport', '7.0.8'
+  gem 'activerecord', '7.0.8'
+end
+
+appraise 'rails7.1.3' do
+  gem 'rails', '7.1.3'
+  gem 'rspec-rails'
+end
+
+appraise 'active7.1.3' do
+  gem 'activesupport', '7.1.3'
+  gem 'activerecord', '7.1.3'
 end
