@@ -10,7 +10,7 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 2.5
 
-Metrics/LineLength:
+Layout/LineLength:
   IgnoreCopDirectives: true
   Max: 120
 

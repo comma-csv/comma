@@ -79,7 +79,7 @@ if defined? ActiveRecord
     end
 
     describe '#to_comma on scopes' do
-      it 'should extend ActiveRecord::NamedScope::Scope to add a #to_comma method which will return CSV content for objects within the scope' do # rubocop:disable Metrics/LineLength
+      it 'should extend ActiveRecord::NamedScope::Scope to add a #to_comma method which will return CSV content for objects within the scope' do # rubocop:disable Layout/LineLength
         expect(Person.teenagers.to_comma).to eq "Name,Age\nJunior,18\n"
       end
 

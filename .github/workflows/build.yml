@@ -4,29 +4,8 @@ jobs:
   build:
     strategy:
       matrix:
-        ruby: ['2.5', '2.6', '2.7', '3.0']
-        gemfile: ['active6.0.3.6', 'active6.1.3.1', 'rails6.0.3.6', 'rails6.1.3.1']
-        include:
-          - ruby: '2.5'
-            gemfile: active5.2.5
-          - ruby: '2.6'
-            gemfile: active5.2.5
-          - ruby: '2.7'
-            gemfile: active5.2.5
-          - ruby: '2.5'
-            gemfile: rails5.2.5
-          - ruby: '2.6'
-            gemfile: rails5.2.5
-          - ruby: '2.7'
-            gemfile: rails5.2.5
-          - ruby: '2.7'
-            gemfile: active7.0.0
-          - ruby: '3.0'
-            gemfile: active7.0.0
-          - ruby: '2.7'
-            gemfile: rails7.0.0
-          - ruby: '3.0'
-            gemfile: rails7.0.0
+        ruby: ['3.0', '3.1', '3.2', '3.3']
+        gemfile: ['active6.0.6', 'active6.1.7.6', 'active7.0.8', 'active7.1.3', 'rails6.0.6', 'rails6.1.7.6', 'rails7.0.8', 'rails7.1.3']
     runs-on: ubuntu-latest
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile

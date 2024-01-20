@@ -29,7 +29,7 @@ if defined? Mongoid
         @person.save
       end
 
-      it 'should extend ActiveRecord::NamedScope::Scope to add a #to_comma method which will return CSV content for objects within the scope' do # rubocop:disable Metrics/LineLength
+      it 'should extend ActiveRecord::NamedScope::Scope to add a #to_comma method which will return CSV content for objects within the scope' do # rubocop:disable Layout/LineLength
         Person.teenagers.to_comma.should == "Name,Age\nJunior,18\n"
       end
 

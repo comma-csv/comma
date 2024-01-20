@@ -40,7 +40,7 @@ describe Comma, 'generating CSV' do # rubocop:disable Metrics/BlockLength
   end
 
   it 'should extend Array to add a #to_comma method which will return CSV content for objects within the array' do
-    expected = "Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n" # rubocop:disable Metrics/LineLength
+    expected = "Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n" # rubocop:disable Layout/LineLength
     expect(@books.to_comma).to eq(expected)
   end
 
@@ -57,25 +57,25 @@ describe Comma, 'generating CSV' do # rubocop:disable Metrics/BlockLength
 
     it 'should write to the file' do
       @books.to_comma(filename: 'comma.csv')
-      expected = "Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n" # rubocop:disable Metrics/LineLength
+      expected = "Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n" # rubocop:disable Layout/LineLength
       expect(File.read('comma.csv')).to eq(expected)
     end
 
     it 'should accept FasterCSV options' do
       @books.to_comma(filename: 'comma.csv', col_sep: ';', force_quotes: true)
-      expected = "\"Title\";\"Description\";\"Issuer\";\"ISBN-10\";\"ISBN-13\"\n\"Smalltalk-80\";\"Language and Implementation\";\"ISBN\";\"123123123\";\"321321321\"\n" # rubocop:disable Metrics/LineLength
+      expected = "\"Title\";\"Description\";\"Issuer\";\"ISBN-10\";\"ISBN-13\"\n\"Smalltalk-80\";\"Language and Implementation\";\"ISBN\";\"123123123\";\"321321321\"\n" # rubocop:disable Layout/LineLength
       expect(File.read('comma.csv')).to eq(expected)
     end
   end
 
   describe 'with FasterCSV options' do
     it 'should not change when options are empty' do
-      expected = "Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n" # rubocop:disable Metrics/LineLength
+      expected = "Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n" # rubocop:disable Layout/LineLength
       expect(@books.to_comma({})).to eq(expected)
     end
 
     it 'should accept the options in #to_comma and generate the appropriate CSV' do
-      expected = "\"Title\";\"Description\";\"Issuer\";\"ISBN-10\";\"ISBN-13\"\n\"Smalltalk-80\";\"Language and Implementation\";\"ISBN\";\"123123123\";\"321321321\"\n" # rubocop:disable Metrics/LineLength
+      expected = "\"Title\";\"Description\";\"Issuer\";\"ISBN-10\";\"ISBN-13\"\n\"Smalltalk-80\";\"Language and Implementation\";\"ISBN\";\"123123123\";\"321321321\"\n" # rubocop:disable Layout/LineLength
       expect(@books.to_comma(col_sep: ';', force_quotes: true)).to eq(expected)
     end
 
@@ -177,17 +177,17 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
     end
   end
 
-  describe 'with block' do # rubocop:disable BlockLength
+  describe 'with block' do # rubocop:disable Metrics/BlockLength
     before do
       class Foo
         attr_accessor :content, :created_at, :updated_at
         comma do
           content
           content('Truncated Content') { |i| i && i.length > 10 ? i[0..10] : '---' }
-          created_at { |i| i&.to_s(:db) }
-          updated_at { |i| i&.to_s(:db) }
-          created_at 'Created Custom Label' do |i| i&.to_s(:short) end
-          updated_at 'Updated at Custom Label' do |i| i&.to_s(:short) end
+          created_at { |i| i&.to_formatted_s(:db) }
+          updated_at { |i| i&.to_formatted_s(:db) }
+          created_at 'Created Custom Label' do |i| i&.to_formatted_s(:short) end
+          updated_at 'Updated at Custom Label' do |i| i&.to_formatted_s(:short) end
         end
 
         def initialize(content, created_at = Time.now, updated_at = Time.now)
@@ -207,10 +207,10 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
       expected = [
         @content,
         @content[0..10],
-        @time.to_s(:db),
-        @time.to_s(:db),
-        @time.to_s(:short),
-        @time.to_s(:short)
+        @time.to_formatted_s(:db),
+        @time.to_formatted_s(:db),
+        @time.to_formatted_s(:short),
+        @time.to_formatted_s(:short)
       ].join(',')
       expect(foo).to eq(expected)
     end
@@ -246,10 +246,10 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
       expected = [
         @content,
         @content[0..10],
-        @time.to_s(:db),
-        @time.to_s(:db),
-        @time.to_s(:short),
-        @time.to_s(:short)
+        @time.to_formatted_s(:db),
+        @time.to_formatted_s(:db),
+        @time.to_formatted_s(:short),
+        @time.to_formatted_s(:short)
       ].join(',')
       expect(header).to eq(expected)
     end

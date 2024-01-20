@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'comma/extractor'
+require 'active_support'
 require 'active_support/core_ext/class/attribute'
 require 'active_support/core_ext/date_time/conversions'
 require 'active_support/core_ext/object/blank'
