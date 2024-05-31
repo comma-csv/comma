@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.licenses = ['MIT']
 
   s.add_dependency 'activesupport', '>= 4.2.0'
+  s.add_dependency 'csv', '>= 3.3'
 
   s.add_development_dependency 'appraisal', ['~> 1.0.0']
   s.add_development_dependency 'minitest', '5.14.4'
