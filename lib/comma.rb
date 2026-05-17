@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'csv'
+require 'logger'
 CSV_HANDLER = CSV
 
 module Comma

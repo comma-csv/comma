@@ -3,6 +3,7 @@
 require 'rubygems'
 $LOAD_PATH.unshift(File.expand_path(File.join('..', '..', 'lib'), __FILE__))
 
+require 'logger'
 require 'simplecov'
 require 'coveralls'
 SimpleCov.formatter = Coveralls::SimpleCov::Formatter
