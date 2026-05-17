@@ -1,0 +1,40 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+
+      - run: bundle exec rspec spec
+
+      - run: bundle exec rubocop -P
+
+      - run: bundle exec rake build
+
+      - name: Publish gem to RubyGems
+        env:
+          GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+        run: gem push pkg/*.gem
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: pkg/*.gem
+          generate_release_notes: true
