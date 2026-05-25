@@ -120,6 +120,19 @@ You can also run a specific spec under one appraisal:
 bundle exec appraisal rails7.1.3 bundle exec rspec spec/controllers/users_controller_spec.rb
 ```
 
+## Releasing
+
+Releases are created from git tags. After the version bump PR is merged into `master`, create and push a tag such as `v4.9.0`.
+
+```sh
+$ git checkout master
+$ git pull --ff-only origin master
+$ git tag v4.9.0
+$ git push origin v4.9.0
+```
+
+Pushing the tag triggers `.github/workflows/release.yml`, which runs the base test suite, builds the gem, publishes it to RubyGems, and creates the matching GitHub Release. The workflow expects the repository secret `RUBYGEMS_API_KEY` to be configured.
+
 ## Contributing
 
 Please make sure `bundle exec rspec spec`, `bundle exec rubocop -P`, and any relevant `bundle exec appraisal ...` commands pass before opening a pull request.
