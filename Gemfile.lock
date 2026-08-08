@@ -118,6 +118,7 @@ PLATFORMS
 DEPENDENCIES
   appraisal (~> 1.0.0)
   base64
+  benchmark
   bigdecimal
   comma!
   coveralls
