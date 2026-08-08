@@ -123,6 +123,7 @@ DEPENDENCIES
   comma!
   coveralls
   drb
+  logger
   minitest (= 5.27.0)
   mutex_m
   ostruct

@@ -47,6 +47,7 @@ GEM
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
     json (2.7.1)
+    logger (1.7.0)
     mini_portile2 (2.8.5)
     minitest (5.27.0)
     mutex_m (0.3.0)
@@ -128,6 +129,7 @@ DEPENDENCIES
   comma!
   coveralls
   drb
+  logger
   minitest (= 5.27.0)
   mutex_m
   ostruct

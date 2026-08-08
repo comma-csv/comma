@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'benchmark'
   s.add_development_dependency 'bigdecimal'
   s.add_development_dependency 'drb'
+  s.add_development_dependency 'logger'
   s.add_development_dependency 'minitest', '5.27.0'
   s.add_development_dependency 'mutex_m'
   s.add_development_dependency 'ostruct'
