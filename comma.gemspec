@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'mutex_m'
   s.add_development_dependency 'ostruct'
   s.add_development_dependency 'rake', '~> 13.0.1'
-  s.add_development_dependency 'rspec', ['~> 3.5.0']
+  s.add_development_dependency 'rspec', ['~> 3.13']
   s.add_development_dependency 'rspec-activemodel-mocks'
   s.add_development_dependency 'rspec-its'
 end
