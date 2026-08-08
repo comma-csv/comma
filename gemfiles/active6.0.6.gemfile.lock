@@ -43,6 +43,7 @@ GEM
     mini_portile2 (2.8.9)
     minitest (5.27.0)
     mutex_m (0.3.0)
+    ostruct (0.5.2)
     parallel (1.24.0)
     parser (3.3.0.4)
       ast (~> 2.4.1)
@@ -124,6 +125,7 @@ DEPENDENCIES
   drb
   minitest (= 5.27.0)
   mutex_m
+  ostruct
   rake (~> 13.0.1)
   rspec (~> 3.5.0)
   rspec-activemodel-mocks
