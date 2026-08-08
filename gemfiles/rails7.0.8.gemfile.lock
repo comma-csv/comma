@@ -112,7 +112,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
-    minitest (5.14.4)
+    minitest (5.27.0)
     mutex_m (0.3.0)
     net-imap (0.4.9.1)
       date
@@ -250,7 +250,7 @@ DEPENDENCIES
   comma!
   coveralls
   drb
-  minitest (= 5.14.4)
+  minitest (= 5.27.0)
   mutex_m
   rails (= 7.0.8)
   rake (~> 13.0.1)

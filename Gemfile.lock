@@ -47,7 +47,7 @@ GEM
     json (2.7.1)
     logger (1.7.0)
     mini_portile2 (2.8.9)
-    minitest (5.14.4)
+    minitest (5.27.0)
     mutex_m (0.3.0)
     parallel (1.24.0)
     parser (3.3.0.4)
@@ -121,7 +121,7 @@ DEPENDENCIES
   comma!
   coveralls
   drb
-  minitest (= 5.14.4)
+  minitest (= 5.27.0)
   mutex_m
   rake (~> 13.0.1)
   rspec (~> 3.5.0)

@@ -5,7 +5,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ['3.0', '3.1', '3.2', '3.3', '3.4', '4.0']
+        ruby: ['3.1', '3.2', '3.3', '3.4', '4.0']
         gemfile: ['active6.0.6', 'active6.1.7.6', 'active7.0.8', 'active7.1.3', 'rails6.0.6', 'rails6.1.7.6', 'rails7.0.8', 'rails7.1.3']
     runs-on: ubuntu-latest
     env:
