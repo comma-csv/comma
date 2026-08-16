@@ -191,7 +191,6 @@ if defined? ActiveRecord
       expect(@dog.to_comma).to eq %w[Dog-Rex]
     end
 
-    # FIXME: this one is failing - the comma block from Dog is executed instead of the one from the super class
     it 'should return and array of data content, as defined in comma block in super class, if not present in child' do
       expect(@cat.to_comma).to eq %w[Super-Kitty]
     end

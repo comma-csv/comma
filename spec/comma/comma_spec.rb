@@ -263,7 +263,7 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
     end
   end
 
-  describe 'on objects using Single Table Inheritance' do
+  describe 'on objects using Single Table Inheritance' do # rubocop:disable Metrics/BlockLength
     before do
       class MySuperClass
         attr_accessor :content
@@ -296,6 +296,29 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
     it 'should return and array of data content, as defined in comma block in super class, if not present in child' do
       expect(@childNoComma.to_comma).to eq(%w[super-content])
     end
+
+    it 'should reflect changes to the superclass format made after the subclass was defined' do
+      class ReopenedSuperClass
+        attr_accessor :content
+        comma do; content end
+
+        def initialize(content)
+          @content = 'super-' + content
+        end
+      end
+
+      class ReopenedChildNoComma < ReopenedSuperClass
+      end
+
+      ReopenedSuperClass.class_eval do
+        comma do
+          content(&:upcase)
+        end
+      end
+
+      child = ReopenedChildNoComma.new('content')
+      expect(child.to_comma).to eq(%w[SUPER-CONTENT])
+    end
   end
 end
 
@@ -321,4 +344,31 @@ describe Comma, '__use__ keyword' do
   subject { @obj.to_comma }
   its(:size) { should eq(3) }
   it { should eq(['Programming Ruby', 'Foo, Inc.', 'The Pickaxe book']) }
+end
+
+describe Comma, '__use__ keyword with a circular reference' do
+  it 'should raise Comma::CircularStyleReference instead of overflowing the stack' do
+    obj = Class.new(Struct.new(:id, :title)) do
+      comma :a do
+        title
+        __use__ :b
+      end
+
+      comma :b do
+        __use__ :a
+      end
+    end.new(1, 'Programming Ruby')
+
+    expect { obj.to_comma(:a) }.to raise_error(Comma::CircularStyleReference, /a -> b -> a/)
+  end
+
+  it 'should raise Comma::CircularStyleReference for direct self-reference' do
+    obj = Class.new(Struct.new(:id)) do
+      comma :a do
+        __use__ :a
+      end
+    end.new(1)
+
+    expect { obj.to_comma(:a) }.to raise_error(Comma::CircularStyleReference, /a -> a/)
+  end
 end
