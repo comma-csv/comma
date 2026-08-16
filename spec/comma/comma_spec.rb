@@ -296,6 +296,29 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
     it 'should return and array of data content, as defined in comma block in super class, if not present in child' do
       expect(@childNoComma.to_comma).to eq(%w[super-content])
     end
+
+    it 'should reflect changes to the superclass format made after the subclass was defined' do
+      class ReopenedSuperClass
+        attr_accessor :content
+        comma do; content end
+
+        def initialize(content)
+          @content = 'super-' + content
+        end
+      end
+
+      class ReopenedChildNoComma < ReopenedSuperClass
+      end
+
+      ReopenedSuperClass.class_eval do
+        comma do
+          content { |c| c.upcase }
+        end
+      end
+
+      child = ReopenedChildNoComma.new('content')
+      expect(child.to_comma).to eq(%w[SUPER-CONTENT])
+    end
   end
 end
 
