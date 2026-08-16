@@ -263,7 +263,7 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
     end
   end
 
-  describe 'on objects using Single Table Inheritance' do
+  describe 'on objects using Single Table Inheritance' do # rubocop:disable Metrics/BlockLength
     before do
       class MySuperClass
         attr_accessor :content
@@ -312,7 +312,7 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
 
       ReopenedSuperClass.class_eval do
         comma do
-          content { |c| c.upcase }
+          content(&:upcase)
         end
       end
 
