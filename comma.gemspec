@@ -23,12 +23,16 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'appraisal', ['~> 1.0.0']
   s.add_development_dependency 'base64'
+  s.add_development_dependency 'benchmark'
   s.add_development_dependency 'bigdecimal'
+  s.add_development_dependency 'cgi'
   s.add_development_dependency 'drb'
-  s.add_development_dependency 'minitest', '5.14.4'
+  s.add_development_dependency 'logger'
+  s.add_development_dependency 'minitest', '5.27.0'
   s.add_development_dependency 'mutex_m'
+  s.add_development_dependency 'ostruct'
   s.add_development_dependency 'rake', '~> 13.0.1'
-  s.add_development_dependency 'rspec', ['~> 3.5.0']
+  s.add_development_dependency 'rspec', ['~> 3.13']
   s.add_development_dependency 'rspec-activemodel-mocks'
   s.add_development_dependency 'rspec-its'
 end
