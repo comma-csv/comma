@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
 module Comma
+  class CircularStyleReference < StandardError; end
+
   class Extractor
     def initialize(instance, style, formats)
       @instance = instance
       @style = style
       @formats = formats
       @results = []
+      @style_stack = [style]
     end
 
     def results
@@ -19,8 +22,14 @@ module Comma
     end
 
     def __use__(style)
-      # TODO: prevent infinite recursion
+      if @style_stack.include?(style)
+        chain = (@style_stack + [style]).join(' -> ')
+        raise Comma::CircularStyleReference, "Circular __use__ reference detected: #{chain}"
+      end
+
+      @style_stack.push(style)
       instance_eval(&@formats[style])
+      @style_stack.pop
     end
 
     private
