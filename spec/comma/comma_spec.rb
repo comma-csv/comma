@@ -345,3 +345,30 @@ describe Comma, '__use__ keyword' do
   its(:size) { should eq(3) }
   it { should eq(['Programming Ruby', 'Foo, Inc.', 'The Pickaxe book']) }
 end
+
+describe Comma, '__use__ keyword with a circular reference' do
+  it 'should raise Comma::CircularStyleReference instead of overflowing the stack' do
+    obj = Class.new(Struct.new(:id, :title)) do
+      comma :a do
+        title
+        __use__ :b
+      end
+
+      comma :b do
+        __use__ :a
+      end
+    end.new(1, 'Programming Ruby')
+
+    expect { obj.to_comma(:a) }.to raise_error(Comma::CircularStyleReference, /a -> b -> a/)
+  end
+
+  it 'should raise Comma::CircularStyleReference for direct self-reference' do
+    obj = Class.new(Struct.new(:id)) do
+      comma :a do
+        __use__ :a
+      end
+    end.new(1)
+
+    expect { obj.to_comma(:a) }.to raise_error(Comma::CircularStyleReference, /a -> a/)
+  end
+end
