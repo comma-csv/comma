@@ -8,9 +8,9 @@ A library for generating comma-separated values (CSV) from Ruby objects, arrays,
 
 ### Prerequisites
 
-You need Ruby 3.0 or later.
+You need Ruby 3.1 or later.
 
-For Rails / ActiveRecord integration, this repository is currently tested against ActiveRecord and Rails 6.0 through 7.1 on Ruby 3.0 through 3.4.
+For Rails / ActiveRecord integration, this repository is currently tested against ActiveRecord and Rails 6.0 through 7.1 on Ruby 3.1 through 4.0.
 
 ### Installing
 
@@ -19,7 +19,7 @@ Comma is distributed as a gem, best installed via Bundler.
 Include the gem in your Gemfile:
 
 ```ruby
-gem 'comma', '~> 4.9.0'
+gem 'comma', '~> 5.0.0'
 ```
 
 Or, if you want to live life on the edge, you can get master from the main comma repository:
