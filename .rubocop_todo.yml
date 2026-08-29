@@ -124,11 +124,11 @@ Style/Documentation:
     - 'lib/comma/object.rb'
     - 'lib/comma/relation.rb'
 
-# Offense count: 3
+# Offense count: 2
 Style/MissingRespondToMissing:
   Exclude:
     - 'lib/comma/data_extractor.rb'
-    - 'lib/comma/header_extractor.rb'
+    - 'lib/comma/extractor.rb'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
