@@ -149,13 +149,10 @@ if defined?(Rails)
           expect(response.status).to eq 200
           expect(response.media_type).to eq 'text/csv'
 
-          expected_content = <<-CSV.gsub(/^\s+/, '')
-          "First name","Last name","Name"
-          "Fred","Flintstone","Fred Flintstone"
-          "Wilma","Flintstone","Wilma Flintstone"
-          CSV
-
-          expect(response.body).to eq expected_content
+          expect_csv(response.body,
+                     headers: ['First name', 'Last name', 'Name'],
+                     rows: [['Fred', 'Flintstone', 'Fred Flintstone'], ['Wilma', 'Flintstone', 'Wilma Flintstone']],
+                     force_quotes: true)
         end
 
         it 'should allow combinations of options' do

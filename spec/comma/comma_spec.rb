@@ -333,7 +333,7 @@ end
 
 describe Comma, '__use__ keyword' do
   before(:all) do
-    @obj = Class.new(Struct.new(:id, :title, :description)) do
+    @obj = define_comma_class(Struct.new(:id, :title, :description)) do
       comma do
         title
         __use__ :description
@@ -357,7 +357,7 @@ end
 
 describe Comma, '__use__ keyword with a circular reference' do
   it 'should raise Comma::CircularStyleReference instead of overflowing the stack' do
-    obj = Class.new(Struct.new(:id, :title)) do
+    obj = define_comma_class(Struct.new(:id, :title)) do
       comma :a do
         title
         __use__ :b
@@ -372,7 +372,7 @@ describe Comma, '__use__ keyword with a circular reference' do
   end
 
   it 'should raise Comma::CircularStyleReference for direct self-reference' do
-    obj = Class.new(Struct.new(:id)) do
+    obj = define_comma_class(Struct.new(:id)) do
       comma :a do
         __use__ :a
       end

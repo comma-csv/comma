@@ -8,7 +8,5 @@
 #     comma { title }
 #   end
 def define_comma_class(base = Object, &block)
-  Class.new(base) do
-    class_eval(&block)
-  end
+  Class.new(base, &block)
 end
