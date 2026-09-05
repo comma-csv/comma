@@ -23,6 +23,7 @@ end
 
 require 'comma/data_mapper_collection' if defined? DataMapper
 
+require 'comma/options'
 require 'comma/generator'
 require 'comma/array'
 require 'comma/object'
@@ -42,15 +43,6 @@ ActiveSupport.on_load(:action_controller) do
 
       # Capture any CSV optional settings passed to comma or comma specific options
       csv_options = options.slice(*CSV_HANDLER::DEFAULT_OPTIONS.merge(Comma::DEFAULT_OPTIONS).keys)
-      csv_options = csv_options.each_with_object({}) do |(k, v), h|
-        # XXX: Convert string to boolean
-        h[k] = case k
-               when :write_headers
-                 (v != 'false') if v.is_a?(String)
-               else
-                 v
-               end
-      end
       data = obj.to_comma(csv_options)
       data = "\xEF\xBB\xBF#{data}" if with_bom
       disposition = "attachment; filename=\"#{filename}.#{extension}\""

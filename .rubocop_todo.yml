@@ -122,6 +122,7 @@ Style/Documentation:
     - 'lib/comma/header_extractor.rb'
     - 'lib/comma/mongoid.rb'
     - 'lib/comma/object.rb'
+    - 'lib/comma/options.rb'
     - 'lib/comma/relation.rb'
 
 # Offense count: 2
