@@ -55,7 +55,6 @@ Layout/SpaceAroundMethodCallOperator:
 # AllowedMethods: enums
 Lint/ConstantDefinitionInBlock:
   Exclude:
-    - 'spec/comma/comma_spec.rb'
     - 'spec/comma/rails/active_record_spec.rb'
     - 'spec/comma/rails/data_mapper_collection_spec.rb'
     - 'spec/comma/rails/mongoid_spec.rb'

@@ -46,7 +46,7 @@ end
 
 describe Comma::HeaderExtractor, 'with static column method' do
   before do
-    @headers = Class.new(Struct.new(:id, :name)) do
+    @headers = define_comma_class(Struct.new(:id, :name)) do
       comma do
         __static_column__
         __static_column__ 'STATIC'

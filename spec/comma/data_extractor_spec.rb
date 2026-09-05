@@ -45,7 +45,7 @@ end
 
 describe Comma::DataExtractor, 'id attribute' do
   before do
-    @data = Class.new(Struct.new(:id)) do
+    @data = define_comma_class(Struct.new(:id)) do
       comma do
         id 'ID' do |_id| '42' end
       end
@@ -59,7 +59,7 @@ end
 
 describe Comma::DataExtractor, 'with static column method' do
   before do
-    @data = Class.new(Struct.new(:id, :name)) do
+    @data = define_comma_class(Struct.new(:id, :name)) do
       comma do
         __static_column__
         __static_column__ 'STATIC'
@@ -76,7 +76,7 @@ end
 
 describe Comma::DataExtractor, 'nil value' do
   before do
-    @data = Class.new(Struct.new(:id, :name)) do
+    @data = define_comma_class(Struct.new(:id, :name)) do
       comma do
         name
         name 'Name'
