@@ -4,14 +4,10 @@ module Comma
   class Generator
     def initialize(instance, style)
       @instance = instance
-      @style    = style
-      @options  = {}
-
-      return unless @style.is_a?(Hash)
-
-      @options                  = @style.clone
-      @style                    = @options.delete(:style) || Comma::DEFAULT_OPTIONS[:style]
-      @filename                 = @options.delete(:filename)
+      parsed = Comma::Options.parse(style)
+      @style = parsed[:style]
+      @filename = parsed[:filename]
+      @options = parsed[:csv]
     end
 
     def run(iterator_method)
