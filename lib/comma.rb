@@ -11,10 +11,10 @@ module Comma
   }.freeze
 end
 
-require 'comma/data_mapper_collection' if defined? DataMapper
-
 require 'comma/options'
 require 'comma/generator'
+require 'comma/collection_export'
+require 'comma/data_mapper_collection' if defined? DataMapper
 require 'comma/array'
 require 'comma/object'
 
