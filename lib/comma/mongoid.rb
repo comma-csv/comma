@@ -6,9 +6,7 @@ begin
 
   module Mongoid
     class Criteria
-      def to_comma(style = :default)
-        Comma::Generator.new(self, style).run(:each)
-      end
+      include Comma::CollectionExport
     end
   end
 rescue LoadError => e

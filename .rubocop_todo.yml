@@ -108,13 +108,14 @@ Style/BlockDelimiters:
     - 'spec/comma/data_extractor_spec.rb'
     - 'spec/comma/header_extractor_spec.rb'
 
-# Offense count: 11
+# Offense count: 12
 # Configuration parameters: AllowedConstants.
 Style/Documentation:
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'
     - 'lib/comma/array.rb'
+    - 'lib/comma/collection_export.rb'
     - 'lib/comma/data_extractor.rb'
     - 'lib/comma/data_mapper_collection.rb'
     - 'lib/comma/extractor.rb'
