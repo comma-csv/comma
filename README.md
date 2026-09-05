@@ -76,6 +76,78 @@ end
 users.to_comma(:short)
 ```
 
+### Dynamic columns
+
+Formats are evaluated separately to produce headers and to produce each row. For CSVs whose columns are configured at runtime, resolve and order the full field-definition list before declaring the `comma` format, and keep that format isolated to the current export so another export cannot redefine it midway through generation.
+
+The following self-contained example uses `Struct` rather than Ruby 3.2+'s
+`Data`. It resolves the runtime field list once, attaches the format to a row
+class created only for that export, emits headers from `field.label`, and reads
+each value from the wrapped user's associated dynamic values via `field.key`:
+
+```ruby
+DynamicField = Struct.new(:key, :label)
+DynamicValue = Struct.new(:field_key, :value)
+
+class User
+  attr_reader :name
+
+  def initialize(name, dynamic_values)
+    @name = name
+    @dynamic_values_by_field = dynamic_values.to_h do |value|
+      [value.field_key, value.value]
+    end
+  end
+
+  def dynamic_value(field_key)
+    @dynamic_values_by_field[field_key]
+  end
+end
+
+def export_users(users, resolved_fields)
+  fields = resolved_fields.to_a
+  row_class = Struct.new(:user)
+
+  row_class.comma :export do
+    __static_column__ 'Name' do |row|
+      row.user.name
+    end
+
+    fields.each do |field|
+      __static_column__ field.label do |row|
+        row.user.dynamic_value(field.key)
+      end
+    end
+  end
+
+  rows = users.map { |user| row_class.new(user) }
+  rows.to_comma(:export)
+end
+
+users = [
+  User.new('Ada', [
+    DynamicValue.new(:favorite_color, 'Blue'),
+    DynamicValue.new(:support_tier, 'Gold')
+  ]),
+  User.new('Grace', [
+    DynamicValue.new(:favorite_color, 'Green'),
+    DynamicValue.new(:support_tier, 'Silver')
+  ])
+]
+
+fields = [
+  DynamicField.new(:favorite_color, 'Favorite color'),
+  DynamicField.new(:support_tier, 'Support tier')
+]
+
+export_users(users, fields)
+# => "Name,Favorite color,Support tier\nAda,Blue,Gold\nGrace,Green,Silver\n"
+```
+
+In the example, `field.label` supplies each runtime header and `row.user.dynamic_value(field.key)` reads the matching value from the associated `dynamic_values` records.
+
+When field definitions come from tenant or platform configuration, fetch and order them once for the requested export before the `comma` block is defined. That lets header generation and row generation iterate over the same field list, preserving header/value alignment. Creating `row_class` inside `export_users` also isolates the `:export` format to that one CSV, so a simultaneous export builds its own class instead of overwriting the format being used here.
+
 In Rails controllers, requiring the gem registers `render csv:` support:
 
 ```ruby
