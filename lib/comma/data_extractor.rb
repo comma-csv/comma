@@ -49,28 +49,24 @@ module Comma
       end
     end
 
-    def method_missing(sym, *args, &block)
-      @results << ExtractValueFromInstance.new(@instance).extract(sym, &block) if
-        args.blank?
-
-      args.each do |arg|
-        case arg
-        when Hash
-          arg.each do |k, _v|
-            @results << ExtractValueFromAssociationOfInstance.new(@instance, sym).extract(k, &block)
-          end
-        when Symbol
-          @results << ExtractValueFromAssociationOfInstance.new(@instance, sym).extract(arg, &block)
-        when String
-          @results << ExtractValueFromInstance.new(@instance).extract(sym, &block)
-        else
-          raise "Unknown data symbol #{arg.inspect}"
-        end
-      end
-    end
-
     def __static_column__(_header = nil, &block)
       @results << (block ? yield(@instance) : nil)
+    end
+
+    private
+
+    def extract_column(method, association: nil, **, &block)
+      value_extractor(association).extract(method, &block)
+    end
+
+    def value_extractor(association)
+      return ExtractValueFromInstance.new(@instance) unless association
+
+      ExtractValueFromAssociationOfInstance.new(@instance, association)
+    end
+
+    def column_kind
+      'data'
     end
   end
 end
