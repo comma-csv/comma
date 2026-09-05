@@ -6,7 +6,7 @@ gem "coveralls", :require => false
 gem "rubocop", "~> 1.30.0", :require => false
 gem "rubocop-performance", :require => false
 gem "sqlite3"
-gem "activesupport", "7.0.8"
-gem "activerecord", "7.0.8"
+gem "activesupport", "7.2.3.2"
+gem "activerecord", "7.2.3.2"
 
 gemspec :path => "../"

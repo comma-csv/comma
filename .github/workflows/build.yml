@@ -6,7 +6,16 @@ jobs:
       fail-fast: false
       matrix:
         ruby: ['3.1', '3.2', '3.3', '3.4', '4.0']
-        gemfile: ['active6.0.6', 'active6.1.7.6', 'active7.0.8', 'active7.1.3', 'rails6.0.6', 'rails6.1.7.6', 'rails7.0.8', 'rails7.1.3']
+        gemfile: ['active7.1.6', 'active7.2.3.2', 'active8.0.5.1', 'active8.1.3.1', 'rails7.1.6', 'rails7.2.3.2', 'rails8.0.5.1', 'rails8.1.3.1']
+        exclude:
+          - ruby: '3.1'
+            gemfile: 'active8.0.5.1'
+          - ruby: '3.1'
+            gemfile: 'active8.1.3.1'
+          - ruby: '3.1'
+            gemfile: 'rails8.0.5.1'
+          - ruby: '3.1'
+            gemfile: 'rails8.1.3.1'
     runs-on: ubuntu-latest
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile

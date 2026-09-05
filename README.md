@@ -10,7 +10,7 @@ A library for generating comma-separated values (CSV) from Ruby objects, arrays,
 
 You need Ruby 3.1 or later.
 
-For Rails / ActiveRecord integration, this repository is currently tested against ActiveRecord and Rails 6.0 through 7.1 on Ruby 3.1 through 4.0.
+For Rails / ActiveRecord integration, this repository is currently tested against ActiveRecord and Rails 7.1 and 7.2 on Ruby 3.1 through 4.0, and Rails 8.0 and 8.1 on Ruby 3.2 through 4.0 (Rails 8.x requires Ruby >= 3.2).
 
 ### Installing
 
@@ -117,7 +117,7 @@ bundle exec appraisal rake spec
 You can also run a specific spec under one appraisal:
 
 ```sh
-bundle exec appraisal rails7.1.3 bundle exec rspec spec/controllers/users_controller_spec.rb
+bundle exec appraisal rails7.1.6 bundle exec rspec spec/controllers/users_controller_spec.rb
 ```
 
 ## Contributing
