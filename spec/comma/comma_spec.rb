@@ -40,8 +40,9 @@ describe Comma, 'generating CSV' do # rubocop:disable Metrics/BlockLength
   end
 
   it 'should extend Array to add a #to_comma method which will return CSV content for objects within the array' do
-    expected = "Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n" # rubocop:disable Layout/LineLength
-    expect(@books.to_comma).to eq(expected)
+    expect_csv(@books.to_comma,
+               headers: %w[Title Description Issuer ISBN-10 ISBN-13],
+               rows: [['Smalltalk-80', 'Language and Implementation', 'ISBN', '123123123', '321321321']])
   end
 
   it 'should return an empty string when generating CSV from an empty array' do
@@ -49,7 +50,9 @@ describe Comma, 'generating CSV' do # rubocop:disable Metrics/BlockLength
   end
 
   it 'should change the style when specified' do
-    expect(@books.to_comma(:brief)).to eq("Name,Description\nSmalltalk-80,Language and Implementation\n")
+    expect_csv(@books.to_comma(:brief),
+               headers: %w[Name Description],
+               rows: [['Smalltalk-80', 'Language and Implementation']])
   end
 
   describe 'with :filename specified' do
@@ -57,31 +60,39 @@ describe Comma, 'generating CSV' do # rubocop:disable Metrics/BlockLength
 
     it 'should write to the file' do
       @books.to_comma(filename: 'comma.csv')
-      expected = "Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n" # rubocop:disable Layout/LineLength
-      expect(File.read('comma.csv')).to eq(expected)
+      expect_csv(File.read('comma.csv'),
+                 headers: %w[Title Description Issuer ISBN-10 ISBN-13],
+                 rows: [['Smalltalk-80', 'Language and Implementation', 'ISBN', '123123123', '321321321']])
     end
 
     it 'should accept FasterCSV options' do
       @books.to_comma(filename: 'comma.csv', col_sep: ';', force_quotes: true)
-      expected = "\"Title\";\"Description\";\"Issuer\";\"ISBN-10\";\"ISBN-13\"\n\"Smalltalk-80\";\"Language and Implementation\";\"ISBN\";\"123123123\";\"321321321\"\n" # rubocop:disable Layout/LineLength
-      expect(File.read('comma.csv')).to eq(expected)
+      expect_csv(File.read('comma.csv'),
+                 headers: %w[Title Description Issuer ISBN-10 ISBN-13],
+                 rows: [['Smalltalk-80', 'Language and Implementation', 'ISBN', '123123123', '321321321']],
+                 col_sep: ';', force_quotes: true)
     end
   end
 
   describe 'with FasterCSV options' do
     it 'should not change when options are empty' do
-      expected = "Title,Description,Issuer,ISBN-10,ISBN-13\nSmalltalk-80,Language and Implementation,ISBN,123123123,321321321\n" # rubocop:disable Layout/LineLength
-      expect(@books.to_comma({})).to eq(expected)
+      expect_csv(@books.to_comma({}),
+                 headers: %w[Title Description Issuer ISBN-10 ISBN-13],
+                 rows: [['Smalltalk-80', 'Language and Implementation', 'ISBN', '123123123', '321321321']])
     end
 
     it 'should accept the options in #to_comma and generate the appropriate CSV' do
-      expected = "\"Title\";\"Description\";\"Issuer\";\"ISBN-10\";\"ISBN-13\"\n\"Smalltalk-80\";\"Language and Implementation\";\"ISBN\";\"123123123\";\"321321321\"\n" # rubocop:disable Layout/LineLength
-      expect(@books.to_comma(col_sep: ';', force_quotes: true)).to eq(expected)
+      expect_csv(@books.to_comma(col_sep: ';', force_quotes: true),
+                 headers: %w[Title Description Issuer ISBN-10 ISBN-13],
+                 rows: [['Smalltalk-80', 'Language and Implementation', 'ISBN', '123123123', '321321321']],
+                 col_sep: ';', force_quotes: true)
     end
 
     it 'should change the style when specified' do
-      expect(@books.to_comma(style: :brief, col_sep: ';', force_quotes: true))
-        .to eq("\"Name\";\"Description\"\n\"Smalltalk-80\";\"Language and Implementation\"\n")
+      expect_csv(@books.to_comma(style: :brief, col_sep: ';', force_quotes: true),
+                 headers: %w[Name Description],
+                 rows: [['Smalltalk-80', 'Language and Implementation']],
+                 col_sep: ';', force_quotes: true)
     end
   end
 end
@@ -89,29 +100,29 @@ end
 describe Comma, 'defining CSV descriptions' do
   describe 'with an unnamed description' do
     before do
-      class Foo
+      @foo_class = define_comma_class do
         comma do; end
       end
     end
 
     it 'should name the current description :default if no name has been provided' do
-      expect(Foo.comma_formats).not_to be_empty
-      expect(Foo.comma_formats[:default]).not_to be_nil
+      expect(@foo_class.comma_formats).not_to be_empty
+      expect(@foo_class.comma_formats[:default]).not_to be_nil
     end
   end
 
   describe 'with a named description' do
     before do
-      class Bar
+      @bar_class = define_comma_class do
         comma do; end
         comma :detailed do; end
       end
     end
 
     it 'should use the provided name to index the comma format' do
-      expect(Bar.comma_formats).not_to be_empty
-      expect(Bar.comma_formats[:default]).not_to be_nil
-      expect(Bar.comma_formats[:detailed]).not_to be_nil
+      expect(@bar_class.comma_formats).not_to be_empty
+      expect(@bar_class.comma_formats[:default]).not_to be_nil
+      expect(@bar_class.comma_formats[:detailed]).not_to be_nil
     end
   end
 end
@@ -119,7 +130,7 @@ end
 describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable Metrics/BlockLength
   describe 'with unnamed descriptions' do
     before do
-      class Foo
+      foo_class = define_comma_class do
         attr_accessor :content
         comma do; content; end
 
@@ -128,7 +139,7 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
         end
       end
 
-      @foo = Foo.new('content')
+      @foo = foo_class.new('content')
     end
 
     it 'should return and array of data content, using the :default CSV description if none requested' do
@@ -146,7 +157,7 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
 
   describe 'with named descriptions' do
     before do
-      class Foo
+      foo_class = define_comma_class do
         attr_accessor :content
         comma :detailed do; content; end
 
@@ -155,7 +166,7 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
         end
       end
 
-      @foo = Foo.new('content')
+      @foo = foo_class.new('content')
     end
 
     it 'should return and array of data content, using the :default CSV description if none requested' do
@@ -179,7 +190,7 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
 
   describe 'with block' do # rubocop:disable Metrics/BlockLength
     before do
-      class Foo
+      foo_class = define_comma_class do
         attr_accessor :content, :created_at, :updated_at
         comma do
           content
@@ -199,7 +210,7 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
 
       @time = Time.now
       @content = 'content ' * 5
-      @foo = Foo.new @content, @time, @time
+      @foo = foo_class.new @content, @time, @time
     end
 
     it 'should return yielded values by block' do
@@ -265,7 +276,7 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
 
   describe 'on objects using Single Table Inheritance' do # rubocop:disable Metrics/BlockLength
     before do
-      class MySuperClass
+      super_class = define_comma_class do
         attr_accessor :content
         comma do; content end
 
@@ -274,7 +285,7 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
         end
       end
 
-      class ChildClassComma < MySuperClass
+      child_class_comma = define_comma_class(super_class) do
         comma do; content end
 
         def initialize(content)
@@ -282,11 +293,10 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
         end
       end
 
-      class ChildClassNoComma < MySuperClass
-      end
+      child_class_no_comma = define_comma_class(super_class) {}
 
-      @childComma = ChildClassComma.new('content')
-      @childNoComma = ChildClassNoComma.new('content')
+      @childComma = child_class_comma.new('content')
+      @childNoComma = child_class_no_comma.new('content')
     end
 
     it 'should return and array of data content, as defined in comma block in child class' do
@@ -298,7 +308,7 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
     end
 
     it 'should reflect changes to the superclass format made after the subclass was defined' do
-      class ReopenedSuperClass
+      reopened_super_class = define_comma_class do
         attr_accessor :content
         comma do; content end
 
@@ -307,16 +317,15 @@ describe Comma, 'to_comma data/headers object extensions' do # rubocop:disable M
         end
       end
 
-      class ReopenedChildNoComma < ReopenedSuperClass
-      end
+      reopened_child_no_comma = define_comma_class(reopened_super_class) {}
 
-      ReopenedSuperClass.class_eval do
+      reopened_super_class.class_eval do
         comma do
           content(&:upcase)
         end
       end
 
-      child = ReopenedChildNoComma.new('content')
+      child = reopened_child_no_comma.new('content')
       expect(child.to_comma).to eq(%w[SUPER-CONTENT])
     end
   end
@@ -324,7 +333,7 @@ end
 
 describe Comma, '__use__ keyword' do
   before(:all) do
-    @obj = Class.new(Struct.new(:id, :title, :description)) do
+    @obj = define_comma_class(Struct.new(:id, :title, :description)) do
       comma do
         title
         __use__ :description
@@ -348,7 +357,7 @@ end
 
 describe Comma, '__use__ keyword with a circular reference' do
   it 'should raise Comma::CircularStyleReference instead of overflowing the stack' do
-    obj = Class.new(Struct.new(:id, :title)) do
+    obj = define_comma_class(Struct.new(:id, :title)) do
       comma :a do
         title
         __use__ :b
@@ -363,7 +372,7 @@ describe Comma, '__use__ keyword with a circular reference' do
   end
 
   it 'should raise Comma::CircularStyleReference for direct self-reference' do
-    obj = Class.new(Struct.new(:id)) do
+    obj = define_comma_class(Struct.new(:id)) do
       comma :a do
         __use__ :a
       end

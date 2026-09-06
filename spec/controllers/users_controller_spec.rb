@@ -37,13 +37,9 @@ if defined?(Rails)
         expect(response.media_type).to eq 'text/csv'
         expect(response.header['Content-Disposition']).to include('filename="data.csv"')
 
-        expected_content = <<-CSV.gsub(/^\s+/, '')
-        First name,Last name,Name
-        Fred,Flintstone,Fred Flintstone
-        Wilma,Flintstone,Wilma Flintstone
-        CSV
-
-        expect(response.body).to eq expected_content
+        expect_csv(response.body,
+                   headers: ['First name', 'Last name', 'Name'],
+                   rows: [['Fred', 'Flintstone', 'Fred Flintstone'], ['Wilma', 'Flintstone', 'Wilma Flintstone']])
       end
 
       describe 'with comma options' do
@@ -53,13 +49,9 @@ if defined?(Rails)
 
           get :with_custom_style, format: :csv
 
-          expected_content = <<-CSV.gsub(/^\s+/, '')
-          First name,Last name
-          Fred,Flintstone
-          Wilma,Flintstone
-          CSV
-
-          expect(response.body).to eq expected_content
+          expect_csv(response.body,
+                     headers: ['First name', 'Last name'],
+                     rows: [%w[Fred Flintstone], %w[Wilma Flintstone]])
         end
       end
 
@@ -131,13 +123,9 @@ if defined?(Rails)
             expect(response.status).to eq 200
             expect(response.media_type).to eq 'text/csv'
 
-            expected_content = <<-CSV.gsub(/^\s+/, '')
-            First name,Last name,Name
-            Fred,Flintstone,Fred Flintstone
-            Wilma,Flintstone,Wilma Flintstone
-            CSV
-
-            expect(response.body).to eq expected_content
+            expect_csv(response.body,
+                       headers: ['First name', 'Last name', 'Name'],
+                       rows: [['Fred', 'Flintstone', 'Fred Flintstone'], ['Wilma', 'Flintstone', 'Wilma Flintstone']])
           end
 
           it 'should allow toggling off' do
@@ -161,13 +149,10 @@ if defined?(Rails)
           expect(response.status).to eq 200
           expect(response.media_type).to eq 'text/csv'
 
-          expected_content = <<-CSV.gsub(/^\s+/, '')
-          "First name","Last name","Name"
-          "Fred","Flintstone","Fred Flintstone"
-          "Wilma","Flintstone","Wilma Flintstone"
-          CSV
-
-          expect(response.body).to eq expected_content
+          expect_csv(response.body,
+                     headers: ['First name', 'Last name', 'Name'],
+                     rows: [['Fred', 'Flintstone', 'Fred Flintstone'], ['Wilma', 'Flintstone', 'Wilma Flintstone']],
+                     force_quotes: true)
         end
 
         it 'should allow combinations of options' do
