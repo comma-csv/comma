@@ -50,15 +50,6 @@ Layout/SpaceAroundMethodCallOperator:
   Exclude:
     - 'spec/controllers/users_controller_spec.rb'
 
-# Offense count: 17
-# Configuration parameters: AllowedMethods.
-# AllowedMethods: enums
-Lint/ConstantDefinitionInBlock:
-  Exclude:
-    - 'spec/comma/rails/active_record_spec.rb'
-    - 'spec/comma/rails/data_mapper_collection_spec.rb'
-    - 'spec/comma/rails/mongoid_spec.rb'
-
 # Offense count: 4
 # Configuration parameters: AllowComments, AllowEmptyLambdas.
 Lint/EmptyBlock:
@@ -143,5 +134,5 @@ Style/RedundantBegin:
 Style/StringConcatenation:
   Exclude:
     - 'spec/comma/comma_spec.rb'
-    - 'spec/comma/rails/active_record_spec.rb'
+    - 'spec/support/models/active_record_models.rb'
     - 'spec/spec_helper.rb'
