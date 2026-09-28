@@ -4,25 +4,7 @@ require 'spec_helper'
 
 if defined? DataMapper
 
-  describe Comma, 'generating CSV from an DataMapper object' do # rubocop:disable Metrics/BlockLength
-    class Person
-      include DataMapper::Resource
-
-      property :id, Serial
-      property :name, String
-      property :age, Integer
-
-      def self.teenagers
-        all(:age.gte => 13) & all(:age.lte => 19)
-      end
-
-      comma do
-        name
-        age
-      end
-    end
-    DataMapper.finalize
-
+  describe Comma, 'generating CSV from an DataMapper object' do
     before(:all) do
       DataMapper.setup(:default, 'sqlite::memory:')
       DataMapper.auto_migrate!

@@ -11,11 +11,15 @@ if defined? Rails
   SimpleCov.start('rails') do
     add_filter %r{^/spec/comma/rails/data_mapper_collection_spec\.rb$}
     add_filter %r{^/spec/comma/rails/mongoid_spec\.rb$}
+    add_filter %r{^/spec/support/models/data_mapper_models\.rb$}
+    add_filter %r{^/spec/support/models/mongoid_models\.rb$}
   end
 else
   SimpleCov.start do
     add_filter %r{^/spec/comma/rails/data_mapper_collection_spec\.rb}
     add_filter %r{^/spec/comma/rails/mongoid_spec\.rb}
+    add_filter %r{^/spec/support/models/data_mapper_models\.rb}
+    add_filter %r{^/spec/support/models/mongoid_models\.rb}
     add_filter %r{^/spec/controllers/}
   end
 end
